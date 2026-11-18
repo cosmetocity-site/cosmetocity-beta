@@ -15,6 +15,7 @@ import {
   BLOG_UI_COPY,
   buildBlogWhatsAppLink,
 } from "@/data/blogPosts";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface HomeBlogPreviewSectionProps {
   locale: Locale;
@@ -122,6 +123,14 @@ export default function HomeBlogPreviewSection({
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackWhatsAppClick({
+                        source: `home_blog_preview_${post.slug}`,
+                        topic: post.midArticleCta.whatsappTopic[locale],
+                        city: selectedCity,
+                        locale,
+                      })
+                    }
                     className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-cosmeto-sand border border-cosmeto-sandBorder text-cosmeto-charcoal font-bold text-xs sm:text-sm transition"
                   >
                     <MessageCircle className="w-4 h-4 text-cosmeto-green" />

@@ -4,6 +4,7 @@ import React from "react";
 import { MessageCircle, ShieldCheck, Clock, Sparkles } from "lucide-react";
 import { Locale, CityOption } from "@/data/content";
 import { BlogCtaConfig, BLOG_UI_COPY, buildBlogWhatsAppLink } from "@/data/blogPosts";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface BlogWhatsAppCTAProps {
   cta: BlogCtaConfig;
@@ -80,6 +81,14 @@ export default function BlogWhatsAppCTA({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackWhatsAppClick({
+                source: `blog_article_${variant}_cta`,
+                topic: cta.whatsappTopic[locale],
+                city: selectedCity,
+                locale,
+              })
+            }
             className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-[#25D366] hover:bg-cosmeto-green text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 border-2 border-white/90"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />

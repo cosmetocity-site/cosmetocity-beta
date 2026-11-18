@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Sun, MapPin, PhoneCall, Menu, X } from "lucide-react";
 import { Locale, CityOption, SITE_COPY, buildWhatsAppLink } from "@/data/content";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface NavbarProps {
   locale: Locale;
@@ -133,6 +134,14 @@ export default function Navbar({
               href={buildWhatsAppLink(locale, "Free Consultation", selectedCity)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackWhatsAppClick({
+                  source: "navbar_desktop_cta",
+                  topic: "Free Consultation",
+                  city: selectedCity,
+                  locale,
+                })
+              }
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white font-bold text-xs sm:text-sm transition shadow-md"
             >
               <PhoneCall className="w-4 h-4" />
@@ -196,6 +205,14 @@ export default function Navbar({
               href={buildWhatsAppLink(locale, "Free Consultation", selectedCity)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackWhatsAppClick({
+                  source: "navbar_mobile_cta",
+                  topic: "Free Consultation",
+                  city: selectedCity,
+                  locale,
+                })
+              }
               className="block w-full text-center py-3 rounded-xl bg-cosmeto-green text-white font-bold shadow"
             >
               {copy.navCta}

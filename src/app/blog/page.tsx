@@ -17,6 +17,7 @@ import {
   BLOG_UI_COPY,
   buildBlogWhatsAppLink,
 } from "@/data/blogPosts";
+import { trackWhatsAppClick } from "@/lib/analytics";
 import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
@@ -140,6 +141,14 @@ export default function BlogIndexPage() {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackWhatsAppClick({
+                        source: `blog_index_${post.slug}`,
+                        topic: post.midArticleCta.whatsappTopic[locale],
+                        city: selectedCity,
+                        locale,
+                      })
+                    }
                     className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-cosmeto-sand hover:bg-cosmeto-sandBorder text-cosmeto-charcoal font-bold text-xs sm:text-sm transition"
                   >
                     <MessageCircle className="w-4 h-4 text-cosmeto-green" />

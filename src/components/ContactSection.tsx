@@ -17,6 +17,7 @@ import {
   WHATSAPP_NUMBER,
   buildWhatsAppLink,
 } from "@/data/content";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface ContactSectionProps {
   locale: Locale;
@@ -41,6 +42,13 @@ export default function ContactSection({
     const found = TREATMENTS_DATA.find((t) => t.id === selectedTreatment);
     const treatmentTitle = found ? found.title[locale] : "Medical Treatment";
     const cityLabel = selectedCity === "antalya" ? "Antalya" : "Istanbul";
+
+    trackWhatsAppClick({
+      source: "contact_form_submit",
+      topic: treatmentTitle,
+      city: selectedCity,
+      locale,
+    });
 
     const text = `Hello CosmetoCity! My name is ${
       name || "a patient"
@@ -217,6 +225,14 @@ export default function ContactSection({
               href={buildWhatsAppLink(locale, "General Inquiry", selectedCity)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackWhatsAppClick({
+                  source: "footer_whatsapp_link",
+                  topic: "General Inquiry",
+                  city: selectedCity,
+                  locale,
+                })
+              }
               className="hover:underline"
             >
               Antalya Main Hub & Istanbul Partner Clinics

@@ -11,6 +11,7 @@ import {
   Award,
 } from "lucide-react";
 import { Locale, CityOption, SITE_COPY, buildWhatsAppLink } from "@/data/content";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface HeroSectionProps {
   locale: Locale;
@@ -116,6 +117,14 @@ export default function HeroSection({
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackWhatsAppClick({
+                    source: "hero_primary_cta",
+                    topic: "World-Class Treatment Package",
+                    city: selectedCity,
+                    locale,
+                  })
+                }
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-cosmeto-green hover:bg-cosmeto-teal text-white font-bold text-sm sm:text-base transition shadow-lg"
               >
                 <MessageCircle className="w-5 h-5" />
@@ -205,6 +214,14 @@ export default function HeroSection({
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackWhatsAppClick({
+                    source: "hero_card_cta",
+                    topic: "All-Inclusive Antalya VIP Package",
+                    city: selectedCity,
+                    locale,
+                  })
+                }
                 className="w-full py-3.5 rounded-xl bg-cosmeto-teal hover:bg-cosmeto-green text-white font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition shadow"
               >
                 <Award className="w-4 h-4" />

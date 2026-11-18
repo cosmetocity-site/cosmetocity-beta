@@ -16,6 +16,7 @@ import {
   TREATMENTS_DATA,
   buildWhatsAppLink,
 } from "@/data/content";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface ServicesGridProps {
   locale: Locale;
@@ -136,6 +137,14 @@ export default function ServicesGrid({
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackWhatsAppClick({
+                    source: `services_grid_${item.id}`,
+                    topic: item.title[locale],
+                    city: selectedCity,
+                    locale,
+                  })
+                }
                 className="px-4 py-2.5 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white text-xs font-bold transition flex items-center gap-1.5 shrink-0 shadow"
               >
                 <span>{copy.inquireWhatsappBtn}</span>

@@ -13,6 +13,7 @@ import {
   BEFORE_AFTER_CASES,
   buildWhatsAppLink,
 } from "@/data/content";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface BeforeAfterGalleryProps {
   locale: Locale;
@@ -165,6 +166,14 @@ export default function BeforeAfterGallery({
               )}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackWhatsAppClick({
+                  source: `before_after_${currentCase.id}`,
+                  topic: currentCase.procedureName[locale],
+                  city: selectedCity,
+                  locale,
+                })
+              }
               className="inline-flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white font-bold text-sm transition shadow-md"
             >
               <MessageCircle className="w-4 h-4" />
