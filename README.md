@@ -21,7 +21,9 @@ Modern, ultra-fast, mobile-first Next.js & Tailwind CSS web platform built for *
 5. **Verified UK & Germany Patient Testimonials (`#reviews`)**
 6. **Sticky "WhatsApp'tan Bilgi Al" Button (`+90 552 602 2489`)**
 7. **Question-Focused Medical SEO Blog (`/blog` & `/blog/[slug]`):**
-   - **First Flagship Guide:** `/blog/is-breast-augmentation-painful-complete-recovery-guide` (*"Is Breast Augmentation Painful? Complete Recovery Guide"*)
+   - **Breast Aesthetics Guide:** `/blog/is-breast-augmentation-painful-complete-recovery-guide` (*"Is Breast Augmentation Painful? Complete Recovery Guide"*)
+   - **Hair Transplant Guide:** `/blog/how-long-does-hair-transplant-recovery-take-day-by-day-guide` (*"How Long Does Hair Transplant Recovery Take? Complete Day-by-Day & Month-by-Month Guide"*)
+   - **Dental Veneers Guide:** `/blog/do-dental-veneers-ruin-your-natural-teeth-hollywood-smile-guide` (*"Do Dental Veneers Ruin Your Natural Teeth? The Truth About Swiss E-Max Veneers vs. Crowns"*)
    - **Featured Snippet Direct Answers:** 2–3 sentence empathetic clinical summary boxes immediately below H1 and every H2 question.
    - **Automatic `FAQPage` & `MedicalWebPage` JSON-LD Schema:** Server-rendered and dynamically localized (🇬🇧 EN / 🇩🇪 DE / 🇹🇷 TR) for Google Rich Results.
    - **High-Converting WhatsApp CTAs:** Non-intrusive mid-article and bottom-of-article consultation boxes linking directly to the medical coordinator line.

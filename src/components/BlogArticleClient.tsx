@@ -13,10 +13,12 @@ import {
   ArrowLeft,
   ChevronRight,
   FileCode2,
+  ArrowRight,
 } from "lucide-react";
 import { Locale, CityOption } from "@/data/content";
 import {
   BlogPost,
+  BLOG_POSTS,
   BLOG_UI_COPY,
   generateFaqJsonLd,
 } from "@/data/blogPosts";
@@ -329,6 +331,40 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
             selectedCity={selectedCity}
             variant="bottom"
           />
+
+          {/* Related High-Intent Patient Guides (Internal SEO Linking) */}
+          <section className="mt-12 pt-10 border-t border-cosmeto-sandBorder space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-cosmeto-charcoal">
+              {ui.relatedQuestionsTitle}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {BLOG_POSTS.filter((other) => other.slug !== post.slug).map(
+                (related) => (
+                  <Link
+                    key={related.slug}
+                    href={`/blog/${related.slug}`}
+                    className="group rounded-3xl bg-white p-6 border border-cosmeto-sandBorder hover:border-cosmeto-green shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4"
+                  >
+                    <div className="space-y-2.5">
+                      <span className="inline-block px-3 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark text-[11px] font-bold uppercase tracking-wider">
+                        {related.categoryLabel[locale]}
+                      </span>
+                      <h3 className="text-lg font-bold text-cosmeto-charcoal group-hover:text-cosmeto-green transition leading-snug">
+                        {related.h1CompleteTitle[locale]}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-cosmeto-body line-clamp-3 leading-relaxed">
+                        {related.h1DirectAnswer[locale]}
+                      </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-cosmeto-teal group-hover:text-cosmeto-green transition">
+                      <span>{ui.readArticleBtn}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </Link>
+                )
+              )}
+            </div>
+          </section>
         </article>
       </main>
 
