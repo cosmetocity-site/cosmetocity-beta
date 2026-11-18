@@ -5,6 +5,7 @@ import { Locale, CityOption, isRtlLocale } from "@/data/content";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesGrid from "@/components/ServicesGrid";
+import TreatmentQuizCalculator from "@/components/TreatmentQuizCalculator";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import HomeBlogPreviewSection from "@/components/HomeBlogPreviewSection";
@@ -39,11 +40,18 @@ export default function CosmetoCityHomePage() {
         {/* 3. Tedavilerimiz (Services Grid: Hair Transplant, Dental Aesthetics, Medical Aesthetics) */}
         <ServicesGrid locale={locale} selectedCity={selectedCity} />
 
-        {/* 4. Güven ve Sosyal Kanıt: Before/After Gallery & 3 International Patient Testimonials */}
+        {/* 4. İnteraktif 5 Adımlı Tedavi ve Fiyat Hesaplayıcı (Quiz) + 3 Ay Sabit Fiyat Garantisi */}
+        <TreatmentQuizCalculator
+          locale={locale}
+          selectedCity={selectedCity}
+          onCityChange={setSelectedCity}
+        />
+
+        {/* 5. Güven ve Sosyal Kanıt: Before/After Gallery & 3 International Patient Testimonials */}
         <BeforeAfterGallery locale={locale} selectedCity={selectedCity} />
         <TestimonialsSection locale={locale} />
 
-        {/* 5. Soru-Odaklı SEO Blog & Medikal İyileşme Rehberleri Önizlemesi */}
+        {/* 6. Soru-Odaklı SEO Blog & Medikal İyileşme Rehberleri Önizlemesi */}
         <HomeBlogPreviewSection locale={locale} selectedCity={selectedCity} />
 
         {/* Contact & Free Consultation Section */}
@@ -54,7 +62,7 @@ export default function CosmetoCityHomePage() {
         />
       </main>
 
-      {/* 6. Sticky WhatsApp Button (Fixed Bottom-Right Across All Views) */}
+      {/* 7. Sticky WhatsApp Button (Fixed Bottom-Right Across All Views) */}
       <StickyWhatsApp locale={locale} selectedCity={selectedCity} />
     </div>
   );
