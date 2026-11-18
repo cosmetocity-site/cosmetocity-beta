@@ -147,7 +147,7 @@ export default function BeforeAfterGallery({
 
             <div className="p-4 rounded-2xl bg-cosmeto-sand/60 border border-cosmeto-sandBorder space-y-1.5">
               <span className="text-xs uppercase tracking-wider text-cosmeto-teal font-bold block">
-                Clinical Specification
+                {copy.clinicalSpecLabel}
               </span>
               <p className="text-sm font-bold text-cosmeto-charcoal">
                 {currentCase.graftsOrDetails[locale]}

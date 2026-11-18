@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Locale, CityOption } from "@/data/content";
+import { Locale, CityOption, isRtlLocale } from "@/data/content";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesGrid from "@/components/ServicesGrid";
@@ -14,10 +14,14 @@ import StickyWhatsApp from "@/components/StickyWhatsApp";
 export default function CosmetoCityHomePage() {
   const [locale, setLocale] = useState<Locale>("en");
   const [selectedCity, setSelectedCity] = useState<CityOption>("antalya");
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return (
-    <div className="min-h-screen flex flex-col bg-cosmeto-sandLight text-cosmeto-body">
-      {/* 1. Header & Navigation ("Treatments, Before/After, Reviews, Contact" + "Free Consultation") */}
+    <div
+      dir={dir}
+      className="min-h-screen flex flex-col bg-cosmeto-sandLight text-cosmeto-body"
+    >
+      {/* 1. Header & Navigation ("Treatments, Before/After, Reviews, Contact" + 7-Language Dropdown + "Free Consultation") */}
       <Navbar
         locale={locale}
         onLocaleChange={setLocale}
@@ -50,7 +54,7 @@ export default function CosmetoCityHomePage() {
         />
       </main>
 
-      {/* 5. Sticky WhatsApp Button (Fixed Bottom-Right Across All Views) */}
+      {/* 6. Sticky WhatsApp Button (Fixed Bottom-Right Across All Views) */}
       <StickyWhatsApp locale={locale} selectedCity={selectedCity} />
     </div>
   );

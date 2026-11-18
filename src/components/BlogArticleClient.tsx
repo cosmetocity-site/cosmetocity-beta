@@ -15,12 +15,14 @@ import {
   FileCode2,
   ArrowRight,
 } from "lucide-react";
-import { Locale, CityOption } from "@/data/content";
+import { Locale, CityOption, isRtlLocale } from "@/data/content";
 import {
   BlogPost,
   BLOG_POSTS,
   BLOG_UI_COPY,
   generateFaqJsonLd,
+  getLocalizedText,
+  getLocalizedList,
 } from "@/data/blogPosts";
 import Navbar from "@/components/Navbar";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
@@ -35,6 +37,7 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
   const [locale, setLocale] = useState<Locale>("en");
   const [selectedCity, setSelectedCity] = useState<CityOption>("antalya");
   const ui = BLOG_UI_COPY[locale];
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   // Calculate midpoint index so the mid-article WhatsApp CTA sits cleanly in the middle of the questions
   const midSectionIndex = Math.max(0, Math.floor(post.sections.length / 2) - 1);
@@ -43,7 +46,10 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
   const localizedFaqSchema = generateFaqJsonLd(post, locale);
 
   return (
-    <div className="min-h-screen flex flex-col bg-cosmeto-sandLight text-cosmeto-body">
+    <div
+      dir={dir}
+      className="min-h-screen flex flex-col bg-cosmeto-sandLight text-cosmeto-body"
+    >
       {/* Dynamic FAQPage Schema for active language */}
       <script
         type="application/ld+json"
@@ -77,7 +83,7 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-cosmeto-taupe" />
             <span className="text-cosmeto-charcoal font-bold truncate max-w-xs sm:max-w-md">
-              {post.h1Question[locale]}
+              {getLocalizedText(post.h1Question, locale)}
             </span>
           </div>
 
@@ -102,14 +108,14 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
 
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark text-xs font-bold uppercase tracking-wider">
               <Stethoscope className="w-3.5 h-3.5" />
-              {post.categoryLabel[locale]}
+              {getLocalizedText(post.categoryLabel, locale)}
             </span>
           </div>
 
-          {/* H1 Question Heading (Rule 1: Patient's Real Question as H1) */}
+          {/* H1 Question Heading */}
           <header className="space-y-6">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-cosmeto-charcoal leading-tight">
-              {post.h1CompleteTitle[locale]}
+              {getLocalizedText(post.h1CompleteTitle, locale)}
             </h1>
 
             {/* Medical Reviewer & Metadata Strip */}
@@ -126,7 +132,7 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                     </strong>
                   </span>
                   <span className="text-[11px] text-cosmeto-teal font-semibold block">
-                    {post.medicalReviewer.title[locale]} •{" "}
+                    {getLocalizedText(post.medicalReviewer.title, locale)} •{" "}
                     {post.medicalReviewer.hospital}
                   </span>
                 </div>
@@ -139,19 +145,19 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-cosmeto-green" />
-                  {post.readingTime[locale]}
+                  {getLocalizedText(post.readingTime, locale)}
                 </span>
               </div>
             </div>
 
-            {/* Rule 2: Immediate 2-3 Sentence Featured Snippet Answer right below H1 */}
+            {/* Immediate 2-3 Sentence Featured Snippet Answer right below H1 */}
             <div className="rounded-3xl bg-white border-2 border-cosmeto-green p-6 sm:p-8 shadow-md space-y-3">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark text-xs font-bold uppercase tracking-wider">
                 <ShieldCheck className="w-4 h-4 text-cosmeto-green" />
                 <span>{ui.directAnswerBadge}</span>
               </div>
               <p className="text-base sm:text-lg font-semibold text-cosmeto-charcoal leading-relaxed">
-                {post.h1DirectAnswer[locale]}
+                {getLocalizedText(post.h1DirectAnswer, locale)}
               </p>
             </div>
 
@@ -160,7 +166,7 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
               <div className="lg:col-span-5 rounded-3xl overflow-hidden border border-cosmeto-sandBorder shadow-sm min-h-[240px]">
                 <img
                   src={post.heroImage}
-                  alt={post.h1CompleteTitle[locale]}
+                  alt={getLocalizedText(post.h1CompleteTitle, locale)}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -171,12 +177,16 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                   <span>{ui.keyTakeawaysTitle}</span>
                 </h2>
                 <ul className="space-y-2.5 text-xs sm:text-sm text-cosmeto-charcoal">
-                  {post.keyTakeaways[locale].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="w-4 h-4 text-cosmeto-green shrink-0 mt-0.5" />
-                      <span className="leading-relaxed font-medium">{item}</span>
-                    </li>
-                  ))}
+                  {getLocalizedList(post.keyTakeaways, locale).map(
+                    (item, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-cosmeto-green shrink-0 mt-0.5" />
+                        <span className="leading-relaxed font-medium">
+                          {item}
+                        </span>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             </div>
@@ -199,7 +209,7 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                       <span className="w-5 h-5 rounded-full bg-cosmeto-teal/15 text-cosmeto-teal text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                         {index + 1}
                       </span>
-                      <span>{sec.question[locale]}</span>
+                      <span>{getLocalizedText(sec.question, locale)}</span>
                     </a>
                   </li>
                 ))}
@@ -237,13 +247,13 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                         className="hover:bg-cosmeto-sandLight/70 transition"
                       >
                         <td className="py-3.5 px-4 sm:px-6 font-bold text-cosmeto-charcoal whitespace-nowrap">
-                          {row.period[locale]}
+                          {getLocalizedText(row.period, locale)}
                         </td>
                         <td className="py-3.5 px-4 sm:px-6 font-semibold text-cosmeto-teal">
-                          {row.painLevel[locale]}
+                          {getLocalizedText(row.painLevel, locale)}
                         </td>
                         <td className="py-3.5 px-4 sm:px-6 text-cosmeto-body">
-                          {row.milestone[locale]}
+                          {getLocalizedText(row.milestone, locale)}
                         </td>
                       </tr>
                     ))}
@@ -261,26 +271,24 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                   id={section.id}
                   className="scroll-mt-24 rounded-3xl bg-white p-6 sm:p-8 border border-cosmeto-sandBorder shadow-sm space-y-5"
                 >
-                  {/* Rule 1: H2 is a Real Patient Question */}
                   <h2 className="text-2xl sm:text-3xl font-bold text-cosmeto-charcoal leading-snug">
-                    {section.question[locale]}
+                    {getLocalizedText(section.question, locale)}
                   </h2>
 
-                  {/* Rule 2: First 2-3 Sentences Immediately Below H2 Give Direct, Empathetic, Medically Accurate Snippet Answer */}
                   <div className="p-5 rounded-2xl bg-cosmeto-sandLight border-l-4 border-cosmeto-green">
                     <p className="text-sm sm:text-base font-bold text-cosmeto-charcoal leading-relaxed">
-                      {section.directAnswer[locale]}
+                      {getLocalizedText(section.directAnswer, locale)}
                     </p>
                   </div>
 
-                  {/* Detailed Clinical Explanation Paragraphs */}
                   <div className="space-y-4 text-sm sm:text-base text-cosmeto-body leading-relaxed">
-                    {section.details[locale].map((paragraph, pIdx) => (
-                      <p key={pIdx}>{paragraph}</p>
-                    ))}
+                    {getLocalizedList(section.details, locale).map(
+                      (paragraph, pIdx) => (
+                        <p key={pIdx}>{paragraph}</p>
+                      )
+                    )}
                   </div>
 
-                  {/* Optional H3 Subsections for Clinical Depth */}
                   {section.subSections && section.subSections.length > 0 && (
                     <div className="space-y-4 pt-1">
                       {section.subSections.map((sub, sIdx) => (
@@ -289,48 +297,47 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                           className="p-4 sm:p-5 rounded-2xl bg-cosmeto-sandLight/70 border border-cosmeto-sandBorder space-y-2"
                         >
                           <h3 className="text-base sm:text-lg font-bold text-cosmeto-charcoal leading-snug">
-                            {sub.heading[locale]}
+                            {getLocalizedText(sub.heading, locale)}
                           </h3>
                           <p className="text-xs sm:text-sm text-cosmeto-body leading-relaxed">
-                            {sub.text[locale]}
+                            {getLocalizedText(sub.text, locale)}
                           </p>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  {/* Optional Bullet Points */}
-                  {section.bulletPoints && section.bulletPoints[locale] && (
+                  {section.bulletPoints && (
                     <ul className="grid grid-cols-1 gap-2.5 pt-2">
-                      {section.bulletPoints[locale].map((bullet, bIdx) => (
-                        <li
-                          key={bIdx}
-                          className="flex items-start gap-2.5 p-3 rounded-xl bg-cosmeto-sand/60 text-xs sm:text-sm font-semibold text-cosmeto-charcoal"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-cosmeto-green shrink-0 mt-0.5" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
+                      {getLocalizedList(section.bulletPoints, locale).map(
+                        (bullet, bIdx) => (
+                          <li
+                            key={bIdx}
+                            className="flex items-start gap-2.5 p-3 rounded-xl bg-cosmeto-sand/60 text-xs sm:text-sm font-semibold text-cosmeto-charcoal"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-cosmeto-green shrink-0 mt-0.5" />
+                            <span>{bullet}</span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   )}
 
-                  {/* Optional Surgeon Tip Box */}
                   {section.tipBox && (
                     <div className="p-5 rounded-2xl bg-cosmeto-teal/10 border border-cosmeto-teal/30 flex items-start gap-3.5">
                       <Lightbulb className="w-6 h-6 text-cosmeto-teal shrink-0 mt-0.5" />
                       <div className="space-y-1">
                         <h3 className="text-sm font-bold text-cosmeto-charcoal">
-                          {section.tipBox.title[locale]}
+                          {getLocalizedText(section.tipBox.title, locale)}
                         </h3>
                         <p className="text-xs sm:text-sm text-cosmeto-body leading-relaxed">
-                          {section.tipBox.text[locale]}
+                          {getLocalizedText(section.tipBox.text, locale)}
                         </p>
                       </div>
                     </div>
                   )}
                 </section>
 
-                {/* Rule 4: Mid-Article Non-Intrusive WhatsApp CTA Box */}
                 {idx === midSectionIndex && (
                   <BlogWhatsAppCTA
                     cta={post.midArticleCta}
@@ -343,7 +350,6 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
             ))}
           </div>
 
-          {/* Rule 4: End-of-Article High-Converting WhatsApp CTA Box */}
           <BlogWhatsAppCTA
             cta={post.bottomArticleCta}
             locale={locale}
@@ -385,13 +391,13 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                   >
                     <div className="space-y-2.5">
                       <span className="inline-block px-3 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark text-[11px] font-bold uppercase tracking-wider">
-                        {related.categoryLabel[locale]}
+                        {getLocalizedText(related.categoryLabel, locale)}
                       </span>
                       <h3 className="text-lg font-bold text-cosmeto-charcoal group-hover:text-cosmeto-green transition leading-snug">
-                        {related.h1CompleteTitle[locale]}
+                        {getLocalizedText(related.h1CompleteTitle, locale)}
                       </h3>
                       <p className="text-xs sm:text-sm text-cosmeto-body line-clamp-3 leading-relaxed">
-                        {related.h1DirectAnswer[locale]}
+                        {getLocalizedText(related.h1DirectAnswer, locale)}
                       </p>
                     </div>
                     <span className="inline-flex items-center gap-1.5 text-xs font-bold text-cosmeto-teal group-hover:text-cosmeto-green transition">

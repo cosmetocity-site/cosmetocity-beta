@@ -17,6 +17,7 @@ import {
   Locale,
   CityOption,
   SITE_COPY,
+  isRtlLocale,
   buildWhatsAppLink,
 } from "@/data/content";
 import { trackWhatsAppClick } from "@/lib/analytics";
@@ -36,41 +37,61 @@ const LEAD_TREATMENT_OPTIONS: LeadTreatmentOption[] = [
   {
     value: "Saç Ekimi",
     label: {
-      en: "Hair Transplant (Saç Ekimi)",
-      de: "Haartransplantation (Saç Ekimi)",
-      tr: "Saç Ekimi",
+      en: "Hair Transplant (Sapphire FUE & DHI)",
+      de: "Haartransplantation (Saphir FUE & DHI)",
+      ru: "Пересадка волос (Сапфир FUE и DHI)",
+      es: "Injerto Capilar (Zafiro FUE y DHI)",
+      ar: "زراعة الشعر (تقنية السفير FUE و DHI)",
+      fr: "Greffe de Cheveux (Saphir FUE & DHI)",
+      it: "Trapianto di Capelli (Zaffiro FUE & DHI)",
     },
   },
   {
     value: "Diş Estetiği",
     label: {
-      en: "Dental Aesthetics (Diş Estetiği)",
-      de: "Zahnästhetik (Diş Estetiği)",
-      tr: "Diş Estetiği",
+      en: "Dental Aesthetics (Hollywood Smile & Implants)",
+      de: "Zahnästhetik (Hollywood Smile & Implantate)",
+      ru: "Эстетическая стоматология (Голливудская улыбка)",
+      es: "Estética Dental (Sonrisa de Hollywood e Implantes)",
+      ar: "تجميل الأسنان (ابتسامة هوليوود وزراعة الأسنان)",
+      fr: "Esthétique Dentaire (Hollywood Smile & Implants)",
+      it: "Estetica Dentale (Hollywood Smile & Impianti)",
     },
   },
   {
     value: "Meme Estetiği",
     label: {
-      en: "Breast Aesthetics (Meme Estetiği)",
-      de: "Brustästhetik (Meme Estetiği)",
-      tr: "Meme Estetiği",
+      en: "Breast Aesthetics (Augmentation / Lift)",
+      de: "Brustästhetik (Vergrößerung / Straffung)",
+      ru: "Пластика груди (Маммопластика)",
+      es: "Estética Mamaria (Aumento / Elevación)",
+      ar: "تجميل الصدر (تكبير / شد الصدر)",
+      fr: "Esthétique Mammaire (Augmentation / Lifting)",
+      it: "Chirurgia del Seno (Mastoplastica)",
     },
   },
   {
     value: "Rinoplasti",
     label: {
-      en: "Rhinoplasty (Rinoplasti)",
-      de: "Nasenkorrektur / Rhinoplastik (Rinoplasti)",
-      tr: "Rinoplasti",
+      en: "Rhinoplasty (Ultrasonic Piezo Nose Reshaping)",
+      de: "Nasenkorrektur / Rhinoplastik (Ultraschall-Piezo)",
+      ru: "Ринопластика (Ультразвуковая коррекция носа Piezo)",
+      es: "Rinoplastia (Cirugía Nasal Ultrasónica Piezo)",
+      ar: "تجميل الأنف (بالموجات فوق الصوتية Piezo)",
+      fr: "Rhinoplastie (Chirurgie du Nez Ultrasonique Piezo)",
+      it: "Rinoplastica (Chirurgia Nasale Ultrasonica Piezo)",
     },
   },
   {
     value: "Diğer",
     label: {
-      en: "Other Medical Aesthetics (Diğer)",
-      de: "Andere Behandlung (Diğer)",
-      tr: "Diğer",
+      en: "Other Medical Aesthetics & Plastic Surgery",
+      de: "Andere Behandlung (Liposuktion, Facelift, Botox)",
+      ru: "Другая эстетическая процедура (Липосакция, Лифтинг)",
+      es: "Otro Tratamiento Estético (Liposucción, Lifting)",
+      ar: "إجراءات تجميلية أخرى (نحت الجسم، شد الوجه)",
+      fr: "Autre Soin Esthétique (Liposuccion, Lifting)",
+      it: "Altro Trattamento Estetico (Liposuzione, Lifting)",
     },
   },
 ];
@@ -84,6 +105,8 @@ const FORM_UI: Record<
     phonePlaceholder: string;
     treatmentLabel: string;
     cityLabel: string;
+    cityAntalyaOption: string;
+    cityIstanbulOption: string;
     messageLabel: string;
     messagePlaceholder: string;
     submitBtn: string;
@@ -96,32 +119,36 @@ const FORM_UI: Record<
   }
 > = {
   en: {
-    nameLabel: "Full Name (Ad Soyad)",
+    nameLabel: "Full Name",
     namePlaceholder: "Oliver Henderson",
     phoneLabel: "WhatsApp / Phone Number (with Country Code)",
-    phonePlaceholder: "+44 7700 900077 / +49 151 23456789",
+    phonePlaceholder: "+44 7700 900077",
     treatmentLabel: "Interested Treatment",
     cityLabel: "Preferred Destination",
+    cityAntalyaOption: "🏖️ Antalya (Main Hub • Recommended)",
+    cityIstanbulOption: "🌉 Istanbul (Partner Clinic Option)",
     messageLabel: "Short Message (Optional)",
     messagePlaceholder:
-      "Tell us about your preferred dates, questions, or treatment goals...",
+      "Tell us about your preferred travel dates, questions, or treatment goals...",
     submitBtn: "Request Free Consultation",
     submittingBtn: "Sending Your Request...",
     successTitle: "Free Consultation Request Received!",
     successMessage:
-      "Talebiniz alındı, tıbbi koordinatörümüz en kısa sürede WhatsApp üzerinden size ulaşacaktır. (Your request has been received; our medical coordinator will reach out to you via WhatsApp shortly.)",
+      "Your request has been received. Our medical coordinator will reach out to you via WhatsApp shortly.",
     newRequestBtn: "Submit Another Request",
-    instantWhatsappBtn: "Or Message Us Directly on WhatsApp Now",
+    instantWhatsappBtn: "Message Us Directly on WhatsApp Now",
     errorMessage:
       "An error occurred while sending your form. Please try again or reach us directly via WhatsApp.",
   },
   de: {
-    nameLabel: "Vor- und Nachname (Ad Soyad)",
+    nameLabel: "Vor- und Nachname",
     namePlaceholder: "Markus Weber",
     phoneLabel: "WhatsApp / Telefonnummer (mit Ländervorwahl)",
-    phonePlaceholder: "+49 151 23456789 / +43 664 1234567",
+    phonePlaceholder: "+49 151 23456789",
     treatmentLabel: "Gewünschte Behandlung",
     cityLabel: "Bevorzugte Stadt",
+    cityAntalyaOption: "🏖️ Antalya (Hauptzentrum • Empfohlen)",
+    cityIstanbulOption: "🌉 Istanbul (Partnerklinik-Option)",
     messageLabel: "Kurze Nachricht (Optional)",
     messagePlaceholder:
       "Teilen Sie uns Ihren Wunschtermin oder Ihre Fragen zur Behandlung mit...",
@@ -129,31 +156,121 @@ const FORM_UI: Record<
     submittingBtn: "Anfrage wird gesendet...",
     successTitle: "Ihre Anfrage wurde erfolgreich empfangen!",
     successMessage:
-      "Talebiniz alındı, tıbbi koordinatörümüz en kısa sürede WhatsApp üzerinden size ulaşacaktır. (Ihre Anfrage ist eingegangen – unser medizinischer Koordinator meldet sich in Kürze per WhatsApp bei Ihnen.)",
+      "Ihre Anfrage ist eingegangen – unser medizinischer Koordinator wird Sie in Kürze über WhatsApp kontaktieren.",
     newRequestBtn: "Neue Anfrage senden",
-    instantWhatsappBtn: "Oder direkt per WhatsApp schreiben",
+    instantWhatsappBtn: "Direkt per WhatsApp schreiben",
     errorMessage:
       "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per WhatsApp.",
   },
-  tr: {
-    nameLabel: "Ad Soyad",
-    namePlaceholder: "Adınız ve Soyadınız",
-    phoneLabel: "WhatsApp / Telefon Numarası (Ülke Kodu İle)",
-    phonePlaceholder: "+90 555 123 4567 / +44 7700 900077 / +49 151...",
-    treatmentLabel: "İlgilenilen Tedavi",
-    cityLabel: "Tercih Edilen Şehir",
-    messageLabel: "Kısa Mesaj",
+  ru: {
+    nameLabel: "Имя и Фамилия",
+    namePlaceholder: "Александр Иванов",
+    phoneLabel: "Номер WhatsApp / Телефона (с кодом страны)",
+    phonePlaceholder: "+7 999 123 45 67",
+    treatmentLabel: "Интересующая процедура",
+    cityLabel: "Предпочитаемый город",
+    cityAntalyaOption: "🏖️ Анталья (Главный центр • Рекомендуется)",
+    cityIstanbulOption: "🌉 Стамбул (Партнерская клиника)",
+    messageLabel: "Краткое сообщение (необязательно)",
     messagePlaceholder:
-      "Planladığınız tarih veya tedavinizle ilgili merak ettiklerinizi kısaca yazabilirsiniz...",
-    submitBtn: "Ücretsiz Danışmanlık Talebi Gönder",
-    submittingBtn: "Talebiniz Gönderiliyor...",
-    successTitle: "Ücretsiz Danışmanlık Talebiniz Alındı",
+      "Укажите желаемые даты поездки или ваши вопросы врачу...",
+    submitBtn: "Запросить бесплатную консультацию",
+    submittingBtn: "Отправка заявки...",
+    successTitle: "Ваша заявка успешно принята!",
     successMessage:
-      "Talebiniz alındı, tıbbi koordinatörümüz en kısa sürede WhatsApp üzerinden size ulaşacaktır",
-    newRequestBtn: "Yeni Talep Oluştur",
-    instantWhatsappBtn: "Beklemeden WhatsApp'tan Sohbet Başlat",
+      "Ваша заявка получена, наш медицинский координатор свяжется с вами в WhatsApp в ближайшее время.",
+    newRequestBtn: "Отправить новую заявку",
+    instantWhatsappBtn: "Написать нам в WhatsApp прямо сейчас",
     errorMessage:
-      "Talebiniz gönderilirken bir hata oluştu. Lütfen tekrar deneyin veya WhatsApp butonundan bize ulaşın.",
+      "Произошла ошибка при отправке. Пожалуйста, попробуйте снова или напишите нам напрямую в WhatsApp.",
+  },
+  es: {
+    nameLabel: "Nombre y Apellidos",
+    namePlaceholder: "Carlos Rodríguez",
+    phoneLabel: "Número de WhatsApp / Teléfono (con código de país)",
+    phonePlaceholder: "+34 600 123 456",
+    treatmentLabel: "Tratamiento de Interés",
+    cityLabel: "Ciudad Preferida",
+    cityAntalyaOption: "🏖️ Antalya (Sede Principal • Recomendado)",
+    cityIstanbulOption: "🌉 Estambul (Clínica Asociada)",
+    messageLabel: "Mensaje Breve (Opcional)",
+    messagePlaceholder:
+      "Indíquenos sus fechas aproximadas de viaje o sus dudas médicas...",
+    submitBtn: "Solicitar Consulta Gratuita",
+    submittingBtn: "Enviando su solicitud...",
+    successTitle: "¡Solicitud de Consulta Recibida!",
+    successMessage:
+      "Su solicitud ha sido recibida; nuestro coordinador médico se pondrá en contacto con usted por WhatsApp a la mayor brevedad.",
+    newRequestBtn: "Enviar otra solicitud",
+    instantWhatsappBtn: "Escribir directamente por WhatsApp ahora",
+    errorMessage:
+      "Ocurrió un error al enviar el formulario. Por favor, inténtelo de nuevo o contáctenos directamente por WhatsApp.",
+  },
+  ar: {
+    nameLabel: "الاسم الكامل",
+    namePlaceholder: "أحمد المنصور",
+    phoneLabel: "رقم الواتساب / الهاتف (مع مفتاح الدولة)",
+    phonePlaceholder: "+966 50 123 4567 / +971 50 123 4567",
+    treatmentLabel: "العلاج المطلوب",
+    cityLabel: "المدينة المفضلة",
+    cityAntalyaOption: "🏖️ أنطاليا (المركز الرئيسي • موصى به)",
+    cityIstanbulOption: "🌉 إسطنبول (خيار المستشفى الشريك)",
+    messageLabel: "رسالة قصيرة (اختياري)",
+    messagePlaceholder:
+      "اكتب استفسارك الطبي أو الموعد المفضل للسفر...",
+    submitBtn: "إرسال طلب استشارة مجانية",
+    submittingBtn: "جاري إرسال طلبك...",
+    successTitle: "تم استلام طلب الاستشارة المجانية بنجاح!",
+    successMessage:
+      "تم استلام طلبك بنجاح، سيتواصل معك المنسق الطبي عبر تطبيق واتساب في أقرب وقت ممكن.",
+    newRequestBtn: "إرسال طلب جديد",
+    instantWhatsappBtn: "تحدث معنا مباشرة عبر واتساب الآن",
+    errorMessage:
+      "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة عبر واتساب.",
+  },
+  fr: {
+    nameLabel: "Nom et Prénom",
+    namePlaceholder: "Thomas Laurent",
+    phoneLabel: "Numéro WhatsApp / Téléphone (avec indicatif pays)",
+    phonePlaceholder: "+33 6 12 34 56 78",
+    treatmentLabel: "Soin Souhaité",
+    cityLabel: "Destination Préférée",
+    cityAntalyaOption: "🏖️ Antalya (Centre Principal • Recommandé)",
+    cityIstanbulOption: "🌉 Istanbul (Option Clinique Partenaire)",
+    messageLabel: "Court Message (Optionnel)",
+    messagePlaceholder:
+      "Indiquez vos dates souhaitées ou vos questions médicales...",
+    submitBtn: "Demander une Consultation Gratuite",
+    submittingBtn: "Envoi de votre demande...",
+    successTitle: "Demande de Consultation Reçue !",
+    successMessage:
+      "Votre demande a bien été reçue. Notre coordinateur médical vous contactera très prochainement sur WhatsApp.",
+    newRequestBtn: "Envoyer une autre demande",
+    instantWhatsappBtn: "Nous écrire directement sur WhatsApp",
+    errorMessage:
+      "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous contacter directement sur WhatsApp.",
+  },
+  it: {
+    nameLabel: "Nome e Cognome",
+    namePlaceholder: "Marco Rossi",
+    phoneLabel: "Numero WhatsApp / Telefono (con prefisso internazionale)",
+    phonePlaceholder: "+39 333 123 4567",
+    treatmentLabel: "Trattamento Richiesto",
+    cityLabel: "Destinazione Preferita",
+    cityAntalyaOption: "🏖️ Antalya (Sede Principale • Consigliata)",
+    cityIstanbulOption: "🌉 Istanbul (Opzione Clinica Partner)",
+    messageLabel: "Breve Messaggio (Opzionale)",
+    messagePlaceholder:
+      "Indicaci le date preferite o le tue domande per il chirurgo...",
+    submitBtn: "Richiedi Consulenza Gratuita",
+    submittingBtn: "Invio della richiesta in corso...",
+    successTitle: "Richiesta di Consulenza Ricevuta!",
+    successMessage:
+      "La tua richiesta è stata ricevuta; il nostro coordinatore medico ti contatterà al più presto su WhatsApp.",
+    newRequestBtn: "Invia un'altra richiesta",
+    instantWhatsappBtn: "Scrivici direttamente su WhatsApp ora",
+    errorMessage:
+      "Si è verificato un errore durante l'invio. Riprova o contattaci direttamente su WhatsApp.",
   },
 };
 
@@ -164,6 +281,7 @@ export default function ContactSection({
 }: ContactSectionProps) {
   const copy = SITE_COPY[locale];
   const ui = FORM_UI[locale];
+  const isRtl = isRtlLocale(locale);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -181,9 +299,8 @@ export default function ContactSection({
     setIsSubmitting(true);
 
     const cityLabel = selectedCity === "antalya" ? "Antalya" : "Istanbul";
-    const pagePath =
-      typeof window !== "undefined" ? window.location.pathname : "/";
-    const sourceLabel = `cosmetocity.online (${pagePath} • ${cityLabel} • ${locale.toUpperCase()})`;
+    // Requirement 4: Include active language tag in `source` (e.g. `cosmetocity.online (DE)` or `cosmetocity.online (AR)`)
+    const sourceLabel = `cosmetocity.online (${locale.toUpperCase()})`;
 
     try {
       const response = await fetch("/api/lead", {
@@ -196,8 +313,8 @@ export default function ContactSection({
           phone: phone.trim(),
           treatment,
           message: message.trim()
-            ? `[${cityLabel}] ${message.trim()}`
-            : `[${cityLabel}] Free Consultation Request`,
+            ? `[${cityLabel} • ${locale.toUpperCase()}] ${message.trim()}`
+            : `[${cityLabel} • ${locale.toUpperCase()}] Free Consultation Request`,
           source: sourceLabel,
         }),
       });
@@ -237,6 +354,7 @@ export default function ContactSection({
     <>
       <section
         id="contact"
+        dir={isRtl ? "rtl" : "ltr"}
         className="py-16 sm:py-24 bg-cosmeto-sand border-t border-cosmeto-sandBorder"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -264,7 +382,7 @@ export default function ContactSection({
                   <div className="w-9 h-9 rounded-xl bg-cosmeto-teal text-white flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
-                  <span>+90 552 602 2489 (24/7 UK & DE Patient Desk)</span>
+                  <span dir="ltr">+90 552 602 2489</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-cosmeto-teal text-white flex items-center justify-center shrink-0">
@@ -306,16 +424,8 @@ export default function ContactSection({
                       {ui.successTitle}
                     </h3>
                     <p className="text-base sm:text-lg font-semibold text-cosmeto-greenDark bg-cosmeto-sandLight p-5 rounded-2xl border border-cosmeto-green/40 leading-relaxed">
-                      Talebiniz alındı, tıbbi koordinatörümüz en kısa sürede
-                      WhatsApp üzerinden size ulaşacaktır
+                      {ui.successMessage}
                     </p>
-                    {locale !== "tr" && (
-                      <p className="text-xs sm:text-sm text-cosmeto-body">
-                        {locale === "en"
-                          ? "Your request has been saved to our medical CRM. Our coordinator will contact you via WhatsApp shortly."
-                          : "Ihre Anfrage wurde in unserem medizinischen System gespeichert. Unser Koordinator kontaktiert Sie in Kürze per WhatsApp."}
-                      </p>
-                    )}
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
@@ -382,6 +492,7 @@ export default function ContactSection({
                         id="lead-phone"
                         type="tel"
                         required
+                        dir="ltr"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder={ui.phonePlaceholder}
@@ -430,12 +541,8 @@ export default function ContactSection({
                         disabled={isSubmitting}
                         className="w-full px-4 py-3 rounded-xl bg-cosmeto-sandLight border border-cosmeto-sandBorder text-cosmeto-charcoal text-sm font-semibold focus:outline-none focus:border-cosmeto-green disabled:opacity-60"
                       >
-                        <option value="antalya">
-                          🏖️ Antalya (Main Hub • Recommended)
-                        </option>
-                        <option value="istanbul">
-                          🌉 Istanbul (Partner Clinic Option)
-                        </option>
+                        <option value="antalya">{ui.cityAntalyaOption}</option>
+                        <option value="istanbul">{ui.cityIstanbulOption}</option>
                       </select>
                     </div>
                   </div>
@@ -490,7 +597,10 @@ export default function ContactSection({
       </section>
 
       {/* Footer matching cosmetocity.com (#F0EBD8 & #89CDDF copyright strip) */}
-      <footer className="bg-cosmeto-sand text-cosmeto-charcoal border-t border-cosmeto-sandBorder text-xs">
+      <footer
+        dir={isRtl ? "rtl" : "ltr"}
+        className="bg-cosmeto-sand text-cosmeto-charcoal border-t border-cosmeto-sandBorder text-xs"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-cosmeto-green text-white font-bold flex items-center justify-center">

@@ -2,8 +2,13 @@
 
 import React from "react";
 import { MessageCircle, ShieldCheck, Clock, Sparkles } from "lucide-react";
-import { Locale, CityOption } from "@/data/content";
-import { BlogCtaConfig, BLOG_UI_COPY, buildBlogWhatsAppLink } from "@/data/blogPosts";
+import { Locale, CityOption, isRtlLocale } from "@/data/content";
+import {
+  BlogCtaConfig,
+  BLOG_UI_COPY,
+  buildBlogWhatsAppLink,
+  getLocalizedText,
+} from "@/data/blogPosts";
 import { trackWhatsAppClick } from "@/lib/analytics";
 
 interface BlogWhatsAppCTAProps {
@@ -20,16 +25,14 @@ export default function BlogWhatsAppCTA({
   variant = "mid",
 }: BlogWhatsAppCTAProps) {
   const uiCopy = BLOG_UI_COPY[locale];
-  const whatsappUrl = buildBlogWhatsAppLink(
-    locale,
-    cta.whatsappTopic[locale],
-    selectedCity
-  );
-
+  const topicText = getLocalizedText(cta.whatsappTopic, locale);
+  const whatsappUrl = buildBlogWhatsAppLink(locale, topicText, selectedCity);
   const isBottom = variant === "bottom";
+  const isRtl = isRtlLocale(locale);
 
   return (
     <aside
+      dir={isRtl ? "rtl" : "ltr"}
       aria-label="WhatsApp Medical Consultation Call to Action"
       className={`my-10 rounded-3xl p-6 sm:p-8 lg:p-9 border-2 transition shadow-xl ${
         isBottom
@@ -41,7 +44,7 @@ export default function BlogWhatsAppCTA({
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-cosmeto-green/15 text-cosmeto-green border border-cosmeto-green/30">
             <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span>{cta.badge[locale]}</span>
+            <span>{getLocalizedText(cta.badge, locale)}</span>
           </div>
 
           <h3
@@ -49,7 +52,7 @@ export default function BlogWhatsAppCTA({
               isBottom ? "text-white" : "text-cosmeto-charcoal"
             }`}
           >
-            {cta.title[locale]}
+            {getLocalizedText(cta.title, locale)}
           </h3>
 
           <p
@@ -57,7 +60,7 @@ export default function BlogWhatsAppCTA({
               isBottom ? "text-cosmeto-ice" : "text-cosmeto-body"
             }`}
           >
-            {cta.description[locale]}
+            {getLocalizedText(cta.description, locale)}
           </p>
 
           <div
@@ -84,7 +87,7 @@ export default function BlogWhatsAppCTA({
             onClick={() =>
               trackWhatsAppClick({
                 source: `blog_article_${variant}_cta`,
-                topic: cta.whatsappTopic[locale],
+                topic: topicText,
                 city: selectedCity,
                 locale,
               })
@@ -92,14 +95,15 @@ export default function BlogWhatsAppCTA({
             className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-[#25D366] hover:bg-cosmeto-green text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 border-2 border-white/90"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />
-            <span>{cta.buttonText[locale]}</span>
+            <span>{getLocalizedText(cta.buttonText, locale)}</span>
           </a>
           <span
+            dir="ltr"
             className={`text-[11px] text-center font-semibold ${
               isBottom ? "text-white/80" : "text-cosmeto-body"
             }`}
           >
-            🇬🇧 English • 🇩🇪 Deutsch • 🇹🇷 Türkçe (+90 552 602 2489)
+            🇬🇧 EN • 🇩🇪 DE • 🇷🇺 RU • 🇪🇸 ES • 🇸🇦 AR • 🇫🇷 FR • 🇮🇹 IT (+90 552 602 2489)
           </span>
         </div>
       </div>
