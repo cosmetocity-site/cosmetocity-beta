@@ -1,7 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Locale, CityOption, isRtlLocale } from "@/data/content";
+import {
+  CurrencyConfig,
+  DEFAULT_CURRENCY_CONFIG,
+} from "@/lib/currency";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesGrid from "@/components/ServicesGrid";
@@ -15,7 +19,29 @@ import StickyWhatsApp from "@/components/StickyWhatsApp";
 export default function CosmetoCityHomePage() {
   const [locale, setLocale] = useState<Locale>("en");
   const [selectedCity, setSelectedCity] = useState<CityOption>("antalya");
+  const [currencyConfig, setCurrencyConfig] = useState<CurrencyConfig>(
+    DEFAULT_CURRENCY_CONFIG
+  );
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
+
+  // Fetch visitor country (`x-vercel-ip-country`) and 12h cached live exchange rates
+  useEffect(() => {
+    let active = true;
+    fetch("/api/currency")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: CurrencyConfig | null) => {
+        if (active && data && data.currency && data.rates) {
+          setCurrencyConfig(data);
+        }
+      })
+      .catch(() => {
+        // Keep safe fallback rates (DEFAULT_CURRENCY_CONFIG)
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <div
@@ -35,19 +61,25 @@ export default function CosmetoCityHomePage() {
           locale={locale}
           selectedCity={selectedCity}
           onCityChange={setSelectedCity}
+          currencyConfig={currencyConfig}
         />
 
         {/* 3. Tedavilerimiz (Services Grid: Hair Transplant, Dental Aesthetics, Medical Aesthetics) */}
-        <ServicesGrid locale={locale} selectedCity={selectedCity} />
+        <ServicesGrid
+          locale={locale}
+          selectedCity={selectedCity}
+          currencyConfig={currencyConfig}
+        />
 
         {/* 4. İnteraktif 5 Adımlı Tedavi ve Fiyat Hesaplayıcı (Quiz) + 3 Ay Sabit Fiyat Garantisi */}
         <TreatmentQuizCalculator
           locale={locale}
           selectedCity={selectedCity}
           onCityChange={setSelectedCity}
+          currencyConfig={currencyConfig}
         />
 
-        {/* 5. Güven ve Sosyal Kanıt: Before/After Gallery & 3 International Patient Testimonials */}
+        {/* 5. Güven ve Sosyal Kanıt: Before/After Gallery & Real Trustpilot Patient Reviews */}
         <BeforeAfterGallery locale={locale} selectedCity={selectedCity} />
         <TestimonialsSection locale={locale} />
 
@@ -62,7 +94,7 @@ export default function CosmetoCityHomePage() {
         />
       </main>
 
-      {/* 7. Sticky WhatsApp Button (Fixed Bottom-Right Across All Views) */}
+      {/* 7. Sticky Price Calculator + Sticky WhatsApp Buttons (Fixed Bottom-Right/Left Across All Views) */}
       <StickyWhatsApp locale={locale} selectedCity={selectedCity} />
     </div>
   );

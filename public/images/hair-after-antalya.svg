@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#152A26" />
+  <circle cx="400" cy="280" r="230" fill="#36B729" fill-opacity="0.18" />
+
+  <!-- Top Stage Title -->
+  <rect x="200" y="30" width="400" height="42" rx="21" fill="#36B729" />
+  <text x="400" y="56" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF">
+    10 MONTHS POST-OP: 4,400 SAPPHIRE FUE GRAFTS
+  </text>
+
+  <!-- Scalp Top/Frontal Schematic (Full Dense Restored Hairline & Crown) -->
+  <g transform="translate(230, 95)">
+    <!-- Head Outline -->
+    <ellipse cx="170" cy="195" rx="135" ry="165" fill="#F4D2B5" stroke="#36B729" stroke-width="4" />
+
+    <!-- Full Dense Restored Hair Mass -->
+    <path d="M40,145 C42,60 105,32 170,32 C235,32 298,60 300,145 C312,240 275,345 170,355 C65,345 28,240 40,145 Z" fill="#23272A" />
+
+    <!-- Natural Restored Frontal Hairline Contour -->
+    <path d="M62,132 Q170,92 278,132" fill="none" stroke="#36B729" stroke-width="4" />
+
+    <!-- Texture Hair Strands Highlight -->
+    <g stroke="#4B5563" stroke-width="2.5" stroke-linecap="round">
+      <path d="M110,120 Q125,85 135,60" fill="none" />
+      <path d="M135,115 Q148,78 155,55" fill="none" />
+      <path d="M160,112 Q170,75 175,52" fill="none" />
+      <path d="M185,112 Q195,78 202,55" fill="none" />
+      <path d="M210,118 Q222,85 230,62" fill="none" />
+      <path d="M100,175 Q135,145 170,145 Q205,145 240,175" fill="none" />
+      <path d="M95,220 Q170,190 245,220" fill="none" />
+      <path d="M110,265 Q170,240 230,265" fill="none" />
+    </g>
+
+    <!-- Verified Density Badge on Scalp -->
+    <rect x="65" y="165" width="210" height="54" rx="16" fill="#36B729" stroke="#FFFFFF" stroke-width="2" />
+    <text x="170" y="189" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="15" fill="#FFFFFF">
+      100% NATURAL DENSITY
+    </text>
+    <text x="170" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#F0EBD8">
+      65 Grafts / cm² Frontal Line
+    </text>
+  </g>
+
+  <!-- Bottom Clinical Caption -->
+  <rect x="120" y="485" width="560" height="46" rx="14" fill="#36B729" />
+  <text x="400" y="513" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="15" fill="#FFFFFF">
+    AFTER: Full Frontal Hairline &amp; Crown Coverage (4,400 Sapphire FUE Grafts)
+  </text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#1F2933" />
+  <circle cx="400" cy="280" r="220" fill="#378AA0" fill-opacity="0.15" />
+
+  <!-- Top Stage Title -->
+  <rect x="220" y="30" width="360" height="42" rx="21" fill="#2D332F" stroke="#89CDDF" stroke-width="2" />
+  <text x="400" y="56" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#F0EBD8">
+    PRE-PROCEDURE: NORWOOD STAGE 4–5
+  </text>
+
+  <!-- Scalp Top/Frontal Schematic (Receding Frontal & Temple Zone + Thinning Crown) -->
+  <g transform="translate(230, 95)">
+    <!-- Head Outline -->
+    <ellipse cx="170" cy="195" rx="135" ry="165" fill="#F4D2B5" stroke="#CBD5E1" stroke-width="4" />
+
+    <!-- Side & Donor Hair Rim (Healthy Donor Area) -->
+    <path d="M40,165 C25,245 65,345 170,355 C275,345 315,245 300,165 C292,225 255,305 170,312 C85,305 48,225 40,165 Z" fill="#2D332F" />
+
+    <!-- Receding M-Shape Frontal Zone & Thinning Crown Highlighted for Grafting -->
+    <path d="M68,145 Q170,95 272,145 Q245,215 170,225 Q95,215 68,145 Z" fill="#E11D48" fill-opacity="0.16" stroke="#F43F5E" stroke-width="2.5" stroke-dasharray="7,5" />
+
+    <!-- Planned Hairline Target Curve -->
+    <path d="M65,135 Q170,88 275,135" fill="none" stroke="#36B729" stroke-width="4" stroke-dasharray="8,4" />
+    <text x="170" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="15" fill="#9F1239">
+      RECIPIENT ZONE
+    </text>
+    <text x="170" y="186" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#2D332F">
+      4,400 Grafts Planned
+    </text>
+
+    <!-- Sparse Native Hairs -->
+    <g stroke="#2D332F" stroke-width="2" opacity="0.45">
+      <line x1="145" y1="215" x2="145" y2="230" />
+      <line x1="170" y1="210" x2="170" y2="228" />
+      <line x1="195" y1="215" x2="195" y2="230" />
+      <line x1="158" y1="240" x2="158" y2="255" />
+      <line x1="182" y1="240" x2="182" y2="255" />
+    </g>
+  </g>
+
+  <!-- Bottom Clinical Caption -->
+  <rect x="130" y="485" width="540" height="46" rx="14" fill="#2D332F" />
+  <text x="400" y="513" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="15" fill="#CEE7ED">
+    BEFORE: Receding Frontal Hairline, Temples &amp; Crown Thinning
+  </text>
+</svg>

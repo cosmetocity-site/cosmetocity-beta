@@ -17,17 +17,25 @@ import {
   buildWhatsAppLink,
 } from "@/data/content";
 import { trackWhatsAppClick } from "@/lib/analytics";
+import {
+  CurrencyConfig,
+  DEFAULT_CURRENCY_CONFIG,
+  formatConvertedPrice,
+} from "@/lib/currency";
 
 interface ServicesGridProps {
   locale: Locale;
   selectedCity: CityOption;
+  currencyConfig?: CurrencyConfig;
 }
 
 export default function ServicesGrid({
   locale,
   selectedCity,
+  currencyConfig = DEFAULT_CURRENCY_CONFIG,
 }: ServicesGridProps) {
   const copy = SITE_COPY[locale];
+  const { currency, rates } = currencyConfig;
 
   const renderCategoryIcon = (categoryKey: "hair" | "dental" | "aesthetic") => {
     switch (categoryKey) {
@@ -67,12 +75,12 @@ export default function ServicesGrid({
           >
             <div>
               {/* Card Image Header + Floating Icon Badge */}
-              <div className="relative h-56 overflow-hidden bg-cosmeto-charcoal">
+              <div className="relative h-56 aspect-[16/10] overflow-hidden bg-cosmeto-charcoal">
                 <img
                   src={item.image}
                   alt={item.title[locale]}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cosmeto-green text-white text-[11px] font-bold tracking-wider uppercase shadow">
@@ -121,10 +129,14 @@ export default function ServicesGrid({
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-cosmeto-greenDark">
-                    {locale === "en" ? item.priceGBP : item.priceEUR}
+                    {formatConvertedPrice(item.basePriceEur, currency, rates)}
                   </span>
                   <span className="text-xs text-cosmeto-taupe line-through">
-                    {item.ukDePrice}
+                    {formatConvertedPrice(
+                      item.baseComparisonEur,
+                      currency,
+                      rates
+                    )}
                   </span>
                 </div>
               </div>

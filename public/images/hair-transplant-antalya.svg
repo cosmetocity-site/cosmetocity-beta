@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3538" />
+      <stop offset="50%" stop-color="#246476" />
+      <stop offset="100%" stop-color="#182C2E" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.97" />
+      <stop offset="100%" stop-color="#F0EBD8" stop-opacity="0.97" />
+    </linearGradient>
+    <linearGradient id="greenAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#36B729" />
+      <stop offset="100%" stop-color="#2B9620" />
+    </linearGradient>
+    <linearGradient id="sapphireBlade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#89CDDF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Clinical Ambient Background -->
+  <rect width="800" height="560" fill="url(#bgGrad)" />
+
+  <!-- Subtle Medical Grid Pattern -->
+  <g stroke="#89CDDF" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="80" x2="800" y2="80" />
+    <line x1="0" y1="160" x2="800" y2="160" />
+    <line x1="0" y1="240" x2="800" y2="240" />
+    <line x1="0" y1="320" x2="800" y2="320" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="0" y1="480" x2="800" y2="480" />
+    <line x1="160" y1="0" x2="160" y2="560" />
+    <line x1="320" y1="0" x2="320" y2="560" />
+    <line x1="480" y1="0" x2="480" y2="560" />
+    <line x1="640" y1="0" x2="640" y2="560" />
+  </g>
+
+  <!-- Soft Ambient Glow Circles -->
+  <circle cx="220" cy="240" r="190" fill="#36B729" fill-opacity="0.14" />
+  <circle cx="580" cy="260" r="170" fill="#89CDDF" fill-opacity="0.15" />
+
+  <!-- Left Visual: Natural Hairline & Micro-Grafting Zone Illustration -->
+  <g transform="translate(75, 75)">
+    <rect x="0" y="0" width="310" height="360" rx="28" fill="url(#cardGrad)" stroke="#36B729" stroke-width="3" />
+    
+    <!-- Top Label inside Card -->
+    <rect x="20" y="18" width="270" height="32" rx="16" fill="#36B729" fill-opacity="0.15" />
+    <text x="155" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#2B9620">
+      3D NATURAL HAIRLINE DESIGN
+    </text>
+
+    <!-- Stylized Head & Frontal Hairline Profile -->
+    <path d="M90,285 C85,220 82,165 110,120 C132,85 180,85 202,120 C230,165 225,220 220,285" fill="#F5D5B8" stroke="#2D332F" stroke-width="3.5" />
+    
+    <!-- Dense Transplanted Hairline Arc -->
+    <path d="M98,155 C118,125 140,138 156,142 C172,138 194,125 214,155 C218,120 192,90 156,90 C120,90 94,120 98,155 Z" fill="#2D332F" />
+
+    <!-- Laser Hairline Precision Guide Line -->
+    <path d="M92,158 Q156,126 220,158" fill="none" stroke="#36B729" stroke-width="3" stroke-dasharray="6,4" />
+    <circle cx="156" cy="142" r="5" fill="#36B729" />
+    <circle cx="115" cy="149" r="4" fill="#378AA0" />
+    <circle cx="197" cy="149" r="4" fill="#378AA0" />
+
+    <!-- Micro Graft Dots Grid -->
+    <g fill="#36B729" opacity="0.85">
+      <circle cx="130" cy="122" r="2.5" />
+      <circle cx="143" cy="118" r="2.5" />
+      <circle cx="156" cy="116" r="2.5" />
+      <circle cx="169" cy="118" r="2.5" />
+      <circle cx="182" cy="122" r="2.5" />
+      <circle cx="122" cy="133" r="2.5" />
+      <circle cx="136" cy="130" r="2.5" />
+      <circle cx="150" cy="128" r="2.5" />
+      <circle cx="163" cy="128" r="2.5" />
+      <circle cx="176" cy="130" r="2.5" />
+      <circle cx="190" cy="133" r="2.5" />
+    </g>
+
+    <!-- Bottom Stats Pill inside Left Card -->
+    <rect x="22" y="295" width="266" height="46" rx="14" fill="#2D332F" />
+    <text x="155" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#36B729">
+      UP TO 5,000+ GRAFTS • 98% SURVIVAL
+    </text>
+    <text x="155" y="332" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#CEE7ED">
+      Zero Visible Scarring • Lifetime Warranty
+    </text>
+  </g>
+
+  <!-- Right Visual: Sapphire FUE Micro-Blade & Healthy Multi-Hair Follicle Unit -->
+  <g transform="translate(415, 75)">
+    <rect x="0" y="0" width="310" height="360" rx="28" fill="url(#cardGrad)" stroke="#378AA0" stroke-width="3" />
+
+    <rect x="20" y="18" width="270" height="32" rx="16" fill="#378AA0" fill-opacity="0.15" />
+    <text x="155" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#246476">
+      SAPPHIRE FUE &amp; DHI CHOI PEN
+    </text>
+
+    <!-- Magnified Follicular Unit Circle -->
+    <circle cx="155" cy="175" r="88" fill="#FFFFFF" stroke="#36B729" stroke-width="4" stroke-dasharray="10,5" />
+    <circle cx="155" cy="175" r="76" fill="#F9F7F0" />
+
+    <!-- Epidermis / Dermis Layer inside Magnifier -->
+    <path d="M82,175 Q155,168 228,175 L224,225 Q155,255 86,225 Z" fill="#F2C6A0" opacity="0.6" />
+
+    <!-- Healthy Follicle Bulb & Triple Hair Shafts -->
+    <ellipse cx="155" cy="212" rx="16" ry="22" fill="#8B5A2B" stroke="#36B729" stroke-width="2.5" />
+    <path d="M150,210 Q142,145 130,98" fill="none" stroke="#2D332F" stroke-width="4" stroke-linecap="round" />
+    <path d="M155,212 Q155,140 156,92" fill="none" stroke="#2D332F" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M160,210 Q168,145 180,100" fill="none" stroke="#2D332F" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Sapphire Gem Tip Indicator -->
+    <polygon points="215,105 240,120 215,145 190,120" fill="url(#sapphireBlade)" stroke="#0369A1" stroke-width="2" />
+    <text x="215" y="163" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="10" fill="#246476">
+      V-SAPPHIRE
+    </text>
+
+    <!-- Feature Checklist Bottom -->
+    <rect x="22" y="280" width="266" height="62" rx="14" fill="#378AA0" />
+    <text x="155" y="303" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#FFFFFF">
+      ✓ Needle-Free Comfort-In™ Anesthesia
+    </text>
+    <text x="155" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#F0EBD8">
+      ✓ Free PRP Therapy &amp; 5-Star Lara Hotel
+    </text>
+  </g>
+</svg>

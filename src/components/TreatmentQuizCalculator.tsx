@@ -25,11 +25,17 @@ import {
   isRtlLocale,
 } from "@/data/content";
 import { trackWhatsAppClick } from "@/lib/analytics";
+import {
+  CurrencyConfig,
+  DEFAULT_CURRENCY_CONFIG,
+  formatConvertedPrice,
+} from "@/lib/currency";
 
 interface TreatmentQuizCalculatorProps {
   locale: Locale;
   selectedCity: CityOption;
   onCityChange?: (city: CityOption) => void;
+  currencyConfig?: CurrencyConfig;
 }
 
 type TreatmentCategoryKey =
@@ -47,6 +53,8 @@ interface QuizOption {
 
 const STEP1_TREATMENTS: {
   key: TreatmentCategoryKey;
+  basePriceEur: number;
+  baseComparisonEur: number;
   priceGBP: string;
   priceEUR: string;
   ukEuPrice: string;
@@ -55,6 +63,8 @@ const STEP1_TREATMENTS: {
 }[] = [
   {
     key: "hair",
+    basePriceEur: 1990,
+    baseComparisonEur: 7500,
     priceGBP: "£1,690",
     priceEUR: "€1,990",
     ukEuPrice: "£6,500 / €7,500",
@@ -79,6 +89,8 @@ const STEP1_TREATMENTS: {
   },
   {
     key: "dental",
+    basePriceEur: 2950,
+    baseComparisonEur: 13500,
     priceGBP: "£2,550",
     priceEUR: "€2,950",
     ukEuPrice: "£11,500 / €13,500",
@@ -103,6 +115,8 @@ const STEP1_TREATMENTS: {
   },
   {
     key: "breast",
+    basePriceEur: 2850,
+    baseComparisonEur: 9200,
     priceGBP: "£2,450",
     priceEUR: "€2,850",
     ukEuPrice: "£7,800 / €9,200",
@@ -127,6 +141,8 @@ const STEP1_TREATMENTS: {
   },
   {
     key: "rhinoplasty",
+    basePriceEur: 2490,
+    baseComparisonEur: 8500,
     priceGBP: "£2,150",
     priceEUR: "€2,490",
     ukEuPrice: "£7,200 / €8,500",
@@ -151,6 +167,8 @@ const STEP1_TREATMENTS: {
   },
   {
     key: "other",
+    basePriceEur: 2290,
+    baseComparisonEur: 8000,
     priceGBP: "£1,950",
     priceEUR: "€2,290",
     ukEuPrice: "£6,900 / €8,000",
@@ -792,8 +810,10 @@ export default function TreatmentQuizCalculator({
   locale,
   selectedCity,
   onCityChange,
+  currencyConfig = DEFAULT_CURRENCY_CONFIG,
 }: TreatmentQuizCalculatorProps) {
   const [step, setStep] = useState<number>(1);
+  const { currency, rates } = currencyConfig;
   const [selectedCategory, setSelectedCategory] =
     useState<TreatmentCategoryKey>("hair");
   const [selectedDetailId, setSelectedDetailId] = useState<string>(
@@ -985,7 +1005,11 @@ export default function TreatmentQuizCalculator({
                             {item.label[locale]}
                           </span>
                           <span className="text-xs font-extrabold text-cosmeto-greenDark bg-white px-2.5 py-1 rounded-lg border border-cosmeto-sandBorder shrink-0">
-                            {locale === "en" ? item.priceGBP : item.priceEUR}
+                            {formatConvertedPrice(
+                              item.basePriceEur,
+                              currency,
+                              rates
+                            )}
                           </span>
                         </div>
                         <p className="text-xs text-cosmeto-body mt-1 leading-relaxed">
@@ -1158,14 +1182,20 @@ export default function TreatmentQuizCalculator({
                       </span>
                       <div className="flex items-baseline gap-3 flex-wrap">
                         <span className="text-3xl sm:text-4xl font-extrabold text-cosmeto-green">
-                          {locale === "en"
-                            ? activeTreatment.priceGBP
-                            : activeTreatment.priceEUR}
+                          {formatConvertedPrice(
+                            activeTreatment.basePriceEur,
+                            currency,
+                            rates
+                          )}
                         </span>
                         <span className="text-xs sm:text-sm text-white/70">
                           {copy.typicalHomePriceLabel}{" "}
                           <span className="line-through text-cosmeto-sand">
-                            {activeTreatment.ukEuPrice}
+                            {formatConvertedPrice(
+                              activeTreatment.baseComparisonEur,
+                              currency,
+                              rates
+                            )}
                           </span>
                         </span>
                       </div>

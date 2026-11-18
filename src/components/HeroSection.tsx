@@ -12,19 +12,27 @@ import {
 } from "lucide-react";
 import { Locale, CityOption, SITE_COPY, buildWhatsAppLink } from "@/data/content";
 import { trackWhatsAppClick } from "@/lib/analytics";
+import {
+  CurrencyConfig,
+  DEFAULT_CURRENCY_CONFIG,
+  formatConvertedPrice,
+} from "@/lib/currency";
 
 interface HeroSectionProps {
   locale: Locale;
   selectedCity: CityOption;
   onCityChange: (city: CityOption) => void;
+  currencyConfig?: CurrencyConfig;
 }
 
 export default function HeroSection({
   locale,
   selectedCity,
   onCityChange,
+  currencyConfig = DEFAULT_CURRENCY_CONFIG,
 }: HeroSectionProps) {
   const copy = SITE_COPY[locale];
+  const { currency, rates } = currencyConfig;
 
   return (
     <section className="relative overflow-hidden border-b border-cosmeto-sandBorder bg-cosmeto-sand">
@@ -185,7 +193,7 @@ export default function HeroSection({
                     Hair
                   </span>
                   <span className="font-bold text-sm text-cosmeto-greenDark">
-                    {locale === "en" ? "£1,690" : "€1,990"}
+                    {formatConvertedPrice(1990, currency, rates)}
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-cosmeto-sand/60 border border-cosmeto-sandBorder">
@@ -193,7 +201,7 @@ export default function HeroSection({
                     Dental
                   </span>
                   <span className="font-bold text-sm text-cosmeto-greenDark">
-                    {locale === "en" ? "£2,550" : "€2,950"}
+                    {formatConvertedPrice(2950, currency, rates)}
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-cosmeto-sand/60 border border-cosmeto-sandBorder">
@@ -201,7 +209,7 @@ export default function HeroSection({
                     Aesthetic
                   </span>
                   <span className="font-bold text-sm text-cosmeto-greenDark">
-                    {locale === "en" ? "£1,950" : "€2,290"}
+                    {formatConvertedPrice(2290, currency, rates)}
                   </span>
                 </div>
               </div>

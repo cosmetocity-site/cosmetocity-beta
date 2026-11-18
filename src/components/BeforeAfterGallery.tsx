@@ -73,26 +73,25 @@ export default function BeforeAfterGallery({
         {/* Interactive Split Comparison Viewer */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-3xl p-6 sm:p-8 border-2 border-cosmeto-green/50 shadow-lg mb-10">
           <div className="lg:col-span-7">
-            <div className="relative h-72 sm:h-96 rounded-2xl overflow-hidden select-none border border-cosmeto-sandBorder">
+            <div className="relative h-72 sm:h-96 aspect-[16/11] rounded-2xl overflow-hidden select-none border border-cosmeto-sandBorder bg-cosmeto-charcoal">
               {/* AFTER Image */}
               <img
                 src={currentCase.afterImage}
                 alt="After Treatment"
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
 
               {/* BEFORE Image Clipped */}
               <div
-                className="absolute inset-y-0 left-0 overflow-hidden"
-                style={{ width: `${sliderPosition}%` }}
+                className="absolute inset-0 overflow-hidden"
+                style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
               >
                 <img
                   src={currentCase.beforeImage}
                   alt="Before Treatment"
                   loading="lazy"
-                  className="w-full h-full object-cover max-w-none"
-                  style={{ width: "100%" }}
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
 

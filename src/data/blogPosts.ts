@@ -613,8 +613,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       hospital: "CosmetoCity Antalya Hair Center (Lara / Muratpaşa)",
     },
-    heroImage:
-      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/images/hair-transplant-antalya.svg",
     metaTitle: {
       en: "How Long Does Hair Transplant Recovery Take? Day-by-Day Guide | CosmetoCity",
       de: "Wie lange dauert die Heilung nach einer Haartransplantation? Tag-für-Tag | CosmetoCity",
