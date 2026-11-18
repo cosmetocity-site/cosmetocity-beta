@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const quicksand = Quicksand({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Cosmetocity | UK & Germany Trusted Medical Tourism in Turkey (cosmetocity.online)",
+  title: "CosmetoCity Antalya | Hair, Dental & Medical Aesthetics in Antalya & Istanbul",
   description:
-    "JCI-Accredited Hair Transplant, Dental Treatments & Medical Aesthetics in Istanbul for UK and German patients. 5-Star VIP All-Inclusive Packages.",
+    "CosmetoCity (cosmetocity.online) — Trusted by UK & German patients for Hair Transplant, Hollywood Smile Dental Care & Aesthetic Surgery in sunny Antalya (and Istanbul upon request).",
   metadataBase: new URL("https://cosmetocity.online"),
   openGraph: {
-    title: "Cosmetocity | Hair, Dental & Medical Aesthetics in Istanbul",
+    title: "CosmetoCity Antalya | Medical Tourism & Holiday Recovery in Turkey",
     description:
-      "Save up to 70% on JCI-accredited Hair Transplants, Hollywood Smile & Medical Aesthetics with VIP Hotel & Airport Transfers included.",
+      "Combine world-class Dental, Hair & Aesthetic treatments with a 5-star Mediterranean recovery in Antalya, Turkey. Save up to 70%.",
     url: "https://cosmetocity.online",
-    siteName: "Cosmetocity",
+    siteName: "CosmetoCity",
     type: "website",
   },
 };
@@ -29,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={quicksand.className}>{children}</body>
     </html>
   );
 }

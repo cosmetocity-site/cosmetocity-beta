@@ -9,13 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          dark: "#071923",
-          navy: "#0B2534",
-          teal: "#0D9488",
-          gold: "#C8A46E",
-          goldLight: "#E5CFA8",
-          surface: "#F8FAFC",
+        cosmeto: {
+          green: "#36B729",       // Primary CosmetoCity Brand Green (from cosmetocity.com)
+          greenDark: "#2B9620",   // Hover / Active Green
+          teal: "#378AA0",        // Secondary Deep Teal Accent (from cosmetocity.com)
+          tealDark: "#246476",    // Deep Mediterranean Teal
+          cyan: "#89CDDF",        // Sky Cyan Accent (from cosmetocity.com)
+          ice: "#CEE7ED",         // Pale Ice Blue
+          sand: "#F0EBD8",        // Signature Warm Sandal Cream Background (from cosmetocity.com)
+          sandLight: "#F9F7F0",   // Soft Cream Surface
+          sandBorder: "#E0DAC5",  // Border Sand (from cosmetocity.com)
+          taupe: "#B5AD8F",       // Muted Taupe Accent
+          charcoal: "#2D332F",    // Clean Dark Heading Charcoal
+          body: "#4D4D4D",        // Body Text Color (from cosmetocity.com)
         },
       },
     },
