@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmetocity | Premier Medical Tourism & Aesthetic Excellence in Turkey</title>
+  <meta name="description" content="Cosmetocity Istanbul — International Health Tourism & Luxury Aesthetic Care. Hair Transplant, Hollywood Smile Dental Aesthetics, Plastic Surgery & Bariatric Surgery at JCI-accredited hospitals." />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Cormorant Garamond & Cairo (for Arabic RTL) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-[#FAF8F5] text-slate-800 antialiased selection:bg-[#C8A46E] selection:text-[#071923]">
+
+  <!-- TOP UTILITY BAR -->
+  <div class="bg-[#051118] text-slate-300 text-xs border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-award text-[#C8A46E]"></i>
+        <span data-i18n="topbarTag" class="font-medium">JCI-Accredited Partner Hospitals • 5-Star VIP All-Inclusive Packages in Istanbul</span>
+      </div>
+      <div class="hidden md:flex items-center gap-5">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span data-i18n="topbarSupport">24/7 Multilingual Patient Desk</span>
+        </span>
+        <span class="text-white/20">|</span>
+        <span class="text-slate-300"><i class="fa-solid fa-location-dot text-[#C8A46E] mr-1"></i> Şişli / Nişantaşı, Istanbul</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 glass-nav text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#C8A46E] to-[#9A743E] flex items-center justify-center text-[#071923] font-black text-xl shadow-lg">
+          C
+        </div>
+        <div>
+          <span class="block text-xl font-extrabold tracking-widest text-white group-hover:text-[#E5CFA8] transition">COSMETOCITY</span>
+          <span class="block text-[10px] uppercase tracking-[0.22em] text-[#C8A46E]">Istanbul Medical Excellence</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+        <a href="#treatments" data-i18n="navTreatments" class="hover:text-[#E5CFA8] transition">Treatments</a>
+        <a href="#journey" data-i18n="navJourney" class="hover:text-[#E5CFA8] transition">VIP Journey</a>
+        <a href="#calculator" data-i18n="navCalculator" class="hover:text-[#E5CFA8] transition">Price & Savings</a>
+        <a href="#reviews" data-i18n="navReviews" class="hover:text-[#E5CFA8] transition">Patient Stories</a>
+        <a href="#faq" data-i18n="navFaq" class="hover:text-[#E5CFA8] transition">FAQ</a>
+      </nav>
+
+      <!-- Right Actions: 7-Language Selector + CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Language Dropdown -->
+        <div class="relative">
+          <button id="lang-dropdown-btn" type="button"
+            class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-sm text-white transition">
+            <span id="current-lang-display" class="flex items-center gap-1.5">🇬🇧 EN</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-[#C8A46E]"></i>
+          </button>
+
+          <!-- 7-Language Dropdown Menu -->
+          <div id="lang-dropdown-menu"
+            class="hidden absolute right-0 mt-2 w-56 rounded-2xl bg-[#071923] border border-[#C8A46E]/30 shadow-2xl p-2 z-50 space-y-1">
+            <div id="lang-dropdown-list" class="space-y-1"></div>
+          </div>
+        </div>
+
+        <!-- Primary Nav CTA -->
+        <a href="#consultation"
+          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl gold-btn text-[#071923] font-bold text-sm shadow-md">
+          <i class="fa-solid fa-stethoscope"></i>
+          <span data-i18n="navCta">Free Medical Quote</span>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" type="button"
+          class="lg:hidden w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu-panel" class="hidden lg:hidden bg-[#071923] border-t border-white/10 px-6 py-5 space-y-3 text-sm">
+      <a href="#treatments" data-i18n="navTreatments" class="block py-2 text-slate-200 hover:text-[#E5CFA8]">Treatments</a>
+      <a href="#journey" data-i18n="navJourney" class="block py-2 text-slate-200 hover:text-[#E5CFA8]">VIP Journey</a>
+      <a href="#calculator" data-i18n="navCalculator" class="block py-2 text-slate-200 hover:text-[#E5CFA8]">Price & Savings</a>
+      <a href="#reviews" data-i18n="navReviews" class="block py-2 text-slate-200 hover:text-[#E5CFA8]">Patient Stories</a>
+      <a href="#faq" data-i18n="navFaq" class="block py-2 text-slate-200 hover:text-[#E5CFA8]">FAQ</a>
+      <a href="#consultation" data-i18n="navCta" class="block text-center py-3 rounded-xl gold-btn text-[#071923] font-bold mt-2">Free Medical Quote</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-gradient text-white relative overflow-hidden py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+        <!-- Left Column: Hero Messaging & Trust Counters -->
+        <div class="lg:col-span-7 space-y-7">
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-[#C8A46E]/40 text-[#E5CFA8] text-xs font-bold tracking-widest uppercase">
+            <i class="fa-solid fa-shield-heart"></i>
+            <span data-i18n="heroBadge">INTERNATIONAL HEALTH & AESTHETIC CONCIERGE</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight">
+            <span data-i18n="heroTitle1" class="block text-white">World-Class Medical Artistry,</span>
+            <span data-i18n="heroTitle2" class="block gold-gradient-text font-serif-luxury italic mt-1">5-Star Turkish Hospitality.</span>
+          </h1>
+
+          <p data-i18n="heroSubtitle" class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+            Experience transformative Hair Restoration, Hollywood Smile Design, Plastic Surgery, and Bariatric Care at JCI-accredited hospitals in Istanbul—with VIP airport transfers, luxury hotel stays, and personal translators included.
+          </p>
+
+          <!-- Hero Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#consultation"
+              class="px-7 py-4 rounded-2xl gold-btn text-[#071923] font-extrabold text-sm sm:text-base flex items-center gap-3 shadow-xl">
+              <span data-i18n="heroCtaPrimary">Get Your Free Treatment Plan</span>
+              <i class="fa-solid fa-arrow-right rtl-flip"></i>
+            </a>
+            <a href="#treatments"
+              class="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base transition flex items-center gap-2.5">
+              <i class="fa-solid fa-compass text-[#C8A46E]"></i>
+              <span data-i18n="heroCtaSecondary">Explore Procedures</span>
+            </a>
+          </div>
+
+          <!-- Key Trust Metrics -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
+            <div>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#E5CFA8]">15,000+</span>
+              <span data-i18n="statPatients" class="text-xs text-slate-300">International Patients</span>
+            </div>
+            <div>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#E5CFA8]">99.2%</span>
+              <span data-i18n="statSatisfaction" class="text-xs text-slate-300">Patient Satisfaction</span>
+            </div>
+            <div>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#E5CFA8]">45+</span>
+              <span data-i18n="statSurgeons" class="text-xs text-slate-300">Board-Certified Surgeons</span>
+            </div>
+            <div>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#E5CFA8]">7 Langs</span>
+              <span data-i18n="statSupport" class="text-xs text-slate-300">Personal Interpreter Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Instant Treatment & Package Finder Card -->
+        <div class="lg:col-span-5">
+          <div class="glass-panel rounded-3xl p-7 sm:p-8 shadow-2xl border border-[#C8A46E]/30">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30">
+                <i class="fa-solid fa-bolt mr-1"></i> Fast-Track Assessment
+              </span>
+              <span class="text-xs text-[#E5CFA8] font-semibold">JCI Approved</span>
+            </div>
+
+            <h2 data-i18n="quickBoxTitle" class="text-2xl font-bold text-white mb-1.5">Instant Treatment & Package Finder</h2>
+            <p data-i18n="quickBoxSubtitle" class="text-xs sm:text-sm text-slate-300 mb-6">
+              Select your desired procedure to get an all-inclusive estimate within 15 minutes.
+            </p>
+
+            <form id="quick-finder-form" class="space-y-4">
+              <div>
+                <label data-i18n="quickCategoryLabel" class="block text-xs font-semibold uppercase tracking-wider text-[#E5CFA8] mb-1.5">
+                  Treatment Category
+                </label>
+                <select id="quick-category-select"
+                  class="w-full px-4 py-3 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]">
+                  <option value="all" class="bg-[#0B2534]">All Specialties (Hair, Dental, Plastic, Bariatric)</option>
+                  <option value="hair" data-i18n="catHair" class="bg-[#0B2534]">Hair Transplant</option>
+                  <option value="dental" data-i18n="catDental" class="bg-[#0B2534]">Dental Aesthetics</option>
+                  <option value="plastic" data-i18n="catPlastic" class="bg-[#0B2534]">Plastic Surgery</option>
+                  <option value="bariatric" data-i18n="catBariatric" class="bg-[#0B2534]">Bariatric Surgery</option>
+                </select>
+              </div>
+
+              <div>
+                <label data-i18n="quickProcedureLabel" class="block text-xs font-semibold uppercase tracking-wider text-[#E5CFA8] mb-1.5">
+                  Specific Procedure
+                </label>
+                <select id="quick-procedure-select"
+                  class="w-full px-4 py-3 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]">
+                </select>
+              </div>
+
+              <div>
+                <label data-i18n="quickPhoneLabel" class="block text-xs font-semibold uppercase tracking-wider text-[#E5CFA8] mb-1.5">
+                  WhatsApp / Phone Number
+                </label>
+                <input id="quick-phone-input" type="tel" placeholder="+44 / +49 / +34 / +966 ..."
+                  class="w-full px-4 py-3 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm placeholder-slate-400 focus:outline-none focus:border-[#C8A46E]" />
+              </div>
+
+              <button type="submit"
+                class="w-full py-4 rounded-xl gold-btn text-[#071923] font-extrabold text-sm tracking-wide shadow-lg flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-medical"></i>
+                <span data-i18n="quickSubmitBtn">Request Free Doctor Assessment</span>
+              </button>
+
+              <p class="text-center text-[11px] text-slate-300 pt-1">
+                <i class="fa-solid fa-lock text-[#C8A46E] mr-1"></i>
+                <span data-i18n="quickGuarantee">100% Free & Confidential • Response in 7 Languages</span>
+              </p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CORE TREATMENT PILLARS SECTION -->
+  <section id="treatments" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span data-i18n="treatmentsBadge" class="inline-block px-3.5 py-1 rounded-full bg-[#0B2534]/10 text-[#0B2534] text-xs font-extrabold tracking-widest uppercase mb-3">
+        OUR MEDICAL SPECIALTIES
+      </span>
+      <h2 data-i18n="treatmentsTitle" class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+        Four Pillars of Aesthetic & Medical Excellence
+      </h2>
+      <p data-i18n="treatmentsSubtitle" class="text-slate-600 text-base">
+        Every procedure is performed by internationally accredited specialists in high-tech operating suites using FDA & CE approved materials.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div id="treatment-tabs" class="flex flex-wrap items-center justify-center gap-3 mb-10"></div>
+
+    <!-- Dynamic Procedures Grid -->
+    <div id="treatments-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+  </section>
+
+  <!-- ALL-INCLUSIVE VIP PACKAGE INCLUSIONS -->
+  <section class="bg-[#071923] text-white py-20 border-y border-[#C8A46E]/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span data-i18n="includedBadge" class="text-xs font-extrabold tracking-widest uppercase text-[#C8A46E] block mb-2">
+          ALL-INCLUSIVE VIP STANDARD
+        </span>
+        <h2 data-i18n="includedTitle" class="text-3xl sm:text-4xl font-extrabold text-white">
+          What Is Included in Every Cosmetocity Package?
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-[#C8A46E]/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-[#C8A46E]/20 text-[#E5CFA8] flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-hospital-user"></i>
+          </div>
+          <h3 data-i18n="inc1Title" class="text-lg font-bold text-white mb-2">JCI Hospital & Surgeon Fees</h3>
+          <p data-i18n="inc1Desc" class="text-sm text-slate-300 leading-relaxed">
+            Pre-op blood tests, cardiology screening, anesthesia, and procedure in accredited hospitals.
+          </p>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-[#C8A46E]/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-[#C8A46E]/20 text-[#E5CFA8] flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-hotel"></i>
+          </div>
+          <h3 data-i18n="inc2Title" class="text-lg font-bold text-white mb-2">5-Star Luxury Hotel Stay</h3>
+          <p data-i18n="inc2Desc" class="text-sm text-slate-300 leading-relaxed">
+            Accommodation at partner 5-star hotels in central Istanbul with breakfast and recovery comfort.
+          </p>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-[#C8A46E]/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-[#C8A46E]/20 text-[#E5CFA8] flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-car-side"></i>
+          </div>
+          <h3 data-i18n="inc3Title" class="text-lg font-bold text-white mb-2">VIP Mercedes Airport Transfers</h3>
+          <p data-i18n="inc3Desc" class="text-sm text-slate-300 leading-relaxed">
+            Private chauffeur service between airport, hotel, and clinic in luxury VIP vehicles.
+          </p>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-[#C8A46E]/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-[#C8A46E]/20 text-[#E5CFA8] flex items-center justify-center text-xl mb-5">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <h3 data-i18n="inc4Title" class="text-lg font-bold text-white mb-2">Dedicated Native Interpreter</h3>
+          <p data-i18n="inc4Desc" class="text-sm text-slate-300 leading-relaxed">
+            1-on-1 host speaking English, German, Russian, Spanish, Arabic, French, or Italian.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-STEP VIP PATIENT JOURNEY -->
+  <section id="journey" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span data-i18n="journeyBadge" class="inline-block px-3.5 py-1 rounded-full bg-[#0B2534]/10 text-[#0B2534] text-xs font-extrabold tracking-widest uppercase mb-3">
+        SEAMLESS PATIENT EXPERIENCE
+      </span>
+      <h2 data-i18n="journeyTitle" class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3">
+        Your 5-Step VIP Medical Journey
+      </h2>
+      <p data-i18n="journeySubtitle" class="text-slate-600 text-base">
+        From your first online video consultation to 12 months of post-operative follow-up, we orchestrate every detail.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative">
+        <span class="w-10 h-10 rounded-xl bg-[#0B2534] text-[#E5CFA8] font-extrabold flex items-center justify-center mb-4">01</span>
+        <h3 data-i18n="step1Title" class="font-bold text-slate-900 mb-2">Free Online Consultation</h3>
+        <p data-i18n="step1Desc" class="text-xs text-slate-600 leading-relaxed">
+          Send your photos or medical records for a complimentary surgeon evaluation and transparent all-inclusive quote.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative">
+        <span class="w-10 h-10 rounded-xl bg-[#0B2534] text-[#E5CFA8] font-extrabold flex items-center justify-center mb-4">02</span>
+        <h3 data-i18n="step2Title" class="font-bold text-slate-900 mb-2">Flight & VIP Welcome</h3>
+        <p data-i18n="step2Desc" class="text-xs text-slate-600 leading-relaxed">
+          Land in Istanbul where your personal chauffeur greets you at the gate and drives you to your 5-star hotel.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative">
+        <span class="w-10 h-10 rounded-xl bg-[#0B2534] text-[#E5CFA8] font-extrabold flex items-center justify-center mb-4">03</span>
+        <h3 data-i18n="step3Title" class="font-bold text-slate-900 mb-2">In-Person Diagnostics & 3D Planning</h3>
+        <p data-i18n="step3Desc" class="text-xs text-slate-600 leading-relaxed">
+          Comprehensive blood tests, 3D digital simulations, and face-to-face consultation with your chief surgeon.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative">
+        <span class="w-10 h-10 rounded-xl bg-[#0B2534] text-[#E5CFA8] font-extrabold flex items-center justify-center mb-4">04</span>
+        <h3 data-i18n="step4Title" class="font-bold text-slate-900 mb-2">World-Class Procedure</h3>
+        <p data-i18n="step4Desc" class="text-xs text-slate-600 leading-relaxed">
+          Your treatment is carried out using minimally invasive techniques in a JCI-certified hospital.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative">
+        <span class="w-10 h-10 rounded-xl bg-[#C8A46E] text-[#071923] font-extrabold flex items-center justify-center mb-4">05</span>
+        <h3 data-i18n="step5Title" class="font-bold text-slate-900 mb-2">Check-Up & 1-Year Aftercare</h3>
+        <p data-i18n="step5Desc" class="text-xs text-slate-600 leading-relaxed">
+          Final medical check, aftercare kit, fit-to-fly certificate, and 12-month remote monitoring by our medical board.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PRICE & SAVINGS COMPARISON CALCULATOR -->
+  <section id="calculator" class="py-20 bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span data-i18n="calcBadge" class="text-xs font-extrabold tracking-widest uppercase text-[#C8A46E] block mb-2">
+          TRANSPARENT VALUE COMPARISON
+        </span>
+        <h2 data-i18n="calcTitle" class="text-3xl sm:text-4xl font-extrabold mb-3">
+          Save Up to 70% Without Compromising Quality
+        </h2>
+        <p data-i18n="calcSubtitle" class="text-slate-300 text-sm sm:text-base">
+          Select a procedure below to compare typical EU / UK / US private clinic costs against Cosmetocity's all-inclusive VIP packages.
+        </p>
+      </div>
+
+      <div class="glass-panel rounded-3xl p-7 sm:p-10 border border-[#C8A46E]/30">
+        <div class="max-w-xl mx-auto mb-8">
+          <label data-i18n="calcSelectLabel" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">
+            Choose Procedure to Compare:
+          </label>
+          <select id="calc-procedure-select"
+            class="w-full px-4 py-3.5 rounded-xl bg-[#071923] border border-[#C8A46E]/50 text-white font-semibold text-base focus:outline-none">
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <!-- UK / EU / US Price -->
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6 flex flex-col justify-between">
+            <div>
+              <span data-i18n="calcEuPrice" class="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-2">
+                Typical UK / EU / US Clinic Price
+              </span>
+              <div id="calc-eu-price" class="text-3xl font-extrabold text-slate-300 line-through">€7,500</div>
+            </div>
+            <p data-i18n="calcEuNote" class="text-xs text-slate-400 mt-4">
+              Procedure only (excludes hotel, transfers & medications)
+            </p>
+          </div>
+
+          <!-- Cosmetocity VIP Price -->
+          <div class="rounded-2xl bg-gradient-to-br from-[#0F384C] to-[#071923] border-2 border-[#C8A46E] p-6 flex flex-col justify-between shadow-xl">
+            <div>
+              <span data-i18n="calcCosmetoPrice" class="text-xs uppercase tracking-wider text-[#E5CFA8] font-bold block mb-2">
+                Cosmetocity All-Inclusive VIP Package
+              </span>
+              <div id="calc-cosmeto-price" class="text-4xl font-black text-white">€2,150</div>
+            </div>
+            <p data-i18n="calcCosmetoNote" class="text-xs text-[#E5CFA8] mt-4">
+              Includes Surgery + 5-Star Hotel + VIP Transfers + Interpreter + Aftercare
+            </p>
+          </div>
+
+          <!-- Total Savings -->
+          <div class="rounded-2xl bg-emerald-950/50 border border-emerald-500/40 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span data-i18n="calcSavingsLabel" class="text-xs uppercase tracking-wider text-emerald-300 font-bold">
+                  Your Estimated Savings
+                </span>
+                <span id="calc-savings-pct" class="px-2.5 py-0.5 rounded-full bg-emerald-500 text-[#071923] font-extrabold text-xs">-71%</span>
+              </div>
+              <div id="calc-savings-amount" class="text-3xl font-extrabold text-emerald-400">€5,350</div>
+            </div>
+
+            <button id="calc-lock-btn" type="button"
+              class="mt-5 w-full py-3 rounded-xl gold-btn text-[#071923] font-extrabold text-xs uppercase tracking-wider">
+              <span data-i18n="calcCtaBtn">Lock In This Package Price</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFIED PATIENT STORIES -->
+  <section id="reviews" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span data-i18n="reviewsBadge" class="inline-block px-3.5 py-1 rounded-full bg-[#0B2534]/10 text-[#0B2534] text-xs font-extrabold tracking-widest uppercase mb-3">
+        VERIFIED PATIENT STORIES
+      </span>
+      <h2 data-i18n="reviewsTitle" class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3">
+        Trusted by Over 15,000 Patients Worldwide
+      </h2>
+      <p data-i18n="reviewsSubtitle" class="text-slate-600 text-base">
+        Real experiences from international patients who chose Cosmetocity Istanbul for their transformation.
+      </p>
+    </div>
+
+    <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-7"></div>
+  </section>
+
+  <!-- FAQ ACCORDION SECTION -->
+  <section id="faq" class="py-16 bg-slate-100/80 border-t border-slate-200/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span data-i18n="faqBadge" class="inline-block px-3.5 py-1 rounded-full bg-[#0B2534]/10 text-[#0B2534] text-xs font-extrabold tracking-widest uppercase mb-3">
+          FREQUENTLY ASKED QUESTIONS
+        </span>
+        <h2 data-i18n="faqTitle" class="text-3xl font-extrabold text-slate-900">
+          Everything You Need to Know Before Travelling
+        </h2>
+      </div>
+
+      <div id="faq-accordion" class="space-y-4"></div>
+    </div>
+  </section>
+
+  <!-- FREE MEDICAL CONSULTATION & WHATSAPP LEAD CAPTURE SECTION -->
+  <section id="consultation" class="py-20 hero-gradient text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-[#C8A46E]/40 shadow-2xl">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span data-i18n="formBadge" class="text-xs font-extrabold tracking-widest uppercase text-[#C8A46E] block mb-2">
+            FREE MEDICAL CONSULTATION
+          </span>
+          <h2 data-i18n="formTitle" class="text-3xl sm:text-4xl font-extrabold text-white mb-3">
+            Start Your Transformation Today
+          </h2>
+          <p data-i18n="formSubtitle" class="text-slate-300 text-sm sm:text-base">
+            Fill out the form below. Our medical coordinators will contact you in your native language with a personalized treatment plan.
+          </p>
+        </div>
+
+        <form id="main-consultation-form" class="space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label data-i18n="formName" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">Full Name</label>
+              <input id="form-name" type="text" required placeholder="John Doe"
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]" />
+            </div>
+
+            <div>
+              <label data-i18n="formCountry" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">Country</label>
+              <input id="form-country" type="text" required placeholder="United Kingdom / Germany / France..."
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label data-i18n="formPhone" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">WhatsApp / Phone (with country code)</label>
+              <input id="form-phone" type="tel" required placeholder="+44 7700 900000"
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]" />
+            </div>
+
+            <div>
+              <label data-i18n="formEmail" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">Email Address</label>
+              <input id="form-email" type="email" placeholder="patient@example.com"
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label data-i18n="formCategory" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">Desired Treatment</label>
+              <select id="form-treatment-select"
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]">
+              </select>
+            </div>
+
+            <div>
+              <label data-i18n="formLanguage" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">Preferred Consultation Language</label>
+              <select id="form-language-select"
+                class="w-full px-4 py-3.5 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]">
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label data-i18n="formNotes" class="block text-xs font-bold uppercase tracking-wider text-[#E5CFA8] mb-2">
+              Tell us about your goals or medical questions (Optional)
+            </label>
+            <textarea id="form-notes" rows="3"
+              class="w-full px-4 py-3 rounded-xl bg-[#071923]/90 border border-white/20 text-white text-sm focus:outline-none focus:border-[#C8A46E]"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <button type="submit"
+              class="w-full py-4 rounded-xl gold-btn text-[#071923] font-extrabold text-sm tracking-wide flex items-center justify-center gap-2 shadow-xl">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span data-i18n="formSubmit">Send Free Assessment Request</span>
+            </button>
+
+            <a id="form-whatsapp-direct" href="https://wa.me/905000000000" target="_blank" rel="noopener noreferrer"
+              class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm tracking-wide flex items-center justify-center gap-2 shadow-xl transition">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+              <span data-i18n="formWhatsappBtn">Instant WhatsApp Consultation</span>
+            </a>
+          </div>
+        </form>
+
+        <!-- Submission Confirmation Alert -->
+        <div id="form-success-banner" class="hidden mt-6 p-6 rounded-2xl bg-emerald-950/90 border border-emerald-400/50 text-emerald-100">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-check text-2xl text-emerald-400 mt-0.5"></i>
+            <div>
+              <h4 data-i18n="formSuccessTitle" class="font-bold text-white text-base mb-1">
+                Your Consultation Request Has Been Received!
+              </h4>
+              <p data-i18n="formSuccessText" class="text-xs sm:text-sm text-emerald-200 leading-relaxed">
+                A dedicated patient coordinator speaking your language will reach out to you shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#040E14] text-slate-400 py-14 border-t border-white/10 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-[#C8A46E] flex items-center justify-center text-[#071923] font-black text-lg">C</div>
+            <span class="text-lg font-extrabold tracking-widest text-white">COSMETOCITY</span>
+          </div>
+          <p data-i18n="footerDesc" class="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-md">
+            Turkey's premier international medical tourism agency connecting patients worldwide with JCI-accredited hospitals, elite surgeons, and 5-star luxury care.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-[#E5CFA8]">
+            <span>🇬🇧 EN</span> • <span>🇩🇪 DE</span> • <span>🇷🇺 RU</span> • <span>🇪🇸 ES</span> • <span>🇸🇦 AR</span> • <span>🇫🇷 FR</span> • <span>🇮🇹 IT</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 data-i18n="footerQuickLinks" class="text-white font-bold uppercase tracking-wider text-xs mb-4">Quick Navigation</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#treatments" data-i18n="navTreatments" class="hover:text-[#E5CFA8] transition">Treatments</a></li>
+            <li><a href="#journey" data-i18n="navJourney" class="hover:text-[#E5CFA8] transition">VIP Journey</a></li>
+            <li><a href="#calculator" data-i18n="navCalculator" class="hover:text-[#E5CFA8] transition">Price & Savings</a></li>
+            <li><a href="#reviews" data-i18n="navReviews" class="hover:text-[#E5CFA8] transition">Patient Stories</a></li>
+            <li><a href="#faq" data-i18n="navFaq" class="hover:text-[#E5CFA8] transition">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="footerContact" class="text-white font-bold uppercase tracking-wider text-xs mb-4">International Patient Desk</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-[#C8A46E]"></i> Halaskargazi Cd., Şişli / Istanbul, Turkey</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-[#C8A46E]"></i> info@cosmetocity.com</li>
+            <li class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> 24/7 WhatsApp Medical Concierge</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-white/10 text-center text-xs text-slate-500">
+        <p data-i18n="footerRights">© 2026 Cosmetocity Health Tourism Istanbul. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP CONCIERGE BUTTON -->
+  <a href="#consultation"
+    aria-label="WhatsApp Medical Concierge"
+    class="whatsapp-float fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center text-2xl shadow-2xl transition">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -20,3 +20,8 @@ Modern, ultra-fast, mobile-first Next.js & Tailwind CSS web platform built for *
 4. **Why UK & German Patients Choose Antalya (`#why-antalya`) + Istanbul Option Callout**
 5. **Verified UK & Germany Patient Testimonials (`#reviews`)**
 6. **Sticky "WhatsApp'tan Bilgi Al" Button (`+90 552 602 2489`)**
+7. **Question-Focused Medical SEO Blog (`/blog` & `/blog/[slug]`):**
+   - **First Flagship Guide:** `/blog/is-breast-augmentation-painful-complete-recovery-guide` (*"Is Breast Augmentation Painful? Complete Recovery Guide"*)
+   - **Featured Snippet Direct Answers:** 2–3 sentence empathetic clinical summary boxes immediately below H1 and every H2 question.
+   - **Automatic `FAQPage` & `MedicalWebPage` JSON-LD Schema:** Server-rendered and dynamically localized (🇬🇧 EN / 🇩🇪 DE / 🇹🇷 TR) for Google Rich Results.
+   - **High-Converting WhatsApp CTAs:** Non-intrusive mid-article and bottom-of-article consultation boxes linking directly to the medical coordinator line.
