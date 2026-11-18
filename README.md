@@ -24,6 +24,7 @@ Modern, ultra-fast, mobile-first Next.js & Tailwind CSS web platform built for *
    - **Breast Aesthetics Guide:** `/blog/is-breast-augmentation-painful-complete-recovery-guide` (*"Is Breast Augmentation Painful? Complete Recovery Guide"*)
    - **Hair Transplant Guide:** `/blog/how-long-does-hair-transplant-recovery-take-day-by-day-guide` (*"How Long Does Hair Transplant Recovery Take? Complete Day-by-Day & Month-by-Month Guide"*)
    - **Dental Veneers Guide:** `/blog/do-dental-veneers-ruin-your-natural-teeth-hollywood-smile-guide` (*"Do Dental Veneers Ruin Your Natural Teeth? The Truth About Swiss E-Max Veneers vs. Crowns"*)
+   - **Rhinoplasty Flight & Recovery Guide:** `/blog/when-can-i-fly-home-after-rhinoplasty-in-turkey` (*"When Can I Fly Home After Rhinoplasty in Turkey? Complete Antalya Recovery, Pain & Swelling Guide"*)
    - **Featured Snippet Direct Answers:** 2–3 sentence empathetic clinical summary boxes immediately below H1 and every H2 question.
    - **Automatic `FAQPage` & `MedicalWebPage` JSON-LD Schema:** Server-rendered and dynamically localized (🇬🇧 EN / 🇩🇪 DE / 🇹🇷 TR) for Google Rich Results.
    - **High-Converting WhatsApp CTAs:** Non-intrusive mid-article and bottom-of-article consultation boxes linking directly to the medical coordinator line.

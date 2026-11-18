@@ -280,6 +280,25 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
                     ))}
                   </div>
 
+                  {/* Optional H3 Subsections for Clinical Depth */}
+                  {section.subSections && section.subSections.length > 0 && (
+                    <div className="space-y-4 pt-1">
+                      {section.subSections.map((sub, sIdx) => (
+                        <div
+                          key={sIdx}
+                          className="p-4 sm:p-5 rounded-2xl bg-cosmeto-sandLight/70 border border-cosmeto-sandBorder space-y-2"
+                        >
+                          <h3 className="text-base sm:text-lg font-bold text-cosmeto-charcoal leading-snug">
+                            {sub.heading[locale]}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-cosmeto-body leading-relaxed">
+                            {sub.text[locale]}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Optional Bullet Points */}
                   {section.bulletPoints && section.bulletPoints[locale] && (
                     <ul className="grid grid-cols-1 gap-2.5 pt-2">
@@ -331,6 +350,25 @@ export default function BlogArticleClient({ post }: BlogArticleClientProps) {
             selectedCity={selectedCity}
             variant="bottom"
           />
+
+          {/* Bottom Medical Trust & Clinical Review Verification Box */}
+          <div className="my-8 rounded-2xl bg-white border border-cosmeto-green/40 p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-cosmeto-green/15 text-cosmeto-green flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm sm:text-base font-bold text-cosmeto-charcoal">
+                {ui.medicalTeamReviewedTitle}
+              </p>
+              <p className="text-xs sm:text-sm text-cosmeto-body leading-relaxed">
+                {ui.medicalTeamReviewedNote}
+              </p>
+              <p className="text-xs font-semibold text-cosmeto-teal pt-0.5">
+                {post.medicalReviewer.name} • {post.medicalReviewer.hospital} •{" "}
+                {ui.lastUpdated}: {post.updatedAt}
+              </p>
+            </div>
+          </div>
 
           {/* Related High-Intent Patient Guides (Internal SEO Linking) */}
           <section className="mt-12 pt-10 border-t border-cosmeto-sandBorder space-y-6">

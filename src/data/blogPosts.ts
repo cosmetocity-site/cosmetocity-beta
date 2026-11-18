@@ -1,10 +1,16 @@
 import { Locale, CityOption, WHATSAPP_NUMBER } from "./content";
 
+export interface BlogSubSection {
+  heading: Record<Locale, string>; // H3 subheading
+  text: Record<Locale, string>;
+}
+
 export interface BlogQuestionSection {
   id: string;
   question: Record<Locale, string>; // H2 question
   directAnswer: Record<Locale, string>; // 2-3 sentence direct snippet answer
   details: Record<Locale, string[]>; // Detailed clinical paragraphs
+  subSections?: BlogSubSection[]; // Optional H3 clinical breakdown subheadings
   bulletPoints?: Record<Locale, string[]>; // Optional actionable clinical bullet points
   tipBox?: {
     title: Record<Locale, string>;
@@ -91,6 +97,8 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: string;
     relatedQuestionsTitle: string;
     replyTimeNote: string;
+    medicalTeamReviewedTitle: string;
+    medicalTeamReviewedNote: string;
   }
 > = {
   en: {
@@ -98,7 +106,7 @@ export const BLOG_UI_COPY: Record<
     blogHeaderBadge: "EVIDENCE-BASED PATIENT GUIDES • UK & GERMANY DESK",
     blogHeaderTitle: "Most Asked Medical Tourism Questions, Answered by Surgeons",
     blogHeaderSubtitle:
-      "Clear, empathetic, and medically accurate recovery guides for Hair Transplants, Breast Aesthetics, and Hollywood Smile procedures in sunny Antalya (and Istanbul).",
+      "Clear, empathetic, and medically accurate recovery guides for Hair Transplants, Rhinoplasty, Breast Aesthetics, and Hollywood Smile procedures in sunny Antalya (and Istanbul).",
     readArticleBtn: "Read Complete Recovery Guide",
     backToBlog: "← All Medical Guides",
     backToHome: "CosmetoCity Home",
@@ -114,13 +122,16 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Google FAQPage Verified Structure",
     relatedQuestionsTitle: "More High-Intent Patient Guides",
     replyTimeNote: "Direct WhatsApp line • Average response under 5 minutes • English & German Coordinators",
+    medicalTeamReviewedTitle: "Reviewed by the Cosmetocity Medical Team",
+    medicalTeamReviewedNote:
+      "Cosmetocity Medikal Ekibi tarafından incelenmiştir • Clinical accuracy verified against current international health tourism & surgical safety standards in Antalya.",
   },
   de: {
     blogNavLabel: "Medizinischer Ratgeber",
     blogHeaderBadge: "ÄRZTLICH GEPRÜFTE RATGEBER • PATIENTEN AUS DEUTSCHLAND & UK",
     blogHeaderTitle: "Die häufigsten Patientenfragen – direkt von Fachärzten beantwortet",
     blogHeaderSubtitle:
-      "Transparente, einfühlsame und medizinisch fundierte Heilungsleitfäden für Brustästhetik, Haartransplantation und Hollywood Smile im sonnigen Antalya (und Istanbul).",
+      "Transparente, einfühlsame und medizinisch fundierte Heilungsleitfäden für Nasenkorrektur, Brustästhetik, Haartransplantation und Hollywood Smile im sonnigen Antalya (und Istanbul).",
     readArticleBtn: "Kompletten Heilungsratgeber lesen",
     backToBlog: "← Alle Medizinischen Ratgeber",
     backToHome: "CosmetoCity Startseite",
@@ -136,13 +147,16 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Strukturierte FAQ-Daten",
     relatedQuestionsTitle: "Weitere häufige Patientenfragen",
     replyTimeNote: "Direkter WhatsApp-Kontakt • Antwort in unter 5 Minuten • Deutsch- & Englischsprachige Koordinatoren",
+    medicalTeamReviewedTitle: "Geprüft vom Cosmetocity Ärzteteam",
+    medicalTeamReviewedNote:
+      "Cosmetocity Medikal Ekibi tarafından incelenmiştir • Medizinische Inhalte nach aktuellen klinischen Sicherheitsstandards in Antalya fachärztlich geprüft.",
   },
   tr: {
     blogNavLabel: "Medikal Blog & SSS",
     blogHeaderBadge: "CERRAH ONAYLI HASTA REHBERLERİ • UK & ALMANYA MASASI",
     blogHeaderTitle: "Uluslararası Hastaların En Çok Arattığı Sorular ve Net Tıbbi Cevaplar",
     blogHeaderSubtitle:
-      "Antalya (ve İstanbul) merkezlerimizde Meme Estetiği, Saç Ekimi ve Diş Estetiği süreçleri hakkında doğrudan, empatik ve bilimsel iyileşme rehberleri.",
+      "Antalya (ve İstanbul) merkezlerimizde Rinoplasti, Meme Estetiği, Saç Ekimi ve Diş Estetiği süreçleri hakkında doğrudan, empatik ve bilimsel iyileşme rehberleri.",
     readArticleBtn: "İyileşme Rehberinin Tamamını Oku",
     backToBlog: "← Tüm Medikal Rehberler",
     backToHome: "CosmetoCity Ana Sayfa",
@@ -158,6 +172,9 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Google FAQPage Yapısal Veri Uyumlu",
     relatedQuestionsTitle: "Diğer Merak Edilen Medikal Rehberler",
     replyTimeNote: "Doğrudan WhatsApp Hattı • 5 dakikadan kısa sürede yanıt • İngilizce, Almanca ve Türkçe Koordinatörler",
+    medicalTeamReviewedTitle: "Cosmetocity Medikal Ekibi tarafından incelenmiştir",
+    medicalTeamReviewedNote:
+      "Bu medikal rehber, Antalya'daki uluslararası sağlık turizmi ve güncel cerrahi güvenlik protokolleri doğrultusunda uzman hekimlerimizce doğrulanmıştır.",
   },
 };
 
@@ -1158,6 +1175,417 @@ export const BLOG_POSTS: BlogPost[] = [
         en: "Hollywood Smile Swiss E-Max Veneers All-Inclusive Package Quote",
         de: "Hollywood Smile Schweizer E-Max Veneers All-Inclusive Angebot",
         tr: "Hollywood Smile İsviçre E-Max Yaprak Porselen Paket Fiyatı",
+      },
+    },
+  },
+  {
+    slug: "when-can-i-fly-home-after-rhinoplasty-in-turkey",
+    category: "aesthetic",
+    categoryLabel: {
+      en: "Rhinoplasty & Facial Aesthetics",
+      de: "Nasenkorrektur & Gesichtsästhetik",
+      tr: "Rinoplasti & Burun Estetiği",
+    },
+    publishedAt: "2026-11-19",
+    updatedAt: "2026-11-19",
+    readingTime: {
+      en: "8 min read",
+      de: "8 Min. Lesezeit",
+      tr: "8 dk okuma",
+    },
+    medicalReviewer: {
+      name: "Op. Dr. Emre Karahan, MD, EBOPRAS — Cosmetocity Medical Team",
+      title: {
+        en: "Senior Ultrasonic Piezo Rhinoplasty & Facial Plastic Surgeon",
+        de: "Facharzt für Ultraschall-Piezo-Rhinoplastik & Gesichtschirurgie",
+        tr: "Ultrasonik Piezo Rinoplasti ve Yüz Estetik Cerrahisi Uzmanı",
+      },
+      hospital: "OFM Antalya Accredited Hospital (Lara / Muratpaşa)",
+    },
+    heroImage:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=85",
+    metaTitle: {
+      en: "When Can I Fly Home After Rhinoplasty in Turkey? Antalya Recovery Guide | CosmetoCity",
+      de: "Wann darf ich nach einer Nasenkorrektur in der Türkei zurückfliegen? | CosmetoCity",
+      tr: "Türkiye'de Burun Estetiği (Rinoplasti) Sonrası Ne Zaman Uçağa Binilebilir? | CosmetoCity",
+    },
+    metaDescription: {
+      en: "When can I fly home after rhinoplasty in Turkey? Learn why 7 days in Antalya is medically ideal, how Ultrasonic Piezo minimizes pain and bruising, and how to fly safely.",
+      de: "Wann darf ich nach einer Nasenkorrektur in der Türkei fliegen? Alles über den 7-Tage-Plan in Antalya, schmerzarme Piezo-Technik, Gipsentfernung und sicheren Rückflug.",
+      tr: "Türkiye'de rinoplasti sonrası ne zaman uçağa binilebilir? Antalya'da 7 günlük iyileşme süreci, ağrısız ultrasonik piezo tekniği, kabin basıncı ve uçuş güvenliği rehberi.",
+    },
+    h1Question: {
+      en: "When Can I Fly Home After Rhinoplasty in Turkey?",
+      de: "Wann darf ich nach einer Nasenkorrektur in der Türkei zurückfliegen?",
+      tr: "Türkiye'de Burun Estetiği (Rinoplasti) Sonrası Ne Zaman Uçağa Binilebilir?",
+    },
+    h1CompleteTitle: {
+      en: "When Can I Fly Home After Rhinoplasty in Turkey? Complete Antalya Recovery, Pain & Swelling Guide",
+      de: "Wann darf ich nach einer Nasenkorrektur in der Türkei zurückfliegen? Kompletter Heilungs- & Schmerzratgeber Antalya",
+      tr: "When Can I Fly Home After Rhinoplasty in Turkey? (Burun Estetiği Sonrası Uçuş ve Antalya İyileşme Rehberi)",
+    },
+    h1DirectAnswer: {
+      en: "It is medically safe to fly home 7 to 8 days after rhinoplasty in Turkey, directly after your surgeon removes the external nasal splint and soft internal silicone airways and issues your official Fit-to-Fly certificate. Modern commercial aircraft cabin pressure does not damage sculpted nasal bones or cartilage after Day 7, allowing UK and German patients to take a comfortable 3-to-4-hour direct flight home from Antalya Airport (AYT).",
+      de: "Ein Rückflug nach Deutschland, Österreich, in die Schweiz oder nach Großbritannien ist 7 bis 8 Tage nach einer Nasenkorrektur (Rhinoplastik) in der Türkei medizinisch vollkommen sicher – direkt nachdem Ihr Facharzt die äußere Nasenschiene sowie die weichen Silikonröhrchen entfernt und Ihr Fit-to-Fly-Zertifikat ausstellt. Der Kabinendruck moderner Passagierflugzeuge schadet dem frisch geformten Nasengerüst ab Tag 7 nicht.",
+      tr: "Türkiye'de burun estetiği (rinoplasti) ameliyatından 7 ila 8 gün sonra, cerrahınızın dış termoplastik ateli ve hava kanallı yumuşak silikon tamponları çıkarıp resmi 'Uçuşa Uygunluk (Fit-to-Fly)' raporunuzu vermesiyle birlikte uçağa binmek tıbben tamamen güvenlidir. 7. günden itibaren modern yolcu uçaklarındaki kabin basıncı yeniden şekillendirilen burun kemiğine veya kıkırdağına zarar vermez; Antalya Havalimanı'ndan (AYT) 3-4 saatlik direkt uçuşla güvenle dönebilirsiniz.",
+    },
+    keyTakeaways: {
+      en: [
+        "7-Day Antalya Protocol: 1 night at OFM Antalya Hospital + 6 nights at a 5-star Lara beach hotel, with cast removal on Day 6 or 7 before your flight.",
+        "Ultrasonic Piezo Precision: Soundwave bone sculpting replaces traditional hammers and chisels, cutting bruising and swelling by up to 60%.",
+        "Zero Painful Gauze Packing: Soft breathable silicone Doyle splints let you breathe gently through your nose and slip out painlessly in seconds.",
+        "Effortless Airport Exit: Antalya Airport (AYT) is just 15 minutes from Lara hotels, with door-to-terminal VIP chauffeur luggage assistance.",
+      ],
+      de: [
+        "7-Tage-Protokoll in Antalya: 1 Nacht in der OFM-Klinik + 6 Nächte im 5-Sterne-Hotel in Lara; Gipsentfernung an Tag 6 oder 7 vor dem Rückflug.",
+        "Ultraschall-Piezo-Technik: Präzise Knochenmodellierung ohne Hammer und Meißel – bis zu 60 % weniger Blutergüsse und Schwellungen.",
+        "Keine schmerzhafte Mulltamponade: Weiche Silikon-Splints mit Luftkanal ermöglichen entspanntes Atmen und schmerzfreie Entfernung.",
+        "Kurze Wege in Antalya: Nur 15 Minuten VIP-Transfer von Ihrem Strandhotel in Lara direkt zum Flughafen Antalya (AYT).",
+      ],
+      tr: [
+        "7 Günlük Antalya Protokolü: 1 gece OFM Antalya Hastanesi + 6 gece 5 yıldızlı Lara oteli; uçuş öncesi 6. veya 7. günde alçı ve silikon çıkarımı.",
+        "Ultrasonik Piezo Teknolojisi: Çekiç ve keski yerine ses dalgalarıyla milimetrik kemik şekillendirme sayesinde morluk ve ödemde %60'a varan azalma.",
+        "Ağrısız Hava Kanallı Silikon: Klasik bez tampon yerine yumuşak silikon splintler sayesinde rahat nefes alma ve saniyeler içinde acısız çıkarım.",
+        "Havalimanına 15 Dakika Mesafe: Lara'daki 5 yıldızlı otelinizden Antalya Havalimanı'na (AYT) valiz destekli VIP transfer konforu.",
+      ],
+    },
+    recoveryTimeline: [
+      {
+        period: {
+          en: "Days 1–3 (Hospital & Peak Swelling)",
+          de: "Tag 1–3 (Klinik & Höhepunkt der Schwellung)",
+          tr: "1–3. Günler (Hastane & Ödem Zirvesi)",
+        },
+        painLevel: {
+          en: "2–3 / 10 (Sinus pressure & mild congestion)",
+          de: "2–3 / 10 (Druckgefühl wie bei starkem Schnupfen)",
+          tr: "2–3 / 10 (Sinüs dolgunluğu ve hafif tıkanıklık hissi)",
+        },
+        milestone: {
+          en: "1 night at OFM Antalya Hospital with cold cryo-masks, then 5-star Lara hotel rest with daily private nurse check-ins.",
+          de: "1 Nacht im OFM Hospital Antalya mit Kühlmasken, danach Erholung im 5-Sterne-Hotel in Lara mit täglicher Visite.",
+          tr: "OFM Antalya Hastanesi'nde soğuk kompres eşliğinde 1 gece konaklama, ardından Lara'da 5 yıldızlı otelde hemşire takibi.",
+        },
+      },
+      {
+        period: {
+          en: "Days 4–7 (Cast Removal & Fit-to-Fly)",
+          de: "Tag 4–7 (Gipsabnahme & Flugfreigabe)",
+          tr: "4–7. Günler (Atel Çıkarımı & Uçuş Onayı)",
+        },
+        painLevel: {
+          en: "0–1 / 10 (Pain-free; light nasal stuffiness)",
+          de: "0–1 / 10 (Schmerzfrei; leichtes Schnupfengefühl)",
+          tr: "0–1 / 10 (Ağrısız; hafif burun içi dolgunluk)",
+        },
+        milestone: {
+          en: "Bruising fades rapidly; Day 6–7 painless removal of external splint & silicone airways, protective taping, and flight home from AYT.",
+          de: "Schwellungen klingen ab; an Tag 6–7 schmerzfreie Entfernung von Schiene & Silikonröhrchen, Taping und sicherer Rückflug.",
+          tr: "Morluklar hızla solar; 6-7. günde dış atel ve silikonların acısız çıkarılması, koruyucu bantlama ve AYT'den eve uçuş.",
+        },
+      },
+      {
+        period: {
+          en: "Weeks 2–4 (Return to Office & Social Life)",
+          de: "Woche 2–4 (Rückkehr zu Beruf & Alltag)",
+          tr: "2–4. Haftalar (İşe ve Sosyal Hayata Dönüş)",
+        },
+        painLevel: {
+          en: "0 / 10 (Comfortable natural breathing)",
+          de: "0 / 10 (Freies, angenehmes Durchatmen)",
+          tr: "0 / 10 (Rahat ve doğal nefes alma)",
+        },
+        milestone: {
+          en: "70–80% of visible swelling resolves by Week 4; return to desk work in 10–14 days and resume light gym cardio at Week 3.",
+          de: "70–80 % der sichtbaren Schwellung verschwinden bis Woche 4; Büroarbeit ab Tag 10–14 und leichtes Cardio ab Woche 3.",
+          tr: "4. haftada görünür ödemin %70-80'i iner; 10-14. günde masa başı işe dönüş, 3. haftada hafif yürüyüş ve kardiyo.",
+        },
+      },
+      {
+        period: {
+          en: "Months 3–12 (Final Sculpted Tip Refinement)",
+          de: "Monat 3–12 (Feindefinition der Nasenspitze)",
+          tr: "3–12. Aylar (Burun Ucunun Nihai Şeklini Alması)",
+        },
+        painLevel: {
+          en: "0 / 10 (Permanent natural contour)",
+          de: "0 / 10 (Dauerhaft natürliche Nasenform)",
+          tr: "0 / 10 (Kalıcı, doğal ve dengeli profil)",
+        },
+        milestone: {
+          en: "Glasses allowed after Week 6; subtle micro-swelling in the nasal tip refines continuously to reveal your final sculpted profile.",
+          de: "Brille ab Woche 6 wieder erlaubt; letzte feine Schwellungen an der Nasenspitze bilden sich komplett zurück.",
+          tr: "6. haftadan sonra gözlük kullanımı serbest; burun ucundaki mikro ödemler tamamen inerek nihai doğal form oturur.",
+        },
+      },
+    ],
+    sections: [
+      {
+        id: "why-7-day-stay-in-antalya-before-flying",
+        question: {
+          en: "Why Do Surgeons Require a 7-Day Stay in Antalya Before Flying Home?",
+          de: "Warum empfehlen Fachärzte einen 7-tägigen Aufenthalt in Antalya vor dem Rückflug?",
+          tr: "Cerrahlar Uçağa Binmeden Önce Neden Antalya'da 7 Gün Kalınmasını Önerir?",
+        },
+        directAnswer: {
+          en: "A 7-day stay in Antalya ensures you remain under direct surgical supervision during the critical early healing window when nasal tissues stabilize and swelling peaks on Days 2–3. It also allows your surgeon to personally remove your external thermoplastic splint and soft silicone airways on Day 6 or 7, inspect internal healing, apply delicate post-op tapes, and issue your official Fit-to-Fly certificate before departure.",
+          de: "Ein 7-tägiger Aufenthalt in Antalya garantiert, dass Sie während der entscheidenden ersten Heilungsphase – einschließlich des Schwellungshöhepunkts an Tag 2 bis 3 – unter direkter ärztlicher Kontrolle bleiben. Zudem entfernt Ihr Chirurg an Tag 6 oder 7 persönlich die äußere Schiene und die weichen Silikonröhrchen, prüft die innere Wundheilung und stellt Ihr offizielles Fit-to-Fly-Zertifikat aus.",
+          tr: "Antalya'da 7 günlük konaklama, burun dokularının stabilize olduğu ve ödemin 2-3. günlerde zirve yaptığı erken iyileşme penceresini doğrudan cerrah gözetiminde geçirmenizi sağlar. Ayrıca 6. veya 7. günde dış termoplastik atel ve yumuşak silikon splintlerin bizzat operasyonu yapan cerrah tarafından çıkarılması, burun içi kontrolün tamamlanması ve uçuş onayının verilmesi için tıbben en ideal süredir.",
+        },
+        details: {
+          en: [
+            "Attempting to fly home on Day 3 or 4 with an uninspected cast and fresh post-surgical edema increases discomfort from dry cabin air and makes it impossible for your operating surgeon to verify symmetrical nasal taping after splint removal. By staying one restorative week in sunny Antalya, every medical milestone happens seamlessly before you board.",
+          ],
+          de: [
+            "Ein zu früher Rückflug an Tag 3 oder 4 mit frischem Gips und noch aktiver Schwellung wäre durch die trockene Kabinenluft unnötig unangenehm und würde die wichtige fachärztliche Abschlusskontrolle vor Ort verhindern. Mit einer entspannten Woche in Antalya erleben Sie jeden Heilungsschritt sicher betreut.",
+          ],
+          tr: [
+            "Henüz ateli çıkmamış ve ödemi taze olan bir burunla 3. veya 4. günde uçağa binmek, kuru kabin havasına bağlı rahatsızlığı artırabilir ve alçı sonrası simetrik bantlamanın cerrahınız tarafından yapılmasını engeller. Antalya'da geçirilen 1 haftalık dinlenme süreci tüm klinik adımların eksiksiz tamamlanmasını sağlar.",
+          ],
+        },
+        subSections: [
+          {
+            heading: {
+              en: "Days 1–2: OFM Antalya Hospital Care & Gentle Stabilization",
+              de: "Tag 1–2: Betreuung im OFM Antalya Hospital & sanfte Stabilisierung",
+              tr: "1–2. Günler: OFM Antalya Hastanesi Bakımı ve İlk Stabilizasyon",
+            },
+            text: {
+              en: "Your rhinoplasty is performed under general anesthesia at our accredited partner hospital in Antalya (OFM Hospital) and typically lasts 2 to 2.5 hours. You stay 1 comfortable night in a private hospital suite with continuous cooled-gel masks, IV anti-edema therapy, and dedicated English/German-speaking nursing staff.",
+              de: "Ihre Nasenkorrektur findet unter Vollnarkose in unserer akkreditierten Partnerklinik (OFM Hospital Antalya) statt und dauert ca. 2 bis 2,5 Stunden. Sie verbringen eine Nacht in einer komfortablen Privatsuite mit kontinuierlicher Kühltherapie, abschwellenden Infusionen und deutsch-/englischsprachiger Pflege.",
+              tr: "Rinoplasti operasyonunuz akredite partner hastanemiz OFM Antalya Hastanesi'nde genel anestezi altında ortalama 2-2,5 saatte gerçekleştirilir. İlk geceyi soğuk jel maske uygulaması, damar içi ödem çözücü tedavi ve çok dilli özel hemşire eşliğinde VIP hastane süitinizde geçirirsiniz.",
+            },
+          },
+          {
+            heading: {
+              en: "Days 3–7: 5-Star Lara Hotel Recovery, Cast Reveal & VIP Airport Transfer",
+              de: "Tag 3–7: 5-Sterne-Hotel in Lara, Gipsabnahme & VIP-Flughafentransfer",
+              tr: "3–7. Günler: 5 Yıldızlı Lara Otelinde Dinlenme, Atel Çıkarımı ve VIP Transfer",
+            },
+            text: {
+              en: "From Day 2 onwards, you rest in a quiet 5-star hotel in Lara—just 15 minutes from both our clinic and Antalya Airport (AYT), with none of the 90-minute traffic jams of megacities. On Day 6 or 7, your surgeon gently removes your splint, teaches you simple saline care and night taping, and our VIP Mercedes Vito escorts you directly to the terminal.",
+              de: "Ab Tag 2 entspannen Sie in Ihrem 5-Sterne-Hotel in Lara – nur 15 Minuten von der Klinik und dem Flughafen Antalya (AYT) entfernt, ganz ohne Großstadtstau. An Tag 6 oder 7 entfernt Ihr Chirurg die Schiene, zeigt Ihnen die Nasenpflege und unser VIP-Shuttle bringt Sie stressfrei direkt zum Abflugterminal.",
+              tr: "2. günden itibaren hem kliniğimize hem de Antalya Havalimanı'na (AYT) yalnızca 15 dakika mesafedeki Lara 5 yıldızlı otelinizde büyükşehir trafiği yaşamadan dinlenirsiniz. 6. veya 7. günde ateliniz çıkarılır, deniz suyu ve bantlama eğitiminiz verilir ve VIP aracımızla havalimanına uğurlanırsınız.",
+            },
+          },
+        ],
+      },
+      {
+        id: "is-ultrasonic-piezo-rhinoplasty-painful",
+        question: {
+          en: "Is Ultrasonic Piezo Rhinoplasty Painful and How Is Post-Op Discomfort Managed?",
+          de: "Ist eine Ultraschall-Piezo-Nasenkorrektur schmerzhaft und wie werden Beschwerden behandelt?",
+          tr: "Ultrasonik Piezo Rinoplasti Ağrılı mıdır ve Ağrı Yönetimi Nasıl Sağlanır?",
+        },
+        directAnswer: {
+          en: "No, modern Ultrasonic Piezo rhinoplasty is surprisingly low-pain: most patients rate their discomfort at just 2 to 3 out of 10 and describe it as sinus congestion (similar to a mild head cold) rather than sharp pain. Because Piezo micro-vibrations sculpt nasal bone with millimeter precision without injuring surrounding blood vessels or soft tissue, post-operative throbbing, swelling, and under-eye bruising are drastically reduced.",
+          de: "Nein, eine moderne Ultraschall-Piezo-Rhinoplastik ist erstaunlich schmerzarm: Die meisten Patienten bewerten das Empfinden mit lediglich 2 bis 3 von 10 Punkten und vergleichen es eher mit einer verstopften Nase bei einem leichten Schnupfen als mit echtem Wundschmerz. Da Piezo-Mikrovibrationen den Nasenknochen präzise formen, ohne umliegende Blutgefäße zu verletzen, sind Schwellungen und blaue Flecken deutlich geringer.",
+          tr: "Hayır, modern Ultrasonik Piezo rinoplasti sanılanın aksine son derece konforludur; hastalarımızın büyük çoğunluğu bu süreci keskin bir ağrıdan ziyade hafif bir nezle veya sinüs dolgunluğu hissi (10 üzerinden 2-3 düzeyinde) olarak tanımlar. Piezo ses dalgaları yumuşak dokulara ve kılcal damarlara zarar vermeden yalnızca kemik dokuyu milimetrik şekillendirdiği için zonklama, morluk ve ödem dramatik biçimde azalır.",
+        },
+        details: {
+          en: [
+            "Historically, rhinoplasty earned a fearful reputation because surgeons used manual hammers and chisels to break nasal bones and packed yards of dry cotton gauze into the nostrils. At CosmetoCity Antalya, those outdated methods have been completely replaced by atraumatic preservation and Ultrasonic Piezo surgery.",
+          ],
+          de: [
+            "Der Ruf der schmerzhaften Nasen-OP stammt aus einer Zeit, in der Knochen noch mit Hammer und Meißel gebrochen und die Nase mit langen Mullbinden austamponiert wurde. Bei CosmetoCity Antalya gehören diese veralteten Techniken der Vergangenheit an.",
+          ],
+          tr: [
+            "Burun estetiğiyle ilgili eski ağrı ve yoğun morluk korkuları, geçmişte kemiklerin çekiç-keski ile kırılması ve burun içine metrelerce bez tampon yerleştirilmesinden kaynaklanmaktaydı. CosmetoCity Antalya'da bu geleneksel yöntemler tamamen terk edilerek atravmatik koruyucu ve Ultrasonik Piezo cerrahi uygulanmaktadır.",
+          ],
+        },
+        subSections: [
+          {
+            heading: {
+              en: "Ultrasonic Piezo Sculpting vs. Traditional Hammer-and-Chisel Osteotomy",
+              de: "Ultraschall-Piezo-Technik vs. klassische Hammer-und-Meißel-Methode",
+              tr: "Ultrasonik Piezo Şekillendirme ile Geleneksel Yöntem Arasındaki Fark",
+            },
+            text: {
+              en: "The Piezo ultrasonic instrument operates at a selective acoustic frequency that cuts only mineralized bone while automatically stopping if it touches soft mucosa, nerves, or capillaries. This translates directly into minimal bruising around the eyes and an effortless first 72 hours.",
+              de: "Das Piezo-Ultraschallgerät arbeitet mit einer selektiven Frequenz, die ausschließlich harten Knochen präzise modelliert, aber weiche Schleimhäute, Nerven und Blutgefäße schont. Das Ergebnis sind minimale Hämatome rund um die Augen und entspannte erste 72 Stunden.",
+              tr: "Piezo ultrasonik cihazı yalnızca sert kemik dokusuna duyarlı özel bir akustik frekansla çalışır; mukoza, sinir veya damar dokusuna temas ettiğinde zarar vermez. Bu biyolojik seçicilik, göz çevresi morluklarının minimumda kalmasını ve ilk 72 saatin son derece rahat geçmesini sağlar.",
+            },
+          },
+          {
+            heading: {
+              en: "Our Antalya Multimodal Pain & No-Gauze Comfort Protocol",
+              de: "Unser schmerzarmes Komfort-Protokoll in Antalya (ohne Mulltamponade)",
+              tr: "Antalya Çok Yönlü Ağrı Yönetimi ve Bez Tamponsuz Konfor Protokolümüz",
+            },
+            text: {
+              en: "During surgery, long-acting local anesthetic is infiltrated along the nasal sensory nerves so you wake up pain-free. Instead of cotton packing, we place ultra-soft perforated silicone Doyle splints that allow immediate airflow and slide out in under 5 seconds on Day 6–7 without bleeding or pain, paired with a complimentary 7-day oral anti-inflammatory and Arnica recovery kit.",
+              de: "Noch während der Narkose werden die sensiblen Nerven der Nase lokal betäubt, sodass Sie schmerzfrei aufwachen. Statt schmerzhafter Tamponaden nutzen wir weiche, belüftete Silikon-Splints, die an Tag 6–7 in weniger als 5 Sekunden schmerzfrei herausgleiten – ergänzt durch ein kostenloses 7-Tage-Pflege- und Arnika-Paket.",
+              tr: "Operasyon sırasında uygulanan uzun etkili lokal anestezik infiltrasyon sayesinde uyanma evresi ağrısız geçer. Bez tampon yerine kullanılan delikli yumuşak silikon splintler nefes almanıza izin verir ve 6-7. günde 5 saniyede acısızca çıkarılır; ayrıca 7 günlük ödem azaltıcı ve ağrı kontrol ilaç setiniz ücretsiz teslim edilir.",
+            },
+          },
+        ],
+      },
+      {
+        id: "airplane-cabin-pressure-after-rhinoplasty",
+        question: {
+          en: "Will Airplane Cabin Pressure Affect My Healing Nose During the Flight Home?",
+          de: "Beeinflusst der Kabinendruck im Flugzeug meine frisch operierte Nase auf dem Rückflug?",
+          tr: "Uçak Kabin Basıncı İyileşmekte Olan Burnumu Olumsuz Etkiler mi?",
+        },
+        directAnswer: {
+          en: "No, pressurized commercial cabins will not bend, shift, or harm your newly sculpted nose once you are cleared to fly on Day 7 or 8. The main in-flight sensation to expect is mild temporary dryness or sinus fullness caused by low cabin humidity (around 15–20%), which is easily prevented by hydrating well and misting with isotonic saline spray every 60 to 90 minutes.",
+          de: "Nein, der regulierte Kabinendruck moderner Linienflugzeuge kann Ihre neu geformte Nase ab Tag 7 oder 8 weder verschieben noch schädigen. Die einzige typische Begleiterscheinung im Flugzeug ist eine vorübergehende Trockenheit oder leichtes Druckgefühl durch die niedrige Luftfeuchtigkeit in der Kabine – dies lässt sich mit Meerwasser-Nasenspray und ausreichend Wasser spielend vermeiden.",
+          tr: "Hayır, 7. veya 8. günde uçuş onayı aldıktan sonra basınçlı yolcu uçağı kabini yeni şekillendirilen burnunuzda kayma, şekil bozukluğu veya yapısal bir hasar oluşturmaz. Uçuş sırasında hissedilebilecek tek etki, düşük kabin nemine (%15-20) bağlı geçici kuruluk veya hafif dolgunluktur; bu durum bol su içerek ve 60-90 dakikada bir izotonik deniz suyu spreyi sıkarak kolayca önlenir.",
+        },
+        details: {
+          en: [
+            "Direct flights from Antalya Airport (AYT) to major UK hubs (London, Manchester, Birmingham, Bristol) and German hubs (Frankfurt, Munich, Berlin, Düsseldorf, Hamburg) take just 3 to 4.5 hours. Because internal mucosal swelling has already receded significantly by Day 7, Eustachian tube pressure equalization during takeoff and landing feels almost completely normal.",
+            "Remember never to pinch your nose and blow forcefully (the Valsalva maneuver) to pop your ears during descent; instead, swallow water, chew gum, or yawn gently.",
+          ],
+          de: [
+            "Direktflüge vom Flughafen Antalya (AYT) nach Frankfurt, München, Berlin, Düsseldorf, Hamburg sowie London oder Manchester dauern nur 3 bis 4,5 Stunden. Da die innere Schleimhautschwellung bis Tag 7 bereits stark zurückgegangen ist, funktioniert der Druckausgleich bei Start und Landung meist völlig problemlos.",
+            "Wichtig: Drücken Sie beim Landeanflug niemals die Nase für den Druckausgleich zu (kein Valsalva-Manöver). Kauen Sie stattdessen Kaugummi, gähnen Sie sanft oder trinken Sie in kleinen Schlucken Wasser.",
+          ],
+          tr: [
+            "Antalya Havalimanı'ndan (AYT) İngiltere'ye (Londra, Manchester, Birmingham) ve Almanya'ya (Frankfurt, Münih, Berlin, Düsseldorf, Hamburg) direkt uçuşlar yalnızca 3 ila 4,5 saat sürer. 7. günde burun içi mukoza ödemi büyük ölçüde indiği için iniş ve kalkışta kulak basıncı eşitlemesi neredeyse tamamen normal gerçekleşir.",
+            "İniş sırasında kulaklarınızı açmak için burnunuzu parmaklarınızla sıkıp üfleme (Valsalva manevrası) yapmaktan kesinlikle kaçının; bunun yerine sakız çiğneyin, yutkunun veya küçük yudumlarla su için.",
+          ],
+        },
+        bulletPoints: {
+          en: [
+            "Saline Mist Every Hour: Keep our complimentary sterile isotonic seawater spray in your hand luggage to moisturize nasal passages.",
+            "Stay Hydrated & Skip Alcohol: Drink 1–1.5L of water during the flight; avoid salty snacks and alcohol which increase temporary facial water retention.",
+            "Protect Against Accidental Bumps: Choose a window seat away from aisle traffic and overhead bin bags, and let airline staff or your companion lift heavy luggage.",
+            "Gentle Ear Equalization: Chew sugar-free gum or sip water during descent—never blow your nose forcefully for the first 3 weeks.",
+          ],
+          de: [
+            "Meerwasserspray jede Stunde: Halten Sie das mitgelieferte isotonische Nasenspray im Handgepäck griffbereit.",
+            "Viel Wasser, kein Alkohol: Trinken Sie 1–1,5 Liter stilles Wasser und verzichten Sie auf Alkohol sowie sehr salzige Snacks.",
+            "Fensterplatz wählen: Schützt optimal vor versehentlichen Stößen im Gang; schweres Handgepäck nicht selbst über Kopf heben.",
+            "Sanfter Druckausgleich: Bei Start und Landung Kaugummi kauen oder schlucken – in den ersten 3 Wochen nicht kräftig schnäuzen.",
+          ],
+          tr: [
+            "Saatlik Deniz Suyu Spreyi: Ücretsiz verdiğimiz izotonik okyanus suyu spreyini el bagajınızda bulundurup saat başı nemlendirme yapın.",
+            "Bol Su İçin, Alkol ve Tuzdan Kaçının: Uçuş boyunca 1-1,5 litre su tüketin; geçici ödemi artıracak tuzlu atıştırmalık ve alkolden uzak durun.",
+            "Pencere Kenarı Koltuk Seçin: Koridor geçişlerindeki olası çanta temaslarından korunmak için pencere kenarını tercih edin ve ağır kabin valizi kaldırmayın.",
+            "Nazik Basınç Eşitleme: İniş sırasında sakız çiğneyin veya su yudumlayın; ilk 3 hafta boyunca burnunuzu sertçe sümkürmeyin.",
+          ],
+        },
+      },
+      {
+        id: "rhinoplasty-swelling-timeline-after-cast-removal",
+        question: {
+          en: "What Does Rhinoplasty Swelling Look Like Day-by-Day When the Cast Comes Off?",
+          de: "Wie sieht die Schwellung nach der Gipsabnahme Tag für Tag aus?",
+          tr: "Alçı Çıktıktan Sonra Burun Ödemi Gün Gün Nasıl İyileşir?",
+        },
+        directAnswer: {
+          en: "When your thermoplastic cast comes off on Day 6 or 7 in Antalya, your new straight nasal bridge will already be clearly visible, though the nasal tip will still look slightly rounded and swollen—this is completely normal and never your final result. Roughly 70% to 80% of visible swelling disappears within the first 4 weeks, while fine tip definition continues sharpening gently between Months 3 and 12.",
+          de: "Wenn an Tag 6 oder 7 in Antalya der Gips abgenommen wird, ist Ihr neuer, harmonischer Nasenrücken bereits klar erkennbar, während die Nasenspitze zunächst noch etwas geschwollen wirkt – das ist völlig normal und noch nicht das Endergebnis. Etwa 70 bis 80 % der sichtbaren Schwellung klingen innerhalb der ersten 4 Wochen ab, während sich die feine Spitzenkontur über 3 bis 12 Monate perfektioniert.",
+          tr: "Antalya'da 6. veya 7. günde termoplastik alçınız çıktığında yeni ve düzgün burun sırtınız hemen fark edilir; ancak burun ucu ödem nedeniyle henüz biraz şiş ve yuvarlak görünebilir—bu tamamen doğaldır ve nihai sonucunuz değildir. Görünür ödemin yaklaşık %70-80'i ilk 4 hafta içinde iner, burun ucunun ince detayları ise 3. ile 12. aylar arasında kademeli olarak oturur.",
+        },
+        details: {
+          en: [
+            "It is also completely normal for swelling to fluctuate slightly during the first few months—especially first thing in the morning after lying flat overnight, or after warm showers and salty meals. Thin-skinned patients typically see crisp definition around Months 4–6, whereas thick-skinned patients notice steady refinement up to Month 12–15.",
+            "Our Antalya medical coordinators stay connected with you on WhatsApp at Month 1, Month 3, Month 6, and Month 12 to review your progress photos with your operating surgeon.",
+          ],
+          de: [
+            "Es ist ebenfalls völlig normal, dass die Schwellung in den ersten Monaten tageszeitlich leicht schwankt – morgens nach dem Aufwachen wirkt die Nase oft minimal voller als am Nachmittag. Bei dünner Haut zeigt sich die finale Kontur meist nach 4 bis 6 Monaten, bei dickerer Haut nach 12 bis 15 Monaten.",
+            "Über unseren WhatsApp-Nachsorgedesk bleiben Sie nach Ihrer Rückkehr im 1., 3., 6. und 12. Monat direkt mit Ihrem Chirurgen in Antalya in Verbindung.",
+          ],
+          tr: [
+            "İlk birkaç ay boyunca özellikle sabah uyandığınızda yerçekimi etkisine bağlı olarak burnunuzun öğleden sonraya göre hafifçe daha dolgun görünmesi tamamen fizyolojiktir. İnce derili hastalarda nihai hatlar 4-6. ayda belirginleşirken, kalın derili burunlarda incelme süreci 12-15. aya kadar devam eder.",
+            "Ülkenize döndükten sonra da 1., 3., 6. ve 12. aylarda WhatsApp üzerinden gönderdiğiniz kontrol fotoğraflarınız doğrudan ameliyatınızı yapan cerrahımız tarafından değerlendirilir.",
+          ],
+        },
+        tipBox: {
+          title: {
+            en: "Surgeon's De-Swelling Tip: Night Taping & 30° Elevation",
+            de: "Tipp vom Facharzt: Richtiges Nacht-Taping & erhöhtes Schlafen",
+            tr: "Cerrahın Ödem İpucu: Gece Bantlaması ve 30° Yüksek Yastık",
+          },
+          text: {
+            en: "Sleeping with two soft pillows at a 30-to-45-degree angle for the first 10 nights uses gentle gravity to drain facial fluid away from your eyes and bridge. Applying hypoallergenic paper nasal tape overnight for 3 to 4 weeks helps hug the skin snugly to your new cartilage framework.",
+            de: "Schlafen Sie in den ersten 10 Nächten mit leicht erhöhtem Oberkörper (30–45 Grad), damit Flüssigkeit rasch abfließt. Das sanfte Anbringen von hautfreundlichem Nasentape über Nacht für 3 bis 4 Wochen unterstützt zudem die gleichmäßige Hautanpassung.",
+            tr: "İlk 10 gece başınızı 30-45 derece yükselten iki yastıkla sırtüstü uyumak, yerçekimi desteğiyle göz çevresi ve burun sırtındaki sıvı birikimini hızla dağıtır. Cerrahınızın gösterdiği şekilde 3-4 hafta gece bantlaması yapmak ise cildin yeni kıkırdak çatıya pürüzsüz oturmasını destekler.",
+          },
+        },
+      },
+      {
+        id: "when-can-i-work-wear-glasses-exercise-after-rhinoplasty",
+        question: {
+          en: "When Can I Return to Work, Wear Glasses, and Exercise After Rhinoplasty?",
+          de: "Wann darf ich nach der Nasenkorrektur wieder arbeiten, Brille tragen und Sport treiben?",
+          tr: "Rinoplasti Sonrası Ne Zaman İşe Dönebilir, Gözlük Takabilir ve Spor Yapabilirim?",
+        },
+        directAnswer: {
+          en: "Most international patients return to remote or desk-based office work within 10 to 14 days after rhinoplasty, once the cast is off and light residual yellowing can be effortlessly covered with concealer. Contact lenses can be worn from Day 3–4, but traditional glasses and sunglasses must not rest on the nasal bridge for 4 to 6 weeks; light cardio resumes at Week 3 and full gym or contact sports at Week 6.",
+          de: "Die meisten Patienten kehren nach 10 bis 14 Tagen an den Schreibtisch oder ins Büro zurück, sobald die Schiene entfernt ist und eventuelle leichte Hautverfärbungen mit Concealer kaschiert werden können. Kontaktlinsen sind ab Tag 3–4 wieder möglich, Brillen und Sonnenbrillen sollten jedoch 4 bis 6 Wochen nicht auf dem Nasenrücken aufliegen; leichtes Training startet ab Woche 3, voller Sport ab Woche 6.",
+          tr: "Uluslararası hastalarımızın büyük çoğunluğu 10 ila 14 gün içinde (alçı çıktıktan ve hafif sararmalar kolayca kapatılabilir hale geldikten sonra) masa başı işine veya ofise dönebilir. Kontakt lensler 3-4. günde takılabilir; ancak numaralı veya güneş gözlükleri burun kemerine baskı yapmaması için 4 ila 6 hafta boyunca doğrudan burun üzerine oturtulmamalıdır. Hafif kardiyoya 3. haftada, yoğun spora ise 6. haftada dönülür.",
+        },
+        details: {
+          en: [
+            "If you rely on prescription glasses daily and cannot wear contact lenses, our medical coordinators will show you how to use a lightweight forehead-tape suspension or specialized cheek-resting rhinoplasty glasses holder during Weeks 2 to 6 so your nasal bones heal with zero indentation.",
+            "Avoid saunas, steam rooms, direct strong sunburn on the nose (use SPF 50+ sunscreen once tapes are off), and swimming pools for 4 to 6 weeks to keep swelling minimal.",
+          ],
+          de: [
+            "Falls Sie im Alltag auf eine Sehbrille angewiesen sind und keine Kontaktlinsen tragen, zeigen Ihnen unsere Koordinatoren spezielle ultraleichte Nasenbrücken-Halterungen oder das sanfte Fixieren an der Stirn für Woche 2 bis 6, sodass keinerlei Druck auf den Nasenrücken entsteht.",
+            "Verzichten Sie zudem für 4 bis 6 Wochen auf Sauna, Dampfbad, Schwimmbad und direkte starke Sonneneinstrahlung (nach Abnahme der Tapes stets LSF 50+ verwenden).",
+          ],
+          tr: [
+            "Günlük yaşamda numaralı gözlük kullanmak zorundaysanız ve lens takamıyorsanız, 2. ile 6. haftalar arasında burun kemiğine temas etmeyen özel rinoplasti gözlük destek aparatları veya alın bantlama tekniğiyle güvenle gözlük kullanabilirsiniz.",
+            "Ödemi tetiklememek için ilk 4-6 hafta sauna, hamam, havuz ve doğrudan yoğun güneş ışığından kaçınmanız, bantlar çıktıktan sonra ise burnunuza SPF 50+ güneş koruyucu sürmeniz önerilir.",
+          ],
+        },
+      },
+    ],
+    midArticleCta: {
+      badge: {
+        en: "FREE 3D NOSE SIMULATION • ULTRASONIC PIEZO ANTALYA",
+        de: "KOSTENLOSE 3D-NASENSIMULATION • ULTRASCHALL-PIEZO ANTALYA",
+        tr: "ÜCRETSİZ 3D BURUN SİMÜLASYONU • ULTRASONİK PİEZO ANTALYA",
+      },
+      title: {
+        en: "Get Your Personalized Ultrasonic Piezo Rhinoplasty Plan & Flight Timeline on WhatsApp",
+        de: "Erhalten Sie Ihren persönlichen Piezo-Nasenkorrektur- & Reiseplan per WhatsApp",
+        tr: "Kişiye Özel Piezo Rinoplasti Planınızı ve 7 Günlük Antalya Takviminizi WhatsApp'tan Öğrenin",
+      },
+      description: {
+        en: "Send front and side profile photos on WhatsApp for a free surgeon review. Our Antalya medical coordinator will confirm whether Ultrasonic Piezo or Preservation Rhinoplasty fits your anatomy and share transparent 7-night VIP package pricing.",
+        de: "Senden Sie uns einfach ein Frontal- und Profilfoto per WhatsApp für eine kostenlose Facharzt-Einschätzung. Unser deutschsprachiger Koordinator in Antalya plant Ihren 7-Nächte-Aufenthalt inklusive transparenter Kostenübersicht.",
+        tr: "Ön ve yan profil fotoğraflarınızı WhatsApp'tan paylaşın; Antalya uzman cerrahımız burnunuz için Ultrasonik Piezo veya Koruyucu Rinoplasti planınızı ve 7 gecelik VIP paket teklifinizi ücretsiz iletsin.",
+      },
+      buttonText: {
+        en: "Chat with Rhinoplasty Coordinator on WhatsApp",
+        de: "Jetzt per WhatsApp Nasen-Analyse starten",
+        tr: "Rinoplasti Koordinatörümüzle WhatsApp'tan Konuşun",
+      },
+      whatsappTopic: {
+        en: "Ultrasonic Piezo Rhinoplasty & 7-Day Antalya Flight Recovery Plan",
+        de: "Ultraschall-Piezo Nasenkorrektur & 7-Tage Antalya Heilungsplan",
+        tr: "Ultrasonik Piezo Rinoplasti ve 7 Günlük Antalya İyileşme Planı",
+      },
+    },
+    bottomArticleCta: {
+      badge: {
+        en: "ALL-INCLUSIVE 7-NIGHT ANTALYA RHINOPLASTY VIP PACKAGE",
+        de: "ALL-INCLUSIVE 7-NÄCHTE ANTALYA NASENKORREKTUR VIP-PAKET",
+        tr: "HER ŞEY DAHİL 7 GECELİK ANTALYA RİNOPLASTİ VIP PAKETİ",
+      },
+      title: {
+        en: "Ready to Plan Your Safe, Pain-Minimal Rhinoplasty & 5-Star Recovery in Sunny Antalya?",
+        de: "Bereit für Ihre sichere, schmerzarme Nasenkorrektur im sonnigen Antalya?",
+        tr: "Antalya'da Güvenli, Konforlu ve 5 Yıldızlı Rinoplasti Sürecinizi Planlamaya Hazır mısınız?",
+      },
+      description: {
+        en: "Includes Ultrasonic Piezo surgery at OFM Antalya Accredited Hospital, 1 hospital night + 6 nights at a 5-star Lara hotel, private nurse check-ups, VIP airport transfers, post-op recovery kit, and your official Fit-to-Fly certificate.",
+        de: "Inklusive Ultraschall-Piezo-OP im akkreditierten OFM Hospital Antalya, 1 Kliniknacht + 6 Nächte im 5-Sterne-Hotel in Lara, täglicher Schwester-Betreuung, VIP-Flughafentransfers, Pflegepaket und offiziellem Fit-to-Fly-Zertifikat.",
+        tr: "Akredite OFM Antalya Hastanesi'nde Ultrasonik Piezo operasyonu, 1 gece hastane + 6 gece 5 yıldızlı Lara oteli, günlük hemşire kontrolleri, VIP havalimanı transferleri, ilaç bakım seti ve resmi Fit-to-Fly belgesi dahil teklifinizi hemen alın.",
+      },
+      buttonText: {
+        en: "Get Free Rhinoplasty Quote & 3D Review on WhatsApp",
+        de: "Kostenlose Facharzt-Einschätzung & Angebot per WhatsApp",
+        tr: "WhatsApp'tan Ücretsiz Rinoplasti Değerlendirmesi Alın",
+      },
+      whatsappTopic: {
+        en: "All-Inclusive Ultrasonic Piezo Rhinoplasty Package in Antalya",
+        de: "All-Inclusive Ultraschall-Piezo Nasenkorrektur Paket in Antalya",
+        tr: "Antalya Her Şey Dahil Ultrasonik Piezo Rinoplasti VIP Paketi",
       },
     },
   },
