@@ -1,4 +1,4 @@
-export const GTM_ID = "GTM-M23VNDBC";
+export const GTM_ID = "GTM-KMDVG52G";
 
 declare global {
   interface Window {
