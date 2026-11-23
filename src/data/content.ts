@@ -25,7 +25,7 @@ export function isRtlLocale(locale: Locale): boolean {
 
 export interface TreatmentItem {
   id: string;
-  categoryKey: "hair" | "dental" | "aesthetic";
+  categoryKey: "hair" | "dental" | "aesthetic" | "bariatric";
   badge: Record<Locale, string>;
   title: Record<Locale, string>;
   description: Record<Locale, string>;
@@ -104,6 +104,7 @@ export interface SiteCopyItem {
   topBadge: string;
   topSub: string;
   navTreatments: string;
+  navBariatric: string;
   navBeforeAfter: string;
   navReviews: string;
   navBlog: string;
@@ -158,6 +159,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Antalya Main Medical Hub (Lara / Muratpaşa) • Direct 4h Flights from Europe, UK & Middle East to Antalya (AYT)",
     topSub: "Istanbul Partner Clinic Option Available Upon Request",
     navTreatments: "Treatments",
+    navBariatric: "Bariatric Surgery",
     navBeforeAfter: "Before/After",
     navReviews: "Reviews",
     navBlog: "Blog & FAQ",
@@ -225,6 +227,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Hauptzentrum Antalya (Lara / Muratpaşa) • Direktflüge aus Deutschland, Österreich & der Schweiz nach Antalya (AYT)",
     topSub: "Auf Wunsch auch Behandlung in unseren Partnerkliniken in Istanbul",
     navTreatments: "Behandlungen",
+    navBariatric: "Adipositaschirurgie",
     navBeforeAfter: "Vorher/Nachher",
     navReviews: "Bewertungen",
     navBlog: "Ratgeber & FAQ",
@@ -292,6 +295,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Главный медицинский центр в Анталье (Лара / Муратпаша) • Прямые рейсы в аэропорт Антальи (AYT)",
     topSub: "По запросу доступно лечение в партнерских клиниках Стамбула",
     navTreatments: "Процедуры",
+    navBariatric: "Бариатрия",
     navBeforeAfter: "До / После",
     navReviews: "Отзывы",
     navBlog: "Блог и FAQ",
@@ -359,6 +363,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Centro Médico Principal en Antalya (Lara / Muratpaşa) • Vuelos directos desde Europa al Aeropuerto de Antalya (AYT)",
     topSub: "Opción de clínicas asociadas en Estambul disponible bajo petición",
     navTreatments: "Tratamientos",
+    navBariatric: "Cirugía Bariátrica",
     navBeforeAfter: "Antes/Después",
     navReviews: "Opiniones",
     navBlog: "Blog y FAQ",
@@ -426,6 +431,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "المركز الطبي الرئيسي في أنطاليا (لارا / مراد باشا) • رحلات طيران مباشرة إلى مطار أنطاليا (AYT)",
     topSub: "يتوفر أيضاً خيار العلاج في مستشفياتنا الشريكة في إسطنبول عند الطلب",
     navTreatments: "العلاجات",
+    navBariatric: "جراحات السمنة",
     navBeforeAfter: "قبل / بعد",
     navReviews: "آراء المرضى",
     navBlog: "المدونة والأسئلة",
@@ -493,6 +499,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Centre Médical Principal à Antalya (Lara / Muratpaşa) • Vols directs depuis l'Europe vers Antalya (AYT)",
     topSub: "Option cliniques partenaires à Istanbul disponible sur demande",
     navTreatments: "Soins",
+    navBariatric: "Chirurgie Bariatrique",
     navBeforeAfter: "Avant/Après",
     navReviews: "Avis",
     navBlog: "Blog & FAQ",
@@ -560,6 +567,7 @@ export const SITE_COPY: Record<Locale, SiteCopyItem> = {
       "Polo Medico Principale ad Antalya (Lara / Muratpaşa) • Voli diretti dall'Europa all'Aeroporto di Antalya (AYT)",
     topSub: "Opzione cliniche partner a Istanbul disponibile su richiesta",
     navTreatments: "Trattamenti",
+    navBariatric: "Chirurgia Bariatrica",
     navBeforeAfter: "Prima/Dopo",
     navReviews: "Recensioni",
     navBlog: "Blog & FAQ",
@@ -875,6 +883,89 @@ export const TREATMENTS_DATA: TreatmentItem[] = [
     },
     image:
       "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "bariatric-surgery",
+    categoryKey: "bariatric",
+    badge: {
+      en: "GASTRIC SLEEVE • BYPASS • BALLOON",
+      de: "SCHLAUCHMAGEN • BYPASS • MAGENBALLON",
+      ru: "РЕЗЕКЦИЯ ЖЕЛУДКА • ШУНТИРОВАНИЕ • БАЛЛОН",
+      es: "MANGA GÁSTRICA • BYPASS • BALÓN GÁSTRICO",
+      ar: "تكميم المعدة • تحويل المسار • بالون المعدة",
+      fr: "SLEEVE GASTRECTOMIE • BYPASS • BALLON",
+      it: "SLEEVE GASTRECTOMY • BYPASS • PALLONCINO",
+    },
+    title: {
+      en: "Bariatric & Weight Loss Surgery",
+      de: "Adipositaschirurgie (Magen-OP & Gewichtsverlust)",
+      ru: "Бариатрическая хирургия (Снижение веса)",
+      es: "Cirugía Bariátrica y Pérdida de Peso",
+      ar: "جراحات السمنة وإنقاص الوزن بالمنظار",
+      fr: "Chirurgie Bariatrique & Perte de Poids",
+      it: "Chirurgia Bariatrica e Perdita di Peso",
+    },
+    description: {
+      en: "Laparoscopic Gastric Sleeve, Roux-en-Y / Mini Gastric Bypass, Revision Bariatric Surgery & Allurion Gastric Balloon performed by Prof. Dr. Burhan Mayir, Dr. Direnç Yiğit & Op. Dr. Mehmet Altan Kaya.",
+      de: "Laparoskopischer Schlauchmagen, Magenbypass, Revisions-OP & Magenballon mit US Covidien/Ethicon Klammernahtgeräten, 3 Nächten Klinik & 12 Monaten Ernährungsberatung.",
+      ru: "Лапароскопическая рукавная резекция желудка, желудочное шунтирование и баллон Allurion с американскими степлерами Covidien/Ethicon, 3 ночами в стационаре и диетологом.",
+      es: "Manga Gástrica Laparoscópica, Bypass Gástrico y Balón Gástrico con grapadoras americanas Covidien/Ethicon, 3 noches de hospitalización y seguimiento nutricional por 1 año.",
+      ar: "تكميم المعدة بالمنظار، تحويل مسار المعدة، وبالون المعدة الذكي باستخدام الدباسات الأمريكية الأصلية (Covidien/Ethicon) مع إقامة 3 ليالٍ بالمستشفى ومتابعة تغذية لمدة عام.",
+      fr: "Sleeve Gastrectomie par cœlioscopie, Bypass Gastrique et Ballon Allurion avec agrafeuses américaines Covidien/Ethicon, 3 nuits d'hospitalisation et suivi nutritionnel d'un an.",
+      it: "Sleeve Gastrectomy laparoscopica, Bypass Gastrico e Palloncino Allurion con suturatrici americane Covidien/Ethicon, 3 notti di degenza ospedaliera e nutrizionista per 12 mesi.",
+    },
+    highlights: {
+      en: [
+        "FDA US Covidien / Ethicon Tri-Staplers & 3 Leaks Tests",
+        "3 Nights ICU-Backed Hospital + 5-Star Lara Hotel Stay",
+        "Pre-Op Endoscopy, Cardiology & 1-Year Dietitian Support",
+      ],
+      de: [
+        "Original US Covidien / Ethicon Stapler & 3 Dichtigkeitstests",
+        "3 Nächte Klinikaufenthalt + 5-Sterne-Hotel in Antalya-Lara",
+        "Inkl. Endoskopie, Kardiologie & 1 Jahr Ernährungsberatung",
+      ],
+      ru: [
+        "США степлеры Covidien / Ethicon и 3 теста на герметичность",
+        "3 ночи в госпитале с ОРИТ + Отель 5★ на побережье Лара",
+        "Гастроскопия, кардиология и 1 год поддержки диетолога",
+      ],
+      es: [
+        "Grapadoras EE.UU. Covidien / Ethicon y 3 pruebas de fuga",
+        "3 noches de hospitalización + Hotel 5★ en Antalya-Lara",
+        "Endoscopia preoperatoria y 1 año de seguimiento nutricional",
+      ],
+      ar: [
+        "دباسات أمريكية Covidien / Ethicon و3 اختبارات أمان للتسريب",
+        "3 ليالٍ إقامة بالمستشفى + فندق 5 نجوم في أنطاليا لارا",
+        "شامل منظار المعدة، فحوصات القلب ومتابعة تغذية لمدة عام",
+      ],
+      fr: [
+        "Agrafeuses US Covidien / Ethicon & triple test d'étanchéité",
+        "3 nuits d'hospitalisation + Hôtel 5★ à Antalya-Lara",
+        "Endoscopie pré-op, cardiologie & suivi diététique d'un an",
+      ],
+      it: [
+        "Suturatrici USA Covidien / Ethicon e 3 test di tenuta",
+        "3 notti di degenza in ospedale + Hotel 5★ ad Antalya-Lara",
+        "Endoscopia pre-op, cardiologia e 1 anno di nutrizionista",
+      ],
+    },
+    basePriceEur: 3100,
+    baseComparisonEur: 11900,
+    priceGBP: "£2,640",
+    priceEUR: "€3,100",
+    ukDePrice: "£10,100 / €11,900",
+    stayDuration: {
+      en: "5–6 Days in Antalya",
+      de: "5–6 Tage in Antalya",
+      ru: "5–6 дней в Анталье",
+      es: "5–6 días en Antalya",
+      ar: "5–6 أيام في أنطاليا",
+      fr: "5–6 jours à Antalya",
+      it: "5–6 giorni ad Antalya",
+    },
+    image: "/images/bariatric-surgery-antalya.svg",
   },
 ];
 

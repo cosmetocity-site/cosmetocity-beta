@@ -5,6 +5,7 @@ import {
   UserCheck,
   Smile,
   Sparkles,
+  Scale,
   Calendar,
   CheckCircle2,
   ArrowRight,
@@ -37,7 +38,9 @@ export default function ServicesGrid({
   const copy = SITE_COPY[locale];
   const { currency, rates } = currencyConfig;
 
-  const renderCategoryIcon = (categoryKey: "hair" | "dental" | "aesthetic") => {
+  const renderCategoryIcon = (
+    categoryKey: "hair" | "dental" | "aesthetic" | "bariatric"
+  ) => {
     switch (categoryKey) {
       case "hair":
         return <UserCheck className="w-6 h-6 text-white" />;
@@ -45,6 +48,8 @@ export default function ServicesGrid({
         return <Smile className="w-6 h-6 text-white" />;
       case "aesthetic":
         return <Sparkles className="w-6 h-6 text-white" />;
+      case "bariatric":
+        return <Scale className="w-6 h-6 text-white" />;
     }
   };
 
@@ -66,8 +71,8 @@ export default function ServicesGrid({
         </p>
       </div>
 
-      {/* Services 3-Column Mobile-First Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Services 4-Column Mobile-First Grid (Hair, Dental, Medical Aesthetics, Bariatric Surgery) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
         {TREATMENTS_DATA.map((item) => (
           <article
             key={item.id}

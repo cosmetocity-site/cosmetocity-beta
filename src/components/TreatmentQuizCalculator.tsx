@@ -5,6 +5,7 @@ import {
   Sparkles,
   UserCheck,
   Smile,
+  Scale,
   Stethoscope,
   ShieldCheck,
   MessageCircle,
@@ -41,6 +42,7 @@ interface TreatmentQuizCalculatorProps {
 type TreatmentCategoryKey =
   | "hair"
   | "dental"
+  | "bariatric"
   | "breast"
   | "rhinoplasty"
   | "other";
@@ -189,6 +191,32 @@ const STEP1_TREATMENTS: {
       ar: "نحت الجسم المتقدم وتجديد شباب الوجه في أنطاليا",
       fr: "Remodelage corporel sur mesure & rajeunissement à Antalya",
       it: "Rimodellamento corporeo su misura e ringiovanimento ad Antalya",
+    },
+  },
+  {
+    key: "bariatric",
+    basePriceEur: 3100,
+    baseComparisonEur: 11900,
+    priceGBP: "£2,640",
+    priceEUR: "€3,100",
+    ukEuPrice: "£10,100 / €11,900",
+    label: {
+      en: "Bariatric Surgery (Gastric Sleeve, Bypass & Balloon)",
+      de: "Adipositaschirurgie (Schlauchmagen, Bypass & Magenballon)",
+      ru: "Бариатрическая хирургия (Резекция желудка, Шунтирование, Баллон)",
+      es: "Cirugía Bariátrica (Manga Gástrica, Bypass y Balón Gástrico)",
+      ar: "جراحات السمنة وإنقاص الوزن (تكميم المعدة، تحويل المسار، البالون)",
+      fr: "Chirurgie Bariatrique (Sleeve Gastrectomie, Bypass & Ballon)",
+      it: "Chirurgia Bariatrica (Sleeve Gastrectomy, Bypass e Palloncino)",
+    },
+    subLabel: {
+      en: "US Covidien/Ethicon staplers + 3 Nights Hospital + 1-Yr Dietitian",
+      de: "US Covidien/Ethicon Stapler + 3 Nächte Klinik + 1 Jahr Diätberatung",
+      ru: "США степлеры Covidien/Ethicon + 3 ночи в стационаре + 1 год диетолога",
+      es: "Grapadoras EE.UU. Covidien/Ethicon + 3 noches Hospital + Nutricionista",
+      ar: "دباسات أمريكية Covidien/Ethicon + إقامة 3 ليالٍ بالمستشفى + متابعة تغذية لعام",
+      fr: "Agrafeuses US Covidien/Ethicon + 3 nuits d'Hôpital + Suivi Diététique",
+      it: "Suturatrici USA Covidien/Ethicon + 3 notti Ospedale + Nutrizionista",
     },
   },
 ];
@@ -381,6 +409,56 @@ const STEP2_CLINICAL_DETAILS: Record<TreatmentCategoryKey, QuizOption[]> = {
         ar: "شد الوجه والرقبة، تجميل الجفون أو الإجراءات غير الجراحية",
         fr: "Lifting Cervico-Facial, Blépharoplastie ou Morpheus8",
         it: "Lifting Facciale, Blefaroplastica (Palpebre) o Morpheus8",
+      },
+    },
+  ],
+  bariatric: [
+    {
+      id: "gastric-sleeve-tube-stomach",
+      label: {
+        en: "Gastric Sleeve / Tube Stomach (Target: -25 to -45+ kg • BMI 30–45)",
+        de: "Schlauchmagen / Gastric Sleeve (Ziel: -25 bis -45+ kg • BMI 30–45)",
+        ru: "Рукавная резекция желудка / Слив (Цель: -25…-45+ кг • ИМТ 30–45)",
+        es: "Manga Gástrica Laparoscópica (Objetivo: -25 a -45+ kg • IMC 30–45)",
+        ar: "تكميم المعدة بالمنظار (الهدف: إنقاص 25 إلى +45 كجم • كتلة الجسم 30–45)",
+        fr: "Sleeve Gastrectomie par Cœlioscopie (Objectif : -25 à -45+ kg • IMC 30–45)",
+        it: "Sleeve Gastrectomy Laparoscopica (Obiettivo: -25 a -45+ kg • BMI 30–45)",
+      },
+    },
+    {
+      id: "gastric-bypass-metabolic",
+      label: {
+        en: "Gastric Bypass — Roux-en-Y / Mini (Target: -35 to -60+ kg & Diabetes Care)",
+        de: "Magenbypass — Roux-en-Y / Mini (Ziel: -35 bis -60+ kg & Typ-2-Diabetes)",
+        ru: "Желудочное шунтирование — Roux-en-Y / Мини (Цель: -35…-60+ кг и Диабет)",
+        es: "Bypass Gástrico — Roux-en-Y / Mini (Objetivo: -35 a -60+ kg y Diabetes)",
+        ar: "تحويل مسار المعدة الكلاسيكي / المصغر (الهدف: -35 إلى +60 كجم وعلاج السكري)",
+        fr: "Bypass Gastrique — Roux-en-Y / Mini (Objectif : -35 à -60+ kg & Diabète)",
+        it: "Bypass Gastrico — Roux-en-Y / Mini (Obiettivo: -35 a -60+ kg e Diabete)",
+      },
+    },
+    {
+      id: "gastric-balloon-non-surgical",
+      label: {
+        en: "Gastric Balloon — Allurion™ Swallowed / Endoscopic (Target: -15 to -25 kg)",
+        de: "Magenballon — Allurion™ Schluckballon / Endoskopisch (Ziel: -15 bis -25 kg)",
+        ru: "Желудочный баллон — Капсула Allurion™ / Эндоскопический (Цель: -15…-25 кг)",
+        es: "Balón Gástrico — Cápsula Allurion™ / Endoscópico (Objetivo: -15 a -25 kg)",
+        ar: "بالون المعدة غير الجراحي — كبسولة Allurion™ / بالمنظار (الهدف: -15 إلى -25 كجم)",
+        fr: "Ballon Gastrique — Capsule Allurion™ / Endoscopique (Objectif : -15 à -25 kg)",
+        it: "Palloncino Gastrico — Capsula Allurion™ / Endoscopico (Obiettivo: -15 a -25 kg)",
+      },
+    },
+    {
+      id: "bariatric-revision-single-port",
+      label: {
+        en: "Revision Bariatric Surgery or Single-Port (Scarless) Gastric Sleeve",
+        de: "Revisions-Adipositaschirurgie oder Single-Port (narbenfreier) Schlauchmagen",
+        ru: "Ревизионная бариатрическая операция или Single-Port (через один прокол)",
+        es: "Cirugía Bariátrica de Revisión o Manga Gástrica de Puerto Único (Single-Port)",
+        ar: "عملية تصحيح جراحات السمنة السابقة أو تكميم المعدة بفتحة واحدة (Single-Port)",
+        fr: "Chirurgie Bariatrique de Révision ou Sleeve Single-Port (Sans Cicatrice)",
+        it: "Chirurgia Bariatrica di Revisione o Sleeve Single-Port (Senza Cicatrici)",
       },
     },
   ],
@@ -900,6 +978,8 @@ export default function TreatmentQuizCalculator({
         return <UserCheck className="w-5 h-5" />;
       case "dental":
         return <Smile className="w-5 h-5" />;
+      case "bariatric":
+        return <Scale className="w-5 h-5" />;
       case "breast":
       case "rhinoplasty":
       case "other":

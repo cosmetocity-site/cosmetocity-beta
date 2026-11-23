@@ -187,7 +187,7 @@ export default function HeroSection({
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2.5 text-center">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
                 <div className="p-3 rounded-xl bg-cosmeto-sand/60 border border-cosmeto-sandBorder">
                   <span className="block text-xs font-semibold text-cosmeto-body">
                     Hair
@@ -210,6 +210,14 @@ export default function HeroSection({
                   </span>
                   <span className="font-bold text-sm text-cosmeto-greenDark">
                     {formatConvertedPrice(2290, currency, rates)}
+                  </span>
+                </div>
+                <div className="p-3 rounded-xl bg-cosmeto-sand/60 border border-cosmeto-sandBorder">
+                  <span className="block text-xs font-semibold text-cosmeto-body">
+                    Bariatric
+                  </span>
+                  <span className="font-bold text-sm text-cosmeto-greenDark">
+                    {formatConvertedPrice(3100, currency, rates)}
                   </span>
                 </div>
               </div>

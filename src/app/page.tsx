@@ -9,6 +9,7 @@ import {
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesGrid from "@/components/ServicesGrid";
+import BariatricSurgerySection from "@/components/BariatricSurgerySection";
 import TreatmentQuizCalculator from "@/components/TreatmentQuizCalculator";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -48,7 +49,7 @@ export default function CosmetoCityHomePage() {
       dir={dir}
       className="min-h-screen flex flex-col bg-cosmeto-sandLight text-cosmeto-body"
     >
-      {/* 1. Header & Navigation ("Treatments, Before/After, Reviews, Contact" + 7-Language Dropdown + "Free Consultation") */}
+      {/* 1. Header & Navigation ("Treatments, Bariatric Surgery, Before/After, Reviews, Contact" + 7-Language Dropdown + "Free Consultation") */}
       <Navbar
         locale={locale}
         onLocaleChange={setLocale}
@@ -64,14 +65,21 @@ export default function CosmetoCityHomePage() {
           currencyConfig={currencyConfig}
         />
 
-        {/* 3. Tedavilerimiz (Services Grid: Hair Transplant, Dental Aesthetics, Medical Aesthetics) */}
+        {/* 3. Tedavilerimiz (Services Grid: Hair Transplant, Dental Aesthetics, Medical Aesthetics, Bariatric Surgery) */}
         <ServicesGrid
           locale={locale}
           selectedCity={selectedCity}
           currencyConfig={currencyConfig}
         />
 
-        {/* 4. İnteraktif 5 Adımlı Tedavi ve Fiyat Hesaplayıcı (Quiz) + 3 Ay Sabit Fiyat Garantisi */}
+        {/* 4. Bariatrik Cerrahi (Obesity / Bariatric Surgery Details from cosmetocity.com: Gastric Sleeve, Bypass & Balloon) */}
+        <BariatricSurgerySection
+          locale={locale}
+          selectedCity={selectedCity}
+          currencyConfig={currencyConfig}
+        />
+
+        {/* 5. İnteraktif 5 Adımlı Tedavi ve Fiyat Hesaplayıcı (Quiz) + 3 Ay Sabit Fiyat Garantisi */}
         <TreatmentQuizCalculator
           locale={locale}
           selectedCity={selectedCity}
@@ -79,11 +87,11 @@ export default function CosmetoCityHomePage() {
           currencyConfig={currencyConfig}
         />
 
-        {/* 5. Güven ve Sosyal Kanıt: Before/After Gallery & Real Trustpilot Patient Reviews */}
+        {/* 6. Güven ve Sosyal Kanıt: Before/After Gallery & Real Trustpilot Patient Reviews */}
         <BeforeAfterGallery locale={locale} selectedCity={selectedCity} />
         <TestimonialsSection locale={locale} />
 
-        {/* 6. Soru-Odaklı SEO Blog & Medikal İyileşme Rehberleri Önizlemesi */}
+        {/* 7. Soru-Odaklı SEO Blog & Medikal İyileşme Rehberleri Önizlemesi */}
         <HomeBlogPreviewSection locale={locale} selectedCity={selectedCity} />
 
         {/* Contact & Free Consultation Section */}
@@ -94,7 +102,7 @@ export default function CosmetoCityHomePage() {
         />
       </main>
 
-      {/* 7. Sticky Price Calculator + Sticky WhatsApp Buttons (Fixed Bottom-Right/Left Across All Views) */}
+      {/* 8. Sticky Price Calculator + Sticky WhatsApp Buttons (Fixed Bottom-Right/Left Across All Views) */}
       <StickyWhatsApp locale={locale} selectedCity={selectedCity} />
     </div>
   );

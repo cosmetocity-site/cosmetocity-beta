@@ -117,13 +117,19 @@ export default function Navbar({
             </div>
           </Link>
 
-          {/* Navigation Links: Treatments, Before/After, Reviews, Blog, Contact */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-sm font-bold uppercase tracking-wide text-cosmeto-charcoal">
+          {/* Navigation Links: Treatments, Bariatric Surgery, Before/After, Reviews, Blog, Contact */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-bold uppercase tracking-wide text-cosmeto-charcoal">
             <a
               href="/#treatments"
               className="hover:text-cosmeto-green transition whitespace-nowrap"
             >
               {copy.navTreatments}
+            </a>
+            <a
+              href="/#bariatric-surgery"
+              className="hover:text-cosmeto-green transition whitespace-nowrap text-cosmeto-teal"
+            >
+              {copy.navBariatric}
             </a>
             <a
               href="/#before-after"
@@ -264,6 +270,13 @@ export default function Navbar({
               className="block py-2 text-cosmeto-charcoal hover:text-cosmeto-green"
             >
               {copy.navTreatments}
+            </a>
+            <a
+              href="/#bariatric-surgery"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block py-2 text-cosmeto-teal hover:text-cosmeto-green"
+            >
+              {copy.navBariatric}
             </a>
             <a
               href="/#before-after"

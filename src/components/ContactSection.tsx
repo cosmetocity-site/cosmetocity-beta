@@ -83,6 +83,18 @@ const LEAD_TREATMENT_OPTIONS: LeadTreatmentOption[] = [
     },
   },
   {
+    value: "Bariatrik Cerrahi (Gastric Sleeve / Bypass / Balloon)",
+    label: {
+      en: "Bariatric Surgery (Gastric Sleeve, Bypass & Balloon)",
+      de: "Adipositaschirurgie (Schlauchmagen, Bypass & Magenballon)",
+      ru: "Бариатрическая хирургия (Резекция желудка, Шунтирование, Баллон)",
+      es: "Cirugía Bariátrica (Manga Gástrica, Bypass y Balón Gástrico)",
+      ar: "جراحات السمنة وإنقاص الوزن (تكميم المعدة، تحويل المسار، البالون)",
+      fr: "Chirurgie Bariatrique (Sleeve Gastrectomie, Bypass & Ballon)",
+      it: "Chirurgia Bariatrica (Sleeve Gastrectomy, Bypass e Palloncino)",
+    },
+  },
+  {
     value: "Diğer",
     label: {
       en: "Other Medical Aesthetics & Plastic Surgery",
