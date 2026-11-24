@@ -144,7 +144,7 @@ export default function Navbar({
               {copy.navReviews}
             </a>
             <Link
-              href="/blog"
+              href={`/blog/${locale}`}
               className="hover:text-cosmeto-green transition inline-flex items-center gap-1.5 text-cosmeto-teal whitespace-nowrap"
             >
               <span>{copy.navBlog}</span>
@@ -293,7 +293,7 @@ export default function Navbar({
               {copy.navReviews}
             </a>
             <Link
-              href="/blog"
+              href={`/blog/${locale}`}
               onClick={() => setMobileMenuOpen(false)}
               className="block py-2 text-cosmeto-teal hover:text-cosmeto-green"
             >

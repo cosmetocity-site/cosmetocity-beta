@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   CheckCircle2,
   Clock,
@@ -22,6 +23,8 @@ import {
   BLOG_UI_COPY,
   getLocalizedText,
   getLocalizedList,
+  getPostUrl,
+  getBlogIndexUrl,
 } from "@/data/blogPosts";
 import Navbar from "@/components/Navbar";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
@@ -37,17 +40,21 @@ export default function BlogArticleClient({
   post,
   initialLocale,
 }: BlogArticleClientProps) {
+  const router = useRouter();
   const primaryLocale: Locale = initialLocale ?? post.primaryLocale ?? "en";
   const [locale, setLocale] = useState<Locale>(primaryLocale);
   const [selectedCity, setSelectedCity] = useState<CityOption>("antalya");
 
-  // Resolve the actual content language (native to the article if selected locale isn't translated)
-  const contentLocale: Locale = post.h1Question[locale]
-    ? locale
-    : primaryLocale;
+  const contentLocale: Locale = locale;
   const ui = BLOG_UI_COPY[locale];
   const dir = isRtlLocale(locale) ? "rtl" : "ltr";
   const articleDir = isRtlLocale(contentLocale) ? "rtl" : "ltr";
+  const blogIndexHref = getBlogIndexUrl(locale);
+
+  const handleLocaleChange = (newLocale: Locale) => {
+    setLocale(newLocale);
+    router.push(getPostUrl(post, newLocale));
+  };
 
   // Calculate midpoint index so the mid-article WhatsApp CTA sits cleanly in the middle of the questions
   const midSectionIndex = Math.max(0, Math.floor(post.sections.length / 2) - 1);
@@ -60,7 +67,7 @@ export default function BlogArticleClient({
     >
       <Navbar
         locale={locale}
-        onLocaleChange={setLocale}
+        onLocaleChange={handleLocaleChange}
         selectedCity={selectedCity}
       />
 
@@ -76,7 +83,7 @@ export default function BlogArticleClient({
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-cosmeto-taupe" />
             <Link
-              href="/blog"
+              href={blogIndexHref}
               className="text-cosmeto-teal hover:text-cosmeto-green transition"
             >
               {ui.blogNavLabel}
@@ -103,7 +110,7 @@ export default function BlogArticleClient({
           {/* Top Back Link & Category Pill */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
             <Link
-              href="/blog"
+              href={blogIndexHref}
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-cosmeto-teal hover:text-cosmeto-green transition"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -466,7 +473,7 @@ export default function BlogArticleClient({
                   return (
                     <Link
                       key={related.slug}
-                      href={`/blog/${related.slug}`}
+                      href={getPostUrl(related, locale)}
                       className="group rounded-3xl bg-white p-6 border border-cosmeto-sandBorder hover:border-cosmeto-green shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4"
                     >
                       <div className="space-y-2.5">

@@ -1,33 +1,68 @@
 import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import {
+  ALL_BLOG_LOCALES,
+  BLOG_POSTS,
+  getPostUrl,
+  getBlogIndexUrl,
+  getPostHreflangAlternates,
+  getBlogIndexHreflangAlternates,
+} from "@/data/blogPosts";
 
 const BASE_URL = "https://cosmetocity.online";
 
 /**
- * Discovers any additional static blog post folders or markdown/json files
- * added by the autonomous blog agent under `src/app/blog` or `content/blog`,
- * and merges them with `BLOG_POSTS` from `src/data/blogPosts.ts`.
+ * Generates multilingual sitemap entries for all 7 languages across
+ * every blog index hub (`/blog/[locale]`) and every localized article
+ * (`/blog/[locale]/[localized-slug]`), plus any standalone folders under `src/app/blog`.
  */
 function getDynamicBlogEntries(): MetadataRoute.Sitemap {
-  const seenSlugs = new Set<string>();
+  const seenUrls = new Set<string>();
   const blogEntries: MetadataRoute.Sitemap = [];
+  const now = new Date();
+  const indexAlternates = getBlogIndexHreflangAlternates(BASE_URL);
 
-  for (const post of BLOG_POSTS) {
-    seenSlugs.add(post.slug);
-    const parsedDate = post.updatedAt || post.publishedAt;
-    const lastModified = parsedDate ? new Date(parsedDate) : new Date();
-
+  // 1. Per-language blog hub pages (/blog/en, /blog/de, /blog/ru, /blog/es, /blog/ar, /blog/fr, /blog/it)
+  for (const locale of ALL_BLOG_LOCALES) {
+    const hubUrl = `${BASE_URL}${getBlogIndexUrl(locale)}`;
+    seenUrls.add(hubUrl);
     blogEntries.push({
-      url: `${BASE_URL}/blog/${post.slug}`,
-      lastModified: isNaN(lastModified.getTime()) ? new Date() : lastModified,
-      changeFrequency: "weekly",
-      priority: 0.8,
+      url: hubUrl,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+      alternates: {
+        languages: indexAlternates,
+      },
     });
   }
 
-  // Also scan `src/app/blog` directory for any standalone article folders
+  // 2. Every blog post in all 7 target languages with localized slugs & hreflang alternates
+  for (const post of BLOG_POSTS) {
+    const parsedDate = post.updatedAt || post.publishedAt;
+    const lastModified = parsedDate ? new Date(parsedDate) : now;
+    const validDate = isNaN(lastModified.getTime()) ? now : lastModified;
+    const postAlternates = getPostHreflangAlternates(post, BASE_URL);
+
+    for (const locale of ALL_BLOG_LOCALES) {
+      const articleUrl = `${BASE_URL}${getPostUrl(post, locale)}`;
+      if (!seenUrls.has(articleUrl)) {
+        seenUrls.add(articleUrl);
+        blogEntries.push({
+          url: articleUrl,
+          lastModified: validDate,
+          changeFrequency: "weekly",
+          priority: 0.85,
+          alternates: {
+            languages: postAlternates,
+          },
+        });
+      }
+    }
+  }
+
+  // 3. Also scan `src/app/blog` for any additional standalone static article folders
   try {
     const appBlogDir = path.join(process.cwd(), "src", "app", "blog");
     if (fs.existsSync(appBlogDir)) {
@@ -36,16 +71,18 @@ function getDynamicBlogEntries(): MetadataRoute.Sitemap {
         if (
           entry.isDirectory() &&
           !entry.name.startsWith("[") &&
-          !entry.name.startsWith("_") &&
-          !seenSlugs.has(entry.name)
+          !entry.name.startsWith("_")
         ) {
-          seenSlugs.add(entry.name);
-          blogEntries.push({
-            url: `${BASE_URL}/blog/${entry.name}`,
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.8,
-          });
+          const standaloneUrl = `${BASE_URL}/blog/${entry.name}`;
+          if (!seenUrls.has(standaloneUrl)) {
+            seenUrls.add(standaloneUrl);
+            blogEntries.push({
+              url: standaloneUrl,
+              lastModified: now,
+              changeFrequency: "weekly",
+              priority: 0.8,
+            });
+          }
         }
       }
     }
