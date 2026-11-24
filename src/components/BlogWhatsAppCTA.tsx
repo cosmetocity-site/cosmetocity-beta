@@ -14,6 +14,7 @@ import { trackWhatsAppClick } from "@/lib/analytics";
 interface BlogWhatsAppCTAProps {
   cta: BlogCtaConfig;
   locale: Locale;
+  fallbackLocale?: Locale;
   selectedCity?: CityOption;
   variant?: "mid" | "bottom";
 }
@@ -21,17 +22,19 @@ interface BlogWhatsAppCTAProps {
 export default function BlogWhatsAppCTA({
   cta,
   locale,
+  fallbackLocale = "en",
   selectedCity = "antalya",
   variant = "mid",
 }: BlogWhatsAppCTAProps) {
   const uiCopy = BLOG_UI_COPY[locale];
-  const topicText = getLocalizedText(cta.whatsappTopic, locale);
+  const topicText = getLocalizedText(cta.whatsappTopic, locale, fallbackLocale);
   const whatsappUrl = buildBlogWhatsAppLink(locale, topicText, selectedCity);
   const isBottom = variant === "bottom";
   const isRtl = isRtlLocale(locale);
 
   return (
     <aside
+      lang={locale}
       dir={isRtl ? "rtl" : "ltr"}
       aria-label="WhatsApp Medical Consultation Call to Action"
       className={`my-10 rounded-3xl p-6 sm:p-8 lg:p-9 border-2 transition shadow-xl ${
@@ -44,7 +47,7 @@ export default function BlogWhatsAppCTA({
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-cosmeto-green/15 text-cosmeto-green border border-cosmeto-green/30">
             <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span>{getLocalizedText(cta.badge, locale)}</span>
+            <span>{getLocalizedText(cta.badge, locale, fallbackLocale)}</span>
           </div>
 
           <h3
@@ -52,7 +55,7 @@ export default function BlogWhatsAppCTA({
               isBottom ? "text-white" : "text-cosmeto-charcoal"
             }`}
           >
-            {getLocalizedText(cta.title, locale)}
+            {getLocalizedText(cta.title, locale, fallbackLocale)}
           </h3>
 
           <p
@@ -60,7 +63,7 @@ export default function BlogWhatsAppCTA({
               isBottom ? "text-cosmeto-ice" : "text-cosmeto-body"
             }`}
           >
-            {getLocalizedText(cta.description, locale)}
+            {getLocalizedText(cta.description, locale, fallbackLocale)}
           </p>
 
           <div
@@ -74,7 +77,7 @@ export default function BlogWhatsAppCTA({
             </span>
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-cosmeto-green" />
-              OFM Antalya Hospital & 5-Star Lara Recovery
+              {uiCopy.ctaHospitalBadge}
             </span>
           </div>
         </div>
@@ -95,7 +98,9 @@ export default function BlogWhatsAppCTA({
             className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-[#25D366] hover:bg-cosmeto-green text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 border-2 border-white/90"
           >
             <MessageCircle className="w-5 h-5 shrink-0" />
-            <span>{getLocalizedText(cta.buttonText, locale)}</span>
+            <span>
+              {getLocalizedText(cta.buttonText, locale, fallbackLocale)}
+            </span>
           </a>
           <span
             dir="ltr"

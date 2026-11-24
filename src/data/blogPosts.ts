@@ -1,21 +1,47 @@
 ﻿import { Locale, CityOption, WHATSAPP_NUMBER } from "./content";
 
-export type LocalizedText = {
-  en: string;
-  de: string;
-} & Partial<Record<Locale, string>>;
+export type LocalizedText = Partial<Record<Locale, string>>;
 
-export type LocalizedList = {
-  en: string[];
-  de: string[];
-} & Partial<Record<Locale, string[]>>;
+export type LocalizedList = Partial<Record<Locale, string[]>>;
 
-export function getLocalizedText(obj: LocalizedText, locale: Locale): string {
-  return obj[locale] ?? obj.en;
+export function getLocalizedText(
+  obj: LocalizedText,
+  locale: Locale,
+  fallbackLocale: Locale = "en"
+): string {
+  const direct = obj[locale];
+  if (direct !== undefined) return direct;
+  const fallback = obj[fallbackLocale];
+  if (fallback !== undefined) return fallback;
+  if (obj.en !== undefined) return obj.en;
+  const firstAvailable = Object.values(obj).find(
+    (value): value is string => typeof value === "string"
+  );
+  return firstAvailable ?? "";
 }
 
-export function getLocalizedList(obj: LocalizedList, locale: Locale): string[] {
-  return obj[locale] ?? obj.en;
+export function getLocalizedList(
+  obj: LocalizedList,
+  locale: Locale,
+  fallbackLocale: Locale = "en"
+): string[] {
+  const direct = obj[locale];
+  if (direct !== undefined) return direct;
+  const fallback = obj[fallbackLocale];
+  if (fallback !== undefined) return fallback;
+  if (obj.en !== undefined) return obj.en;
+  const firstAvailable = Object.values(obj).find((value): value is string[] =>
+    Array.isArray(value)
+  );
+  return firstAvailable ?? [];
+}
+
+export function getPostAvailableLocales(post: BlogPost): Locale[] {
+  const locales = Object.keys(post.h1Question).filter(
+    (key): key is Locale => Boolean(post.h1Question[key as Locale])
+  );
+  if (locales.length > 0) return locales;
+  return [post.primaryLocale ?? "en"];
 }
 
 export interface BlogSubSection {
@@ -52,6 +78,7 @@ export interface BlogCtaConfig {
 
 export interface BlogPost {
   slug: string;
+  primaryLocale?: Locale;
   category: "aesthetic" | "hair" | "dental";
   categoryLabel: LocalizedText;
   publishedAt: string;
@@ -119,6 +146,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: string;
     relatedQuestionsTitle: string;
     replyTimeNote: string;
+    ctaHospitalBadge: string;
     medicalTeamReviewedTitle: string;
     medicalTeamReviewedNote: string;
   }
@@ -144,6 +172,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Google FAQPage Verified Structure",
     relatedQuestionsTitle: "More High-Intent Patient Guides",
     replyTimeNote: "Direct WhatsApp line • Average response under 5 minutes • Multilingual Coordinators",
+    ctaHospitalBadge: "OFM Antalya Hospital & 5-Star Lara Recovery",
     medicalTeamReviewedTitle: "Reviewed by the Cosmetocity Medical Team",
     medicalTeamReviewedNote:
       "Clinical accuracy verified against current international health tourism & surgical safety standards in Antalya.",
@@ -169,6 +198,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Strukturierte FAQ-Daten",
     relatedQuestionsTitle: "Weitere häufige Patientenfragen",
     replyTimeNote: "Direkter WhatsApp-Kontakt • Antwort in unter 5 Minuten • Mehrsprachige Koordinatoren",
+    ctaHospitalBadge: "OFM Antalya Hospital & 5-Sterne-Erholung in Lara",
     medicalTeamReviewedTitle: "Geprüft vom Cosmetocity Ärzteteam",
     medicalTeamReviewedNote:
       "Medizinische Inhalte nach aktuellen klinischen Sicherheitsstandards in Antalya fachärztlich geprüft.",
@@ -194,6 +224,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Проверенная структура FAQPage",
     relatedQuestionsTitle: "Другие полезные руководства",
     replyTimeNote: "Прямая линия WhatsApp • Ответ менее чем за 5 минут • Русскоязычные координаторы",
+    ctaHospitalBadge: "Госпиталь OFM Анталья и отель 5★ в Ларе",
     medicalTeamReviewedTitle: "Проверено медицинской командой Cosmetocity",
     medicalTeamReviewedNote:
       "Клиническая точность подтверждена в соответствии с международными стандартами безопасности хирургии в Анталье.",
@@ -219,6 +250,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Estructura verificada Google FAQPage",
     relatedQuestionsTitle: "Más guías médicas para pacientes",
     replyTimeNote: "Línea directa de WhatsApp • Respuesta en menos de 5 minutos • Coordinadores en Español",
+    ctaHospitalBadge: "Hospital OFM Antalya y recuperación 5★ en Lara",
     medicalTeamReviewedTitle: "Revisado por el Equipo Médico de Cosmetocity",
     medicalTeamReviewedNote:
       "Precisión clínica verificada según los estándares internacionales de seguridad quirúrgica en Antalya.",
@@ -244,6 +276,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "بيانات FAQPage الطبية المهيكلة",
     relatedQuestionsTitle: "أدلة طبية أخرى ذات صلة",
     replyTimeNote: "خط واتساب مباشر • الرد خلال أقل من 5 دقائق • منسقون يتحدثون العربية",
+    ctaHospitalBadge: "مستشفى OFM أنطاليا وإقامة 5 نجوم في لارا",
     medicalTeamReviewedTitle: "تمت المراجعة من قبل الفريق الطبي في Cosmetocity",
     medicalTeamReviewedNote:
       "تم التحقق من الدقة السريرية وفقاً لأحدث معايير السلامة الجراحية والسياحة العلاجية الدولية في أنطاليا.",
@@ -269,6 +302,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Structure Google FAQPage vérifiée",
     relatedQuestionsTitle: "Autres guides médicaux",
     replyTimeNote: "Ligne WhatsApp directe • Réponse en moins de 5 minutes • Coordinateurs francophones",
+    ctaHospitalBadge: "Hôpital OFM Antalya & séjour 5★ à Lara",
     medicalTeamReviewedTitle: "Vérifié par l'équipe médicale Cosmetocity",
     medicalTeamReviewedNote:
       "Exactitude clinique vérifiée selon les normes internationales de sécurité chirurgicale à Antalya.",
@@ -294,6 +328,7 @@ export const BLOG_UI_COPY: Record<
     faqSchemaBadge: "Struttura Google FAQPage verificata",
     relatedQuestionsTitle: "Altre guide mediche per i pazienti",
     replyTimeNote: "Linea diretta WhatsApp • Risposta in meno di 5 minuti • Coordinatori in Italiano",
+    ctaHospitalBadge: "Ospedale OFM Antalya e recupero 5★ a Lara",
     medicalTeamReviewedTitle: "Revisionato dal Team Medico Cosmetocity",
     medicalTeamReviewedNote:
       "Accuratezza clinica verificata secondo gli standard internazionali di sicurezza chirurgica ad Antalya.",
@@ -1431,28 +1466,300 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     },
   },
+  {
+    slug: "skolko-dlitsya-vosstanovlenie-posle-abdominoplastiki-v-turtsii",
+    primaryLocale: "ru",
+    category: "aesthetic",
+    categoryLabel: {
+      ru: "Абдоминопластика и пластика тела",
+    },
+    publishedAt: "2026-11-24",
+    updatedAt: "2026-11-24",
+    readingTime: {
+      ru: "8 мин чтения",
+    },
+    medicalReviewer: {
+      name: "Op. Dr. Emre Karahan, MD, EBOPRAS — Cosmetocity Medical Team",
+      title: {
+        ru: "Ведущий пластический, реконструктивный и эстетический хирург",
+      },
+      hospital: "OFM Antalya Accredited Hospital (Lara / Muratpaşa)",
+    },
+    heroImage:
+      "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1200&q=85",
+    metaTitle: {
+      ru: "Сколько длится восстановление после абдоминопластики в Турции и когда можно лететь домой? | CosmetoCity Анталья",
+    },
+    metaDescription: {
+      ru: "Сколько заживает живот после абдоминопластики в Турции? Подробный график восстановления по дням в Анталье, протокол обезболивания TAP-блоком, ушивание диастаза и правила безопасного перелета домой.",
+    },
+    h1Question: {
+      ru: "Сколько длится восстановление после абдоминопластики в Турции и когда можно лететь домой?",
+    },
+    h1CompleteTitle: {
+      ru: "Сколько длится восстановление после абдоминопластики в Турции и когда можно лететь домой?",
+    },
+    h1DirectAnswer: {
+      ru: "Первичное восстановление после абдоминопластики (подтяжки живота) в Турции занимает 7–10 дней — именно после финального осмотра хирурга и выдачи справки Fit-to-Fly в Анталье можно безопасно лететь домой. К офисной работе пациенты возвращаются через 2–3 недели, к легкому спорту через 6 недель, а окончательный плоский контур живота формируется за 3–6 месяцев. Благодаря регионарной блокаде TAP-нерва и деликатному протоколу в госпитале OFM Antalya первые дни проходят без острых болей, в спокойной атмосфере 5-звездочного отеля у моря.",
+    },
+    keyTakeaways: {
+      ru: [
+        "Оптимальный срок в Анталье — 7–9 ночей: 2 ночи в палате аккредитованного госпиталя OFM Antalya + 5–7 ночей в тихом отеле 5★ в районе Лара.",
+        "Современное обезболивание без острой боли: интраоперационная блокада TAP-нерва и поэтапная анальгезия снижают дискомфорт в первые 72 часа до умеренного чувства натяжения.",
+        "Безопасный перелет домой: на 8–10 день хирург снимает дренажи, проверяет шов и выдает официальный сертификат Fit-to-Fly; до аэропорта Антальи (AYT) всего 15 минут на VIP-трансфере.",
+        "Полная поддержка на русском языке: персональный медицинский координатор 24/7 и ежедневные визиты медсестры прямо в ваш номер отеля.",
+      ],
+    },
+    recoveryTimeline: [
+      {
+        period: {
+          ru: "Дни 1–2 (Госпиталь OFM Antalya)",
+        },
+        painLevel: {
+          ru: "3–4 / 10 (Чувство натяжения мышц пресса)",
+        },
+        milestone: {
+          ru: "Операция под общим наркозом (2,5–3,5 ч), действие TAP-блокады, первые осторожные шаги по палате через 6–8 часов с медсестрой.",
+        },
+      },
+      {
+        period: {
+          ru: "Дни 3–7 (Отель 5★ в районе Лара)",
+        },
+        painLevel: {
+          ru: "2–3 / 10 (Похоже на крепатуру после тренировки)",
+        },
+        milestone: {
+          ru: "Ежедневные перевязки медсестрой в отеле, ходьба в слегка согнутом положении, снятие дренажей на 4–6 день, спад первичного отека.",
+        },
+      },
+      {
+        period: {
+          ru: "Дни 8–10 (Выписка Fit-to-Fly и перелет)",
+        },
+        painLevel: {
+          ru: "1–2 / 10 (Комфортно в покое и сидя)",
+        },
+        milestone: {
+          ru: "Финальный осмотр хирурга, плавное выпрямление осанки, VIP-трансфер с помощью с багажом до терминала аэропорта Антальи (AYT).",
+        },
+      },
+      {
+        period: {
+          ru: "Недели 3–6 и месяцы 3–6 (Полное заживление)",
+        },
+        painLevel: {
+          ru: "0 / 10 (Полное восстановление активности)",
+        },
+        milestone: {
+          ru: "Выход на офисную работу на 2–3 неделе, снятие компрессионного бандажа на 6 неделе, спорт с 6–8 недели, финальный рельеф живота к 3–6 месяцу.",
+        },
+      },
+    ],
+    sections: [
+      {
+        id: "etapy-vosstanovleniya-posle-abdominoplastiki-po-dnyam",
+        question: {
+          ru: "Как проходит восстановление после абдоминопластики по дням в Анталье?",
+        },
+        directAnswer: {
+          ru: "Реабилитация после абдоминопластики проходит в три четких этапа: 2 дня круглосуточного наблюдения в госпитале OFM Antalya, затем 5–7 дней спокойного отдыха в отеле 5★ в Ларе с визитами медсестры, после чего на 8–10 день вы получаете разрешение на перелет домой. В течение первых 7 дней важно ходить слегка наклонив корпус вперед, чтобы снять натяжение с линии шва и ускорить первичное срастание тканей.",
+        },
+        details: {
+          ru: [
+            "Сразу после операции на вас надевают медицинское компрессионное белье, которое фиксирует ткани, уменьшает послеоперационный отек и поддерживает ушитые мышцы передней брюшной стенки. Ранняя мягкая активизация — ключевое правило международной хирургии: уже через 6–8 часов медсестра помогает сделать первые шаги по палате для профилактики застоя крови.",
+            "Начиная с 3-го дня самочувствие улучшается заметно быстрее: уходит слабость после наркоза, нормализуется аппетит, а короткие 10-минутные прогулки по номеру и ровной территории отеля стимулируют лимфодренаж и уменьшают отечность.",
+          ],
+        },
+        subSections: [
+          {
+            heading: {
+              ru: "Дни 1–2: Круглосуточный уход в аккредитованном госпитале OFM Antalya",
+            },
+            text: {
+              ru: "Операция проводится под современным общим наркозом и длится в среднем от 2,5 до 3,5 часов (при сочетании с липосакцией боков Vaser 360 — до 4 часов). Вы отдыхаете в индивидуальной палате с регулируемой ортопедической кроватью в полусогнутом положении («поза пляжного кресла»), получаете внутривенную противоотечную терапию, антибиотики и постоянный контроль русскоязычного персонала.",
+            },
+          },
+          {
+            heading: {
+              ru: "Дни 3–8: Спокойное восстановление в отеле 5★ в Ларе и контроль хирурга",
+            },
+            text: {
+              ru: "На 3-й день наш VIP-водитель аккуратно переводит вас в 5-звездочный отель на побережье Лара (всего в 10–15 минутах от клиники). Вам не нужно ежедневно ездить по городу в пробках: наша медсестра приезжает к вам в номер для осмотра повязки, контроля дренажей и помощи с гигиеной. На 5–6 день дренажи безболезненно удаляются, а к 8–9 дню большинство пациентов уже полностью выпрямляют спину.",
+            },
+          },
+        ],
+      },
+      {
+        id: "bolno-li-posle-abdominoplastiki-i-kak-snimayut-bol",
+        question: {
+          ru: "Больно ли после абдоминопластики и как организовано обезболивание?",
+        },
+        directAnswer: {
+          ru: "Благодаря современному протоколу мультимодального обезболивания и регионарной TAP-блокаде большинство пациентов оценивают ощущения в первые 72 часа на 3–4 балла из 10. Вместо резкой боли ощущается плотное натяжение кожи и мышечная крепатура в центре живота — как после очень интенсивной тренировки пресса, особенно если одновременно выполнялось ушивание диастаза.",
+        },
+        details: {
+          ru: [
+            "Главный страх пациентов перед пластикой живота — резкая боль при пробуждении и при первых подъемах с кровати. В партнерском госпитале CosmetoCity в Анталье мы применяем принцип упреждающей анальгезии: боль блокируется еще до того, как вы проснетесь после наркоза.",
+            "После выписки в отель вы получаете полный бесплатный 7-дневный набор сертифицированных препаратов: современные нестероидные противовоспалительные средства, мягкие миорелаксанты для расслабления мышц пресса и препараты для профилактики тромбоза.",
+          ],
+        },
+        subSections: [
+          {
+            heading: {
+              ru: "Ультразвуковая блокада поперечного пространства живота (TAP-блок)",
+            },
+            text: {
+              ru: "В конце операции анестезиолог под контролем УЗИ вводит анестетик длительного действия в фасциальный слой брюшной стенки (Transversus Abdominis Plane Block). Это «выключает» болевые импульсы передней стенки живота на первые 24–36 часов — самый чувствительный период после хирургии — и позволяет обходиться без тяжелых наркотических обезболивающих, вызывающих тошноту.",
+            },
+          },
+          {
+            heading: {
+              ru: "Восстановление при ушивании диастаза прямых мышц живота",
+            },
+            text: {
+              ru: "Если после беременности или значительного снижения веса выполняется пликация (ушивание) диастаза, в первые 5–7 дней вы будете чувствовать ощутимое напряжение по средней линии живота при кашле, смехе или вставании. Использование техники перекатывания на бок при подъеме с кровати и опора на подушку под коленями делают каждое движение спокойным и предсказуемым.",
+            },
+          },
+        ],
+        bulletPoints: {
+          ru: [
+            "Сон на спине с двумя подушками под спиной и валиком под коленями в первые 10–14 ночей полностью снимает натяжение со шва.",
+            "Обязательное ношение компрессионного бандажа стабилизирует переднюю брюшную стенку и заметно уменьшает болезненность при ходьбе.",
+            "Через 5–6 дней большинство пациенток переходят с рецептурных анальгетиков на обычный парацетамол по мере необходимости.",
+          ],
+        },
+      },
+      {
+        id: "kogda-mozhno-letet-domoy-posle-abdominoplastiki-v-turtsii",
+        question: {
+          ru: "Когда безопасно лететь домой на самолете после абдоминопластики в Турции?",
+        },
+        directAnswer: {
+          ru: "Медицински безопасный срок для перелета домой после полной абдоминопластики в Турции — с 8-го по 10-й день после операции (после мини-абдоминопластики — с 6–7 дня), сразу после снятия дренажей и получения справки Fit-to-Fly от оперирующего хирурга. Прямые рейсы из международного аэропорта Антальи (AYT) длительностью 3–5 часов переносятся комфортно при соблюдении простых мер профилактики тромбоза.",
+        },
+        details: {
+          ru: [
+            "Слишком ранний вылет на 4–5 день повышает риск усиления отеков и дискомфорта при длительном сидении в самолете. Неделя под наблюдением хирурга в Анталье дает гарантию, что шов полностью герметичен, дренажи удалены, а риск образования серомы или гематомы сведен к минимуму.",
+            "В день вылета наш VIP-трансфер забирает вас от входа в отель в Ларе и за 15 минут доставляет прямо к терминалу аэропорта Антальи (AYT), полностью беря на себя ваш чемодан. Мы также заранее заказываем бесплатную услугу сопровождения в аэропорту (wheelchair / assistance), чтобы вы не стояли в очередях на паспортный контроль и не поднимали ручную кладь.",
+          ],
+        },
+        bulletPoints: {
+          ru: [
+            "Компрессионные чулки 1–2 класса и бандаж: надеваются на время всего перелета для защиты вен ног и контроля отека.",
+            "Каждые 60 минут полета: легкая 2-минутная прогулка по проходу салона и плавные круговые движения стопами в кресле.",
+            "Водный баланс: выпивайте 1–1,5 литра негазированной воды за рейс; исключите алкоголь и чрезмерно соленую пищу.",
+            "Никаких тяжестей: не поднимайте сумки тяжелее 3 кг и не кладите чемодан на верхнюю полку в течение первых 4–6 недель.",
+          ],
+        },
+      },
+      {
+        id: "kompressionnoe-belye-i-uhod-za-shvom-posle-abdominoplastiki",
+        question: {
+          ru: "Сколько носить компрессионное белье и как заживает шов после пластики живота?",
+        },
+        directAnswer: {
+          ru: "Медицинское компрессионное белье (бандаж-корсет) необходимо носить круглосуточно (снимая только на душ) в течение первых 4–6 недель, а затем еще 2 недели в дневное время по рекомендации хирурга. Косметический внутрикожный шов располагается максимально низко в зоне бикини, полностью скрывается под нижним бельем и через 9–12 месяцев бледнеет до тонкой малозаметной линии.",
+        },
+        details: {
+          ru: [
+            "Правильно подобранная компрессия — половина успеха эстетического результата. Она плотно прижимает кожный лоскут к мышцам, не давая скапливаться лишней жидкости (сероме), и формирует ровный, подтянутый силуэт талии. В пакет CosmetoCity уже включен сертифицированный дышащий медицинский корсет, подобранный точно по вашим меркам.",
+            "В первые 2–3 месяца рубец естественным образом проходит стадию созревания и может иметь розоватый оттенок — это нормальный признак активного формирования коллагена. После полного закрытия корочек (обычно с 3-й недели) начинается бережный уход силиконовыми гелями или пластырями.",
+          ],
+        },
+        subSections: [
+          {
+            heading: {
+              ru: "Возвращение к работе, фитнесу и купанию в море",
+            },
+            text: {
+              ru: "К удаленной или спокойной офисной работе можно вернуться через 14–21 день. Вождение автомобиля безопасно с 2–3 недели, когда вы можете свободно нажимать на педаль тормоза без дискомфорта. Легкие кардионагрузки (быстрая ходьба, велотренажер) разрешаются с 4–5 недели, полноценный фитнес, плавание в бассейне или море — с 6–8 недели, а упражнения на прямой пресс — через 10–12 недель.",
+            },
+          },
+        ],
+        tipBox: {
+          title: {
+            ru: "Совет пластического хирурга: как сделать рубец максимально незаметным",
+          },
+          text: {
+            ru: "Начинайте использовать медицинские силиконовые пластыри или гель с 3-й недели на протяжении 3–6 месяцев и обязательно защищайте линию рубца от прямого солнца кремом SPF 50+ в первый год. Это предотвращает гиперпигментацию и делает шов тонким и светлым.",
+          },
+        },
+      },
+      {
+        id: "pochemu-antalya-luchshe-stambula-dlya-abdominoplastiki",
+        question: {
+          ru: "Почему пациенты выбирают Анталью для абдоминопластики и чем отличается опыт лечения в CosmetoCity?",
+        },
+        directAnswer: {
+          ru: "Анталья идеально подходит для восстановления после абдоминопластики благодаря коротким 15-минутным переездам между аэропортом (AYT), госпиталем OFM Antalya и 5-звездочными отелями в районе Лара — без изнурительных 90-минутных пробок мегаполисов. Мягкий средиземноморский климат, ровные прогулочные аллеи у моря, круглосуточные русскоязычные координаторы и прозрачный пакет «Все включено» превращают реабилитацию в спокойный и безопасный процесс.",
+        },
+        details: {
+          ru: [
+            "После операции на животе каждая лишняя тряска в машине и долгая дорога по перегруженному городу вызывают ненужный стресс. В Анталье ваш маршрут максимально продуман: клиника, отель и аэропорт находятся в радиусе 15 минут езды на просторном VIP-минивэне Mercedes Vito с откидными креслами.",
+            "Кроме того, по возвращении домой вы не остаетесь один на один с вопросами: ваш русскоязычный координатор и оперирующий хирург остаются с вами на связи в WhatsApp для фотоконтроля заживления через 2 недели, 1 месяц, 3 месяца и 6 месяцев.",
+          ],
+        },
+      },
+    ],
+    midArticleCta: {
+      badge: {
+        ru: "БЕСПЛАТНАЯ ОЦЕНКА ХИРУРГА • АБДОМИНОПЛАСТИКА В АНТАЛЬЕ",
+      },
+      title: {
+        ru: "Узнайте, какой вид абдоминопластики подойдет именно вам, и получите план восстановления в WhatsApp",
+      },
+      description: {
+        ru: "Отправьте фото в WhatsApp для конфиденциальной бесплатной оценки пластического хирурга (полная, мини-абдоминопластика, ушивание диастаза или липоабдоминопластика 360°). Наш русскоязычный координатор ответит за 5 минут и рассчитает фиксированную стоимость «Все включено».",
+      },
+      buttonText: {
+        ru: "Написать русскоязычному координатору в WhatsApp",
+      },
+      whatsappTopic: {
+        ru: "Абдоминопластика в Анталье: план восстановления и бесплатная оценка хирурга",
+      },
+    },
+    bottomArticleCta: {
+      badge: {
+        ru: "VIP-ПАКЕТ «ВСЕ ВКЛЮЧЕНО» • ГОСПИТАЛЬ OFM АНТАЛЬЯ + ОТЕЛЬ 5★",
+      },
+      title: {
+        ru: "Готовы к безопасному преображению и комфортной реабилитации 5★ в солнечной Анталье?",
+      },
+      description: {
+        ru: "В пакет включены: операция в аккредитованном госпитале OFM Antalya, анализы и TAP-обезболивание, 2 ночи в клинике + 5–7 ночей в отеле 5★ в Ларе, компрессионное белье, медикаменты, визиты медсестры в отель, VIP-трансферы и справка Fit-to-Fly.",
+      },
+      buttonText: {
+        ru: "Получить расчет пакета «Все включено» в WhatsApp",
+      },
+      whatsappTopic: {
+        ru: "VIP-пакет Все включено на абдоминопластику в Анталье",
+      },
+    },
+  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((post) => post.slug === slug);
 }
 
-export function generateFaqJsonLd(post: BlogPost, locale: Locale = "en") {
+export function generateFaqJsonLd(post: BlogPost, locale?: Locale) {
+  const targetLocale = locale ?? post.primaryLocale ?? "en";
   const mainEntity = [
     {
       "@type": "Question",
-      name: getLocalizedText(post.h1Question, locale),
+      name: getLocalizedText(post.h1Question, targetLocale, targetLocale),
       acceptedAnswer: {
         "@type": "Answer",
-        text: getLocalizedText(post.h1DirectAnswer, locale),
+        text: getLocalizedText(post.h1DirectAnswer, targetLocale, targetLocale),
       },
     },
     ...post.sections.map((section) => ({
       "@type": "Question",
-      name: getLocalizedText(section.question, locale),
+      name: getLocalizedText(section.question, targetLocale, targetLocale),
       acceptedAnswer: {
         "@type": "Answer",
-        text: getLocalizedText(section.directAnswer, locale),
+        text: getLocalizedText(section.directAnswer, targetLocale, targetLocale),
       },
     })),
   ];
@@ -1460,6 +1767,7 @@ export function generateFaqJsonLd(post: BlogPost, locale: Locale = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: targetLocale,
     mainEntity,
   };
 }

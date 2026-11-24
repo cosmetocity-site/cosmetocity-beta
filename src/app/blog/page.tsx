@@ -17,6 +17,7 @@ import {
   BLOG_UI_COPY,
   buildBlogWhatsAppLink,
   getLocalizedText,
+  getPostAvailableLocales,
 } from "@/data/blogPosts";
 import { trackWhatsAppClick } from "@/lib/analytics";
 import Navbar from "@/components/Navbar";
@@ -62,15 +63,26 @@ export default function BlogIndexPage() {
       <main className="flex-1 py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           {BLOG_POSTS.map((post) => {
-            const titleText = getLocalizedText(post.h1CompleteTitle, locale);
+            const fallbackLocale = post.primaryLocale ?? "en";
+            const postLocale = post.h1Question[locale] ? locale : fallbackLocale;
+            const postDir = isRtlLocale(postLocale) ? "rtl" : "ltr";
+            const availableLocales = getPostAvailableLocales(post);
+            const titleText = getLocalizedText(
+              post.h1CompleteTitle,
+              postLocale,
+              fallbackLocale
+            );
             const topicText = getLocalizedText(
               post.midArticleCta.whatsappTopic,
-              locale
+              postLocale,
+              fallbackLocale
             );
 
             return (
               <article
                 key={post.slug}
+                lang={postLocale}
+                dir={postDir}
                 className="rounded-3xl bg-white border-2 border-cosmeto-green/50 shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12"
               >
                 <div className="lg:col-span-5 relative min-h-[260px]">
@@ -81,7 +93,14 @@ export default function BlogIndexPage() {
                   />
                   <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cosmeto-charcoal/90 text-white text-xs font-bold">
                     <BookOpen className="w-3.5 h-3.5 text-cosmeto-green" />
-                    {getLocalizedText(post.categoryLabel, locale)}
+                    {getLocalizedText(
+                      post.categoryLabel,
+                      postLocale,
+                      fallbackLocale
+                    )}
+                  </span>
+                  <span className="absolute bottom-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/95 text-cosmeto-charcoal text-[11px] font-bold uppercase shadow">
+                    {availableLocales.map((l) => l.toUpperCase()).join(" • ")}
                   </span>
                 </div>
 
@@ -90,7 +109,11 @@ export default function BlogIndexPage() {
                     <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-cosmeto-teal">
                       <span className="inline-flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5 text-cosmeto-green" />
-                        {getLocalizedText(post.readingTime, locale)}
+                        {getLocalizedText(
+                          post.readingTime,
+                          postLocale,
+                          fallbackLocale
+                        )}
                       </span>
                       <span>•</span>
                       <span className="inline-flex items-center gap-1">
@@ -111,24 +134,32 @@ export default function BlogIndexPage() {
                     {/* Direct Answer Snippet Preview */}
                     <div className="p-4 rounded-2xl bg-cosmeto-sandLight border-l-4 border-cosmeto-green">
                       <p className="text-xs font-bold uppercase tracking-wider text-cosmeto-greenDark mb-1">
-                        {ui.directAnswerBadge}
+                        {BLOG_UI_COPY[postLocale].directAnswerBadge}
                       </p>
                       <p className="text-sm text-cosmeto-charcoal font-medium leading-relaxed">
-                        {getLocalizedText(post.h1DirectAnswer, locale)}
+                        {getLocalizedText(
+                          post.h1DirectAnswer,
+                          postLocale,
+                          fallbackLocale
+                        )}
                       </p>
                     </div>
 
                     {/* Preview of H2 Questions inside this Guide */}
                     <div className="space-y-1.5 pt-1">
                       <p className="text-xs font-bold uppercase tracking-wider text-cosmeto-teal">
-                        {ui.tableOfContents}:
+                        {BLOG_UI_COPY[postLocale].tableOfContents}:
                       </p>
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-semibold text-cosmeto-body">
                         {post.sections.slice(0, 4).map((sec) => (
                           <li key={sec.id} className="flex items-start gap-1.5">
                             <CheckCircle2 className="w-3.5 h-3.5 text-cosmeto-green shrink-0 mt-0.5" />
                             <span className="line-clamp-1">
-                              {getLocalizedText(sec.question, locale)}
+                              {getLocalizedText(
+                                sec.question,
+                                postLocale,
+                                fallbackLocale
+                              )}
                             </span>
                           </li>
                         ))}
@@ -141,13 +172,13 @@ export default function BlogIndexPage() {
                       href={`/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white font-bold text-sm transition shadow-md"
                     >
-                      <span>{ui.readArticleBtn}</span>
+                      <span>{BLOG_UI_COPY[postLocale].readArticleBtn}</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
 
                     <a
                       href={buildBlogWhatsAppLink(
-                        locale,
+                        postLocale,
                         topicText,
                         selectedCity
                       )}
@@ -158,14 +189,18 @@ export default function BlogIndexPage() {
                           source: `blog_index_${post.slug}`,
                           topic: topicText,
                           city: selectedCity,
-                          locale,
+                          locale: postLocale,
                         })
                       }
                       className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-cosmeto-sand hover:bg-cosmeto-sandBorder text-cosmeto-charcoal font-bold text-xs sm:text-sm transition"
                     >
                       <MessageCircle className="w-4 h-4 text-cosmeto-green" />
                       <span>
-                        {getLocalizedText(post.midArticleCta.buttonText, locale)}
+                        {getLocalizedText(
+                          post.midArticleCta.buttonText,
+                          postLocale,
+                          fallbackLocale
+                        )}
                       </span>
                     </a>
                   </div>

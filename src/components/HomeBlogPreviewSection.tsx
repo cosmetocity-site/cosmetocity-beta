@@ -62,15 +62,25 @@ export default function HomeBlogPreviewSection({
 
         <div className="grid grid-cols-1 gap-8">
           {BLOG_POSTS.map((post) => {
-            const titleText = getLocalizedText(post.h1CompleteTitle, locale);
+            const fallbackLocale = post.primaryLocale ?? "en";
+            const postLocale = post.h1Question[locale] ? locale : fallbackLocale;
+            const postDir = isRtlLocale(postLocale) ? "rtl" : "ltr";
+            const titleText = getLocalizedText(
+              post.h1CompleteTitle,
+              postLocale,
+              fallbackLocale
+            );
             const topicText = getLocalizedText(
               post.midArticleCta.whatsappTopic,
-              locale
+              postLocale,
+              fallbackLocale
             );
 
             return (
               <div
                 key={post.slug}
+                lang={postLocale}
+                dir={postDir}
                 className="rounded-3xl bg-cosmeto-sandLight border-2 border-cosmeto-green/50 p-6 sm:p-8 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
               >
                 <div className="lg:col-span-4 rounded-2xl overflow-hidden border border-cosmeto-sandBorder h-60 lg:h-full">
@@ -84,14 +94,24 @@ export default function HomeBlogPreviewSection({
                 <div className="lg:col-span-8 space-y-4">
                   <div className="flex flex-wrap items-center gap-2.5 text-xs font-bold text-cosmeto-teal">
                     <span className="px-3 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark">
-                      {getLocalizedText(post.categoryLabel, locale)}
+                      {getLocalizedText(
+                        post.categoryLabel,
+                        postLocale,
+                        fallbackLocale
+                      )}
                     </span>
                     <span className="inline-flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5 text-cosmeto-green" />
                       {post.medicalReviewer.name}
                     </span>
                     <span>•</span>
-                    <span>{getLocalizedText(post.readingTime, locale)}</span>
+                    <span>
+                      {getLocalizedText(
+                        post.readingTime,
+                        postLocale,
+                        fallbackLocale
+                      )}
+                    </span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-bold text-cosmeto-charcoal leading-snug">
@@ -104,7 +124,11 @@ export default function HomeBlogPreviewSection({
                   </h3>
 
                   <p className="text-sm sm:text-base text-cosmeto-charcoal font-medium bg-white p-4 rounded-2xl border-l-4 border-cosmeto-green">
-                    {getLocalizedText(post.h1DirectAnswer, locale)}
+                    {getLocalizedText(
+                      post.h1DirectAnswer,
+                      postLocale,
+                      fallbackLocale
+                    )}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-cosmeto-body pt-1">
@@ -112,7 +136,11 @@ export default function HomeBlogPreviewSection({
                       <div key={sec.id} className="flex items-center gap-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5 text-cosmeto-green shrink-0" />
                         <span className="truncate">
-                          {getLocalizedText(sec.question, locale)}
+                          {getLocalizedText(
+                            sec.question,
+                            postLocale,
+                            fallbackLocale
+                          )}
                         </span>
                       </div>
                     ))}
@@ -123,13 +151,13 @@ export default function HomeBlogPreviewSection({
                       href={`/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white font-bold text-sm transition shadow-md"
                     >
-                      <span>{ui.readArticleBtn}</span>
+                      <span>{BLOG_UI_COPY[postLocale].readArticleBtn}</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
 
                     <a
                       href={buildBlogWhatsAppLink(
-                        locale,
+                        postLocale,
                         topicText,
                         selectedCity
                       )}
@@ -140,14 +168,18 @@ export default function HomeBlogPreviewSection({
                           source: `home_blog_preview_${post.slug}`,
                           topic: topicText,
                           city: selectedCity,
-                          locale,
+                          locale: postLocale,
                         })
                       }
                       className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-cosmeto-sand border border-cosmeto-sandBorder text-cosmeto-charcoal font-bold text-xs sm:text-sm transition"
                     >
                       <MessageCircle className="w-4 h-4 text-cosmeto-green" />
                       <span>
-                        {getLocalizedText(post.midArticleCta.buttonText, locale)}
+                        {getLocalizedText(
+                          post.midArticleCta.buttonText,
+                          postLocale,
+                          fallbackLocale
+                        )}
                       </span>
                     </a>
                   </div>
