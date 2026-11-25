@@ -269,7 +269,7 @@ export default function BlogArticleClient({
                 </h2>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <table className="w-full text-start border-collapse text-xs sm:text-sm">
                   <thead>
                     <tr className="bg-cosmeto-sand text-cosmeto-charcoal border-b border-cosmeto-sandBorder">
                       <th className="py-3.5 px-4 sm:px-6 font-bold">
@@ -334,7 +334,7 @@ export default function BlogArticleClient({
                     )}
                   </h2>
 
-                  <div className="p-5 rounded-2xl bg-cosmeto-sandLight border-l-4 border-cosmeto-green">
+                  <div className="p-5 rounded-2xl bg-cosmeto-sandLight border-s-4 border-cosmeto-green">
                     <p className="text-sm sm:text-base font-bold text-cosmeto-charcoal leading-relaxed">
                       {getLocalizedText(
                         section.directAnswer,

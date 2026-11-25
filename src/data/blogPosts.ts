@@ -5,10 +5,12 @@ import { hairTransplantPost } from "./blog/hairTransplant";
 import { dentalVeneersPost } from "./blog/dentalVeneers";
 import { rhinoplastyPost } from "./blog/rhinoplasty";
 import { tummyTuckPost } from "./blog/tummyTuck";
+import { dhiVsSapphireFuePost } from "./blog/dhiVsSapphireFue";
 
 export * from "./blog/types";
 
 export const BLOG_POSTS: BlogPost[] = [
+  dhiVsSapphireFuePost,
   tummyTuckPost,
   breastAugmentationPost,
   hairTransplantPost,
