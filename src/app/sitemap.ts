@@ -96,6 +96,12 @@ function getDynamicBlogEntries(): MetadataRoute.Sitemap {
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const blogEntries = getDynamicBlogEntries();
+  const indexAlternates = getBlogIndexHreflangAlternates(BASE_URL);
+  const homeAlternates: Record<string, string> = {};
+  for (const locale of ALL_BLOG_LOCALES) {
+    homeAlternates[locale] = BASE_URL;
+  }
+  homeAlternates["x-default"] = BASE_URL;
 
   return [
     {
@@ -103,12 +109,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
+      alternates: {
+        languages: homeAlternates,
+      },
     },
     {
       url: `${BASE_URL}/blog`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.9,
+      alternates: {
+        languages: indexAlternates,
+      },
     },
     ...blogEntries,
   ];

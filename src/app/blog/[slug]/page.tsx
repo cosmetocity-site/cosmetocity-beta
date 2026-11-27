@@ -13,6 +13,7 @@ import {
   getBlogIndexUrl,
   getPostHreflangAlternates,
   getBlogIndexHreflangAlternates,
+  generateArticleJsonLd,
   generateFaqJsonLd,
 } from "@/data/blogPosts";
 import BlogIndexClient from "@/components/BlogIndexClient";
@@ -36,6 +37,9 @@ export function generateMetadata({ params }: BlogSlugPageProps): Metadata {
     const locale = params.slug;
     const ui = BLOG_UI_COPY[locale];
     const canonicalUrl = `https://cosmetocity.online${getBlogIndexUrl(locale)}`;
+    const alternateOgLocales = ALL_BLOG_LOCALES.filter(
+      (l) => l !== locale
+    ).map((l) => OG_LOCALE_MAP[l]);
 
     return {
       title: ui.blogMetaTitle,
@@ -50,6 +54,7 @@ export function generateMetadata({ params }: BlogSlugPageProps): Metadata {
         url: canonicalUrl,
         siteName: "CosmetoCity",
         locale: OG_LOCALE_MAP[locale],
+        alternateLocale: alternateOgLocales,
         type: "website",
       },
     };
@@ -68,6 +73,9 @@ export function generateMetadata({ params }: BlogSlugPageProps): Metadata {
   const title = getLocalizedText(post.metaTitle, locale, locale);
   const description = getLocalizedText(post.metaDescription, locale, locale);
   const imageAlt = getLocalizedText(post.h1CompleteTitle, locale, locale);
+  const alternateOgLocales = ALL_BLOG_LOCALES.filter((l) => l !== locale).map(
+    (l) => OG_LOCALE_MAP[l]
+  );
 
   return {
     title,
@@ -82,6 +90,7 @@ export function generateMetadata({ params }: BlogSlugPageProps): Metadata {
       url: canonicalUrl,
       siteName: "CosmetoCity",
       locale: OG_LOCALE_MAP[locale],
+      alternateLocale: alternateOgLocales,
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
@@ -110,44 +119,25 @@ export default function BlogSlugPage({ params }: BlogSlugPageProps) {
   }
 
   const { post, locale } = matched;
+  const articleJsonLd = generateArticleJsonLd(post, locale);
   const faqJsonLd = generateFaqJsonLd(post, locale);
-  const canonicalUrl = `https://cosmetocity.online${getPostUrl(post, locale)}`;
-
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
-    inLanguage: locale,
-    headline: getLocalizedText(post.h1CompleteTitle, locale, locale),
-    description: getLocalizedText(post.metaDescription, locale, locale),
-    url: canonicalUrl,
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt,
-    author: {
-      "@type": "Person",
-      name: post.medicalReviewer.name,
-      jobTitle: getLocalizedText(post.medicalReviewer.title, locale, locale),
-    },
-    publisher: {
-      "@type": "MedicalOrganization",
-      name: "CosmetoCity Antalya",
-      url: "https://cosmetocity.online",
-    },
-  };
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
           __html: JSON.stringify(articleJsonLd),
         }}
       />
+      {faqJsonLd.mainEntity.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd),
+          }}
+        />
+      )}
       <BlogArticleClient post={post} initialLocale={locale} />
     </>
   );

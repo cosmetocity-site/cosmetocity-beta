@@ -15,6 +15,19 @@ export const metadata: Metadata = {
   description:
     "CosmetoCity (cosmetocity.online) — Trusted by international patients for Hair Transplant, Hollywood Smile Dental Care, Bariatric Surgery & Aesthetic Surgery in sunny Antalya (and Istanbul upon request).",
   metadataBase: new URL("https://cosmetocity.online"),
+  alternates: {
+    canonical: "https://cosmetocity.online",
+    languages: {
+      en: "https://cosmetocity.online",
+      de: "https://cosmetocity.online",
+      ru: "https://cosmetocity.online",
+      es: "https://cosmetocity.online",
+      ar: "https://cosmetocity.online",
+      fr: "https://cosmetocity.online",
+      it: "https://cosmetocity.online",
+      "x-default": "https://cosmetocity.online",
+    },
+  },
   verification: {
     google: "d5SVjbR3yvpCWIihgzHkBqNWFxw9MVCkdftfIMO8ExY",
   },
@@ -24,6 +37,8 @@ export const metadata: Metadata = {
       "Combine world-class Dental, Hair, Bariatric & Aesthetic treatments with a 5-star Mediterranean recovery in Antalya, Turkey. Save up to 70%.",
     url: "https://cosmetocity.online",
     siteName: "CosmetoCity",
+    locale: "en_US",
+    alternateLocale: ["de_DE", "ru_RU", "es_ES", "ar_AR", "fr_FR", "it_IT"],
     type: "website",
   },
 };

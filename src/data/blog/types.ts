@@ -109,7 +109,7 @@ export interface BlogPost {
   /** Localized SEO URL slug for every language -> /blog/[locale]/[slugs[locale]] */
   slugs: Record<Locale, string>;
   primaryLocale?: Locale;
-  category: "aesthetic" | "hair" | "dental";
+  category: "aesthetic" | "hair" | "dental" | "bariatric";
   categoryLabel: LocalizedText;
   publishedAt: string;
   updatedAt: string;
@@ -441,6 +441,44 @@ export const BLOG_UI_COPY: Record<
       "Accuratezza clinica verificata secondo gli standard internazionali di sicurezza chirurgica ad Antalya.",
   },
 };
+
+export function generateArticleJsonLd(
+  post: BlogPost,
+  locale: Locale = "en",
+  baseUrl = "https://cosmetocity.online"
+) {
+  const canonicalUrl = `${baseUrl}${getPostUrl(post, locale)}`;
+  const imageUrl = post.heroImage.startsWith("http")
+    ? post.heroImage
+    : `${baseUrl}${post.heroImage}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    inLanguage: locale,
+    headline: getLocalizedText(post.h1CompleteTitle, locale, locale),
+    description: getLocalizedText(post.metaDescription, locale, locale),
+    image: [imageUrl],
+    articleSection: getLocalizedText(post.categoryLabel, locale, locale),
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    author: {
+      "@type": "Person",
+      name: post.medicalReviewer.name,
+      jobTitle: getLocalizedText(post.medicalReviewer.title, locale, locale),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CosmetoCity Antalya",
+      url: baseUrl,
+    },
+  };
+}
 
 export function generateFaqJsonLd(post: BlogPost, locale: Locale = "en") {
   const mainEntity = [

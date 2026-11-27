@@ -14,12 +14,12 @@ import {
   ArrowLeft,
   ChevronRight,
   FileCode2,
-  ArrowRight,
+  Calculator,
+  Sparkles,
 } from "lucide-react";
 import { Locale, CityOption, isRtlLocale } from "@/data/content";
 import {
   BlogPost,
-  BLOG_POSTS,
   BLOG_UI_COPY,
   getLocalizedText,
   getLocalizedList,
@@ -30,6 +30,92 @@ import Navbar from "@/components/Navbar";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 import BlogWhatsAppCTA from "@/components/BlogWhatsAppCTA";
 import ContactSection from "@/components/ContactSection";
+import RelatedArticles from "@/components/RelatedArticles";
+
+const INTERNAL_LINKS_COPY: Record<
+  Locale,
+  {
+    badge: string;
+    heading: string;
+    calculatorBtn: string;
+    hairLabel: string;
+    dentalLabel: string;
+    aestheticLabel: string;
+    bariatricLabel: string;
+    beforeAfterLabel: string;
+  }
+> = {
+  en: {
+    badge: "EXPLORE TREATMENTS & PRICING",
+    heading: "Compare All-Inclusive Packages & Calculate Your Exact Price",
+    calculatorBtn: "Open Price Calculator (Quiz)",
+    hairLabel: "Hair Transplant",
+    dentalLabel: "Dental Aesthetics",
+    aestheticLabel: "Medical Aesthetics",
+    bariatricLabel: "Bariatric Surgery",
+    beforeAfterLabel: "Before & After Gallery",
+  },
+  de: {
+    badge: "BEHANDLUNGEN & PREISE ENTDECKEN",
+    heading: "All-Inclusive-Pakete vergleichen & Preis berechnen",
+    calculatorBtn: "Preisrechner (Quiz) öffnen",
+    hairLabel: "Haartransplantation",
+    dentalLabel: "Zahnästhetik",
+    aestheticLabel: "Plastische Chirurgie",
+    bariatricLabel: "Adipositaschirurgie",
+    beforeAfterLabel: "Vorher / Nachher Galerie",
+  },
+  ru: {
+    badge: "ПРОЦЕДУРЫ И КАЛЬКУЛЯТОР ЦЕН",
+    heading: "Сравните VIP-пакеты «Все включено» и рассчитайте стоимость",
+    calculatorBtn: "Открыть калькулятор цен (Квиз)",
+    hairLabel: "Пересадка волос",
+    dentalLabel: "Стоматология",
+    aestheticLabel: "Пластическая хирургия",
+    bariatricLabel: "Бариатрическая хирургия",
+    beforeAfterLabel: "Галерея До и После",
+  },
+  es: {
+    badge: "TRATAMIENTOS Y CALCULADORA DE PRECIOS",
+    heading: "Compare Paquetes Todo Incluido y Calcule su Precio",
+    calculatorBtn: "Abrir Calculadora de Precios (Test)",
+    hairLabel: "Injerto Capilar",
+    dentalLabel: "Estética Dental",
+    aestheticLabel: "Medicina Estética",
+    bariatricLabel: "Cirugía Bariátrica",
+    beforeAfterLabel: "Galería Antes y Después",
+  },
+  ar: {
+    badge: "استكشف العلاجات وحاسبة الأسعار",
+    heading: "قارن الباقات الشاملة واحسب تكلفة علاجك بدقة",
+    calculatorBtn: "افتح حاسبة الأسعار التفاعلية",
+    hairLabel: "زراعة الشعر",
+    dentalLabel: "تجميل الأسنان",
+    aestheticLabel: "التجميل الطبي والجراحي",
+    bariatricLabel: "جراحات السمنة",
+    beforeAfterLabel: "معرض نتائج قبل وبعد",
+  },
+  fr: {
+    badge: "DÉCOUVRIR NOS SOINS & TARIFS",
+    heading: "Comparez nos Forfaits Tout Compris & Calculez votre Tarif",
+    calculatorBtn: "Ouvrir le Calculateur de Prix (Quiz)",
+    hairLabel: "Greffe de Cheveux",
+    dentalLabel: "Esthétique Dentaire",
+    aestheticLabel: "Chirurgie Esthétique",
+    bariatricLabel: "Chirurgie Bariatrique",
+    beforeAfterLabel: "Galerie Avant / Après",
+  },
+  it: {
+    badge: "SCOPRI TRATTAMENTI E PREZZI",
+    heading: "Confronta i Pacchetti Tutto Incluso e Calcola il Prezzo",
+    calculatorBtn: "Apri il Calcolatore Prezzi (Quiz)",
+    hairLabel: "Trapianto di Capelli",
+    dentalLabel: "Estetica Dentale",
+    aestheticLabel: "Medicina Estetica",
+    bariatricLabel: "Chirurgia Bariatrica",
+    beforeAfterLabel: "Galleria Prima e Dopo",
+  },
+};
 
 interface BlogArticleClientProps {
   post: BlogPost;
@@ -258,6 +344,77 @@ export default function BlogArticleClient({
                 ))}
               </ol>
             </nav>
+            {/* Contextual Internal Links: Related Treatment Sections & Interactive Price Calculator (Quiz) */}
+            <div className="rounded-2xl bg-gradient-to-br from-cosmeto-sand via-white to-cosmeto-ice/40 p-5 sm:p-6 border border-cosmeto-green/40 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-cosmeto-teal">
+                    <Sparkles className="w-3.5 h-3.5 text-cosmeto-green" />
+                    <span>{INTERNAL_LINKS_COPY[locale].badge}</span>
+                  </span>
+                  <p className="text-sm sm:text-base font-bold text-cosmeto-charcoal">
+                    {INTERNAL_LINKS_COPY[locale].heading}
+                  </p>
+                </div>
+
+                <Link
+                  href="/#quiz-calculator"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cosmeto-green hover:bg-cosmeto-teal text-white text-xs sm:text-sm font-bold transition shadow-sm shrink-0"
+                >
+                  <Calculator className="w-4 h-4 shrink-0" />
+                  <span>{INTERNAL_LINKS_COPY[locale].calculatorBtn}</span>
+                </Link>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-bold">
+                <Link
+                  href="/#treatments"
+                  className={`px-3.5 py-1.5 rounded-full border transition ${
+                    post.category === "hair"
+                      ? "bg-cosmeto-teal text-white border-cosmeto-teal"
+                      : "bg-white text-cosmeto-charcoal border-cosmeto-sandBorder hover:border-cosmeto-green"
+                  }`}
+                >
+                  {INTERNAL_LINKS_COPY[locale].hairLabel}
+                </Link>
+                <Link
+                  href="/#treatments"
+                  className={`px-3.5 py-1.5 rounded-full border transition ${
+                    post.category === "dental"
+                      ? "bg-cosmeto-teal text-white border-cosmeto-teal"
+                      : "bg-white text-cosmeto-charcoal border-cosmeto-sandBorder hover:border-cosmeto-green"
+                  }`}
+                >
+                  {INTERNAL_LINKS_COPY[locale].dentalLabel}
+                </Link>
+                <Link
+                  href="/#treatments"
+                  className={`px-3.5 py-1.5 rounded-full border transition ${
+                    post.category === "aesthetic"
+                      ? "bg-cosmeto-teal text-white border-cosmeto-teal"
+                      : "bg-white text-cosmeto-charcoal border-cosmeto-sandBorder hover:border-cosmeto-green"
+                  }`}
+                >
+                  {INTERNAL_LINKS_COPY[locale].aestheticLabel}
+                </Link>
+                <Link
+                  href="/#bariatric-surgery"
+                  className={`px-3.5 py-1.5 rounded-full border transition ${
+                    post.category === "bariatric"
+                      ? "bg-cosmeto-teal text-white border-cosmeto-teal"
+                      : "bg-white text-cosmeto-charcoal border-cosmeto-sandBorder hover:border-cosmeto-green"
+                  }`}
+                >
+                  {INTERNAL_LINKS_COPY[locale].bariatricLabel}
+                </Link>
+                <Link
+                  href="/#before-after"
+                  className="px-3.5 py-1.5 rounded-full bg-white text-cosmeto-teal border border-cosmeto-sandBorder hover:border-cosmeto-green transition"
+                >
+                  {INTERNAL_LINKS_COPY[locale].beforeAfterLabel}
+                </Link>
+              </div>
+            </div>
           </header>
 
           {/* Optional Day-by-Day Recovery Comparison Table */}
@@ -461,54 +618,8 @@ export default function BlogArticleClient({
             </div>
           </div>
 
-          {/* Related High-Intent Patient Guides (Internal SEO Linking) */}
-          <section className="mt-12 pt-10 border-t border-cosmeto-sandBorder space-y-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-cosmeto-charcoal">
-              {ui.relatedQuestionsTitle}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {BLOG_POSTS.filter((other) => other.slug !== post.slug).map(
-                (related) => {
-                  const relatedFallback = related.primaryLocale ?? "en";
-                  return (
-                    <Link
-                      key={related.slug}
-                      href={getPostUrl(related, locale)}
-                      className="group rounded-3xl bg-white p-6 border border-cosmeto-sandBorder hover:border-cosmeto-green shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4"
-                    >
-                      <div className="space-y-2.5">
-                        <span className="inline-block px-3 py-1 rounded-full bg-cosmeto-green/15 text-cosmeto-greenDark text-[11px] font-bold uppercase tracking-wider">
-                          {getLocalizedText(
-                            related.categoryLabel,
-                            locale,
-                            relatedFallback
-                          )}
-                        </span>
-                        <h3 className="text-lg font-bold text-cosmeto-charcoal group-hover:text-cosmeto-green transition leading-snug">
-                          {getLocalizedText(
-                            related.h1CompleteTitle,
-                            locale,
-                            relatedFallback
-                          )}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-cosmeto-body line-clamp-3 leading-relaxed">
-                          {getLocalizedText(
-                            related.h1DirectAnswer,
-                            locale,
-                            relatedFallback
-                          )}
-                        </p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-cosmeto-teal group-hover:text-cosmeto-green transition">
-                        <span>{ui.readArticleBtn}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </Link>
-                  );
-                }
-              )}
-            </div>
-          </section>
+          {/* Related Articles (3 same-language guides for strong internal linking) */}
+          <RelatedArticles currentPost={post} locale={locale} />
         </article>
       </main>
 
